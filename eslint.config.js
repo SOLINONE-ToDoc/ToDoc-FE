@@ -1,3 +1,4 @@
+import storybook from "eslint-plugin-storybook";
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -24,5 +25,9 @@ export default defineConfig([
       'eol-last': ['error', 'always'],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
     },
+  },
+  {
+    files: ['**/*.stories.{ts,tsx}'],
+    ...storybook.configs["flat/recommended"][0],
   },
 ])
