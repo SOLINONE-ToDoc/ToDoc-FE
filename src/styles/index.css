@@ -7,3 +7,31 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../shared/assets/fonts/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SchoolSafetyRelay';
+  src: url('../shared/assets/fonts/HakgyoansimYieodalligiL.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'YunChorokwoosanEoriniMinguk';
+  src: url('../shared/assets/fonts/YoonChildfundkoreaMinGuk.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Galmuri9';
+  src: url('../shared/assets/fonts/Galmuri9.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
