@@ -62,6 +62,21 @@ export default {
         },
       },
 
+      fontSize: {
+        '4xl': ['48px', { lineHeight: '1.2' }],
+        '3xl': ['36px', { lineHeight: '1.3' }],
+        
+        '2xl': ['24px', { lineHeight: '36px' }], 
+        xl: ['20px', { lineHeight: '28px' }],
+        
+        lg: ['18px', { lineHeight: '1.6' }],
+        base: ['16px', { lineHeight: '1.6' }],
+        sm: ['14px', { lineHeight: '1.5' }],
+
+        xs: ['13px', { lineHeight: '1.4' }],
+        '2xs': ['12px', { lineHeight: '1.4' }],
+      },
+
       fontFamily: tailwindFontFamily,
     },
   },
