@@ -1,4 +1,8 @@
-import type { Preview } from '@storybook/react-vite'
+import type { Preview } from '@storybook/react-vite';
+import '../src/styles/index.css';
+import { fontLoader } from '../src/shared/lib/fontLoader';
+
+fontLoader._loadAll();
 
 const preview: Preview = {
   parameters: {
