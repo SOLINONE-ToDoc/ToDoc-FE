@@ -3,15 +3,13 @@
 @tailwind utilities;
 
 body {
-  @apply bg-white text-gray-900;
-  margin: 0;
-  padding: 0;
+  @apply font-pretendard antialiased text-content-primary bg-surface-base;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('../shared/assets/fonts/Pretendard-Regular.woff2') format('woff2');
-  font-weight: 400;
+  src: url('../shared/assets/fonts/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
 }
 

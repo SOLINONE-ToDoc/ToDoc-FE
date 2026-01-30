@@ -304,7 +304,7 @@ export const FONTS = {
     label: '프리텐다드',
     fontFamily: 'Pretendard',
     tailwindClass: 'font-pretendard',
-    src: '../../shared/assets/fonts/Pretendard-Regular.woff2',
+    src: '../../shared/assets/fonts/PretendardVariable.woff2',
   },
   nanumMyeongjo: {
     label: '나눔명조',
