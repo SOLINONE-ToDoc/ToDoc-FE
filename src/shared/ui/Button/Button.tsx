@@ -1,16 +1,18 @@
 import React from 'react';
 import { cn } from '@/shared/lib/';
 
-type ButtonSize = 'xl';
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonSize = 'xl' | 'text';
+type ButtonVariant = 'primary' | 'secondary' | 'text';
 
 const SIZES: Record<ButtonSize, string> = {
   xl: 'h-[52px] font-medium text-body-1 lg:h-[80px] lg:text-[24px] rounded-[4px]',
+  text: 'text-[12px] lg:text-[14px] font-medium h-auto',
 };
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary: 'bg-surface-primary text-content-onInverse',
   secondary: 'bg-surface-secondary text-content-primary',
+  text: 'bg-transparent text-content-secondary hover:underline',
 };
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -39,9 +41,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled}
         className={cn(
-          'inline-flex items-center font-medium transition-all',
-          'active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-surface-primary/50',
-          'disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100',
+          'inline-flex items-center font-medium transition-all cursor-pointer hover:cursor-pointer',
+          'disabled:cursor-not-allowed',
+          size !== 'text' && 'active:scale-[0.98]',
+          'focus:outline-none select-none',
 
           SIZES[size],
           VARIANTS[variant],
@@ -50,7 +53,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             'justify-center text-center': textAlign === 'center',
           },
 
-          fullWidth && 'w-full',
+          fullWidth && size !== 'text' && 'w-full',
           className
         )}
         {...props}

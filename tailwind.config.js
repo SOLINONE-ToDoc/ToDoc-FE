@@ -41,8 +41,7 @@ export default {
 
         content: {
           primary: '#000000',
-          secondaryMain: '#000000',
-          secondarySub: '#606060',
+          secondary: '#d9d9d9',
           muted: '#8b8b8b',
 
           navActive: '#000000',

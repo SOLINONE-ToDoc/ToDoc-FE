@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  button, 
+  a, 
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    @apply outline-none focus:outline-none;
+  }
+}
+
 body {
   @apply font-pretendard antialiased text-content-primary bg-surface-base;
 }
