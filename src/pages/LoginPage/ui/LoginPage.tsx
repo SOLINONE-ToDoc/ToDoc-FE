@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import type { UserType } from '@/entities/user/model/types';
 import type { LoginRequest } from '@/features/auth'
+import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './LoginForm';
 
 export const LoginPage = () => {
+  const [userType, setUserType] = useState<UserType>('VISITOR');
 
   const [formData, setFormData] = useState<Pick<LoginRequest, 'email' | 'password'>>({
     email: '',
@@ -16,8 +19,12 @@ export const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = async (data: { email: string; password: string }) => {
-    console.log('로그인 요청', data);
+  const handleSubmit = async () => {
+    const finalRequest: LoginRequest = {
+      ...formData,
+      userType,
+    };
+    console.log('로그인 요청', finalRequest);
   };
 
   return (
@@ -27,6 +34,16 @@ export const LoginPage = () => {
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
+
+      <div className="flex items-center justify-center gap-2 mt-10">
+        <Button
+          variant="outline"
+          size="pill"
+          type="button" onClick={() => setUserType(prev => prev === 'VISITOR' ? 'PROVIDER' : 'VISITOR')}>
+          {userType === 'VISITOR' ? '사장님이신가요?' : '일반회원이신가요?'}&nbsp;
+          <span className="text-content-muted">여기를 눌러 로그인해주세요</span>
+        </Button>
+      </div>
     </main>
   );
 };
