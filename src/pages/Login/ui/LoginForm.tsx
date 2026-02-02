@@ -11,9 +11,10 @@ interface LoginFormProps {
   formData: LoginFormData;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: (formData: LoginFormData) => void;
+  onSignupClick: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ formData, onChange, onSubmit }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ formData, onChange, onSignupClick, onSubmit }) => {
   return (
     <form className="flex flex-col w-full" noValidate onSubmit={(e) => { e.preventDefault(); onSubmit(formData); }}>
       <div className="flex flex-col gap-2 lg:gap-8">
@@ -63,7 +64,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ formData, onChange, onSubm
               type="button"
               variant="text"
               size="text"
-              onClick={() => console.log('회원가입')}
+              onClick={onSignupClick}
               >
               회원가입
             </Button>

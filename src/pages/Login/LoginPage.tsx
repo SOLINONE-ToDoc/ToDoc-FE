@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { UserType } from '@/entities/user/model/types';
 import type { LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './ui/LoginForm';
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [userType, setUserType] = useState<UserType>('VISITOR');
 
   const [formData, setFormData] = useState<Pick<LoginRequest, 'email' | 'password'>>({
@@ -17,6 +20,11 @@ export const LoginPage = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleSignupNavigation = () => {
+    const path = userType === 'VISITOR' ? '/signup/visitor' : '/signup/provider';
+    navigate(path);
   };
 
   const handleSubmit = async () => {
@@ -32,6 +40,7 @@ export const LoginPage = () => {
       <LoginForm
         formData={formData}
         onChange={handleChange}
+        onSignupClick={handleSignupNavigation}
         onSubmit={handleSubmit}
       />
 
