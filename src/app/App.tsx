@@ -1,11 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LoginPage } from '@/pages/LoginPage';
+
 function App() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50">
-      <h1 className="text-5xl font-black text-blue-600 tracking-tighter">
-        토독
-      </h1>
-    </main>
-  )
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
