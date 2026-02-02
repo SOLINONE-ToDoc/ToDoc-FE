@@ -27,3 +27,27 @@ export const GuestWrite: Story = {
     children: '비회원으로 작성하기',
   },
 };
+
+export const FindId: Story = {
+  args: {
+    variant: 'text',
+    size: 'text',
+    children: '아이디 찾기',
+  },
+};
+
+export const FindPassword: Story = {
+  args: {
+    variant: 'text',
+    size: 'text',
+    children: '비밀번호 찾기',
+  },
+};
+
+export const SignUp: Story = {
+  args: {
+    variant: 'text',
+    size: 'text',
+    children: '회원가입하기',
+  },
+};
