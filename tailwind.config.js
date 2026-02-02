@@ -19,9 +19,9 @@ export default {
         black: '#000000',
 
         gray: {
-          100: '#e9e9e9',
-          200: '#d9d9d9',
-          300: '#bdbdbd',
+          100: '#f6f6f6',
+          200: '#e9e9e9',
+          300: '#d9d9d9',
           400: '#8b8b8b',
           500: '#606060',
           600: '#404040',
@@ -29,10 +29,9 @@ export default {
 
         surface: {
           base: '#ffffff',
-          surface: '#f6f6f6',
           primary: '#000000',
           secondary: '#e9e9e9',
-          tooltip: '#404040',
+
           input: {
             default: '#ffffff',
             hover: '#e9e9e9',
@@ -49,9 +48,10 @@ export default {
           navActive: '#000000',
           navInactive: '#8b8b8b',
 
-          placeholder: '#bdbdbd',
+          placeholder: '#d9d9d9',
 
           onPrimary: '#000000',
+          onInverse: '#ffffff',
           onOverlay: '#FFFFFF',
 
           success: '#40a6eb',
@@ -62,7 +62,7 @@ export default {
         line: {
           default: '#d9d9d9',
           input: {
-            default: '#bdbdbd',
+            default: '#d9d9d9',
             hover: '#000000',
             focused: '#000000',
           }
