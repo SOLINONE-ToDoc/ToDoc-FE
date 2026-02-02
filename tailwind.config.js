@@ -33,7 +33,10 @@ export default {
           primary: '#000000',
           secondary: '#e9e9e9',
           tooltip: '#404040',
-          input: '#ffffff',
+          input: {
+            default: '#ffffff',
+            hover: '#e9e9e9',
+          },
           overlay: 'rgba(0,0,0,0.7)'
         },
 
@@ -46,7 +49,7 @@ export default {
           navActive: '#000000',
           navInactive: '#8b8b8b',
 
-          placeholder: '#d9d9d9',
+          placeholder: '#bdbdbd',
 
           onPrimary: '#000000',
           onOverlay: '#FFFFFF',
@@ -57,24 +60,31 @@ export default {
         },
 
         line: {
-          default: '#e9e9e9',
-          strong: '#d9d9d9',
+          default: '#d9d9d9',
+          input: {
+            default: '#bdbdbd',
+            hover: '#000000',
+            focused: '#000000',
+          }
         },
       },
 
-      fontSize: {
-        '4xl': ['48px', { lineHeight: '1.2' }],
-        '3xl': ['36px', { lineHeight: '1.3' }],
-        
-        '2xl': ['24px', { lineHeight: '36px' }], 
-        xl: ['20px', { lineHeight: '28px' }],
-        
-        lg: ['18px', { lineHeight: '1.6' }],
-        base: ['16px', { lineHeight: '1.6' }],
-        sm: ['14px', { lineHeight: '1.5' }],
+      fontWeight: {
+        'regular': '400',
+        'medium': '500',
+        'semibold': '600',
+        'bold': '700',
+      },
 
-        xs: ['13px', { lineHeight: '1.4' }],
-        '2xs': ['12px', { lineHeight: '1.4' }],
+      fontSize: {
+        'hero-1': ['84px', { lineHeight: '100px' }],
+        'hero-2': ['64px', { lineHeight: 'normal' }],
+        'hero-3': ['32px', { lineHeight: 'normal' }],
+        'title': ['24px', { lineHeight: 'normal' }],
+        'heading-1': ['18px', { lineHeight: 'normal' }],
+        'body-1': ['16px', { lineHeight: '22px' }],
+        'body-2': ['14px', { lineHeight: 'normal' }],
+        'caption': ['12px', { lineHeight: '16px' }],
       },
 
       fontFamily: tailwindFontFamily,
