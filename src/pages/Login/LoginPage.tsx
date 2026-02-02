@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { UserType } from '@/entities/user/model/types';
 import type { LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
-import { LoginForm } from './LoginForm';
+import { LoginForm } from './ui/LoginForm';
 
 export const LoginPage = () => {
   const [userType, setUserType] = useState<UserType>('VISITOR');
