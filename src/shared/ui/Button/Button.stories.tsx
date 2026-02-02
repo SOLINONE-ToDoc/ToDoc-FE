@@ -51,3 +51,31 @@ export const SignUp: Story = {
     children: '회원가입하기',
   },
 };
+
+export const PillVisitor: Story = {
+  args: {
+    variant: 'outline',
+    size: 'pill',
+    className: 'gap-1',
+    children: (
+      <>
+        사장님이신가요?
+        <span className="text-content-muted">여기를 눌러 로그인해주세요</span>
+      </>
+    ),
+  },
+};
+
+export const PillProvider: Story = {
+  args: {
+    variant: 'outline',
+    size: 'pill',
+    className: 'gap-1',
+    children: (
+      <>
+        일반회원이신가요?
+        <span className="text-content-muted">여기를 눌러 로그인해주세요</span>
+      </>
+    ),
+  },
+};
