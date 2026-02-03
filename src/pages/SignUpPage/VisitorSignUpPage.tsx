@@ -1,9 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SignUpForm } from './ui/SignUpForm';
-import { generateRandomNickname, useSignUpValidation, useEmailCheck, EMAIL_ERROR_MESSAGES } from '@/features/auth';
+import { SignUpButton } from './ui/SignUpButton';
+import {
+  generateRandomNickname,
+  useSignUpValidation,
+  useEmailCheck,
+  useSignUp,
+  EMAIL_ERROR_MESSAGES
+} from '@/features/auth';
 import type { VisitorSignUpRequest } from '@/features/auth';
 
 export const VisitorSignUpPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = React.useState<VisitorSignUpRequest>({
     userType: 'VISITOR',
     nickname: '신난 굴림체',
@@ -13,7 +23,8 @@ export const VisitorSignUpPage = () => {
   });
 
   const { status: emailStatus, checkEmail, resetStatus: resetEmailStatus } = useEmailCheck();
-  const { errors: validationErrors, } = useSignUpValidation(formData);
+  const { errors: validationErrors, isValid: isFormValid } = useSignUpValidation(formData);
+  const { signUp, isLoading } = useSignUp();
 
   const combinedErrors = {
     ...validationErrors,
@@ -36,8 +47,18 @@ export const VisitorSignUpPage = () => {
     checkEmail(formData.email);
   };
 
+  const handleSignUp = async () => {
+    if (!isFormValid || emailStatus !== 'available') return;
+
+    const success = await signUp(formData);
+
+    if (success) {
+      navigate('/signup/success', { replace: true });
+    }
+  };
+
   return (
-    <main className="flex flex-col items-center px-5 w-full max-w-[750px] mx-auto min-h-screen pt-[168px]">
+    <main className="flex flex-col items-center px-5 gap-[64px] lg:gap-[100px] w-full max-w-[750px] mx-auto min-h-screen pt-[168px]">
       <SignUpForm
         formData={formData}
         onChange={handleChange}
@@ -48,6 +69,11 @@ export const VisitorSignUpPage = () => {
           isValid: emailStatus === 'available',
           onClick: handleCheckDuplicate,
         }}
+      />
+      <SignUpButton
+        onClick={handleSignUp}
+        disabled={!isFormValid || emailStatus !== 'available'}
+        isLoading={isLoading}
       />
     </main>
   );
