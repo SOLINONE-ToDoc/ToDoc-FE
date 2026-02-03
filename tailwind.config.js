@@ -14,6 +14,19 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        'gentle-pulse': {
+          '0%, 100%': { opacity: '0.2' },
+          '50%': { opacity: '0.3' },
+        }
+      },
+      animation: {
+        'gentle-pulse': 'gentle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      backgroundImage: {
+        'brand-gradient': 'linear-gradient(45deg, #ff5546 1%, #9747ff 50%, #ff5546 100%)',
+      },
+
       colors: {
         white: '#ffffff',
         black: '#000000',
