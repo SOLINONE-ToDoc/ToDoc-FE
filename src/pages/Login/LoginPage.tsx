@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { UserType } from '@/entities/user/model/types';
-import type { LoginRequest } from '@/features/auth'
+import type { UserType } from '@/entities/user';
+import { useLogin, type LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './ui/LoginForm';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const { login, isLoading } = useLogin();
 
   const [userType, setUserType] = useState<UserType>('VISITOR');
 
@@ -30,9 +31,12 @@ export const LoginPage = () => {
   const handleSubmit = async () => {
     const finalRequest: LoginRequest = {
       ...formData,
-      userType,
     };
-    console.log('로그인 요청', finalRequest);
+
+    const success = await login(finalRequest);
+    if (success) {
+      navigate('/');
+    }
   };
 
   return (
@@ -42,6 +46,7 @@ export const LoginPage = () => {
         onChange={handleChange}
         onSignupClick={handleSignupNavigation}
         onSubmit={handleSubmit}
+        isLoading={isLoading}
       />
 
       <div className="flex items-center justify-center gap-2 mt-10">

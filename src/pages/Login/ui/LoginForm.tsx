@@ -12,6 +12,7 @@ interface LoginFormProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: (formData: LoginFormData) => void;
   onSignupClick: () => void;
+  isLoading: boolean;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ formData, onChange, onSignupClick, onSubmit }) => {
