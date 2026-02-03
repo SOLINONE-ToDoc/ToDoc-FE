@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { request } from '@/shared/api/';
 import type { EmailDuplicateStatus } from '../model/types';
 
 type EmailCheckError = 'NETWORK' | 'UNKNOWN' | null;
@@ -14,15 +15,19 @@ export const useEmailCheck = () => {
     setError(null);
 
     try {
-      // const res = await api.checkEmail(email);
-      // const isDuplicated = res.duplicated;
+      await request<null>('/api/users/email/check', 'POST', { email });
 
-      const isDuplicated = false;
+      setStatus('available');
 
-      setStatus(isDuplicated ? 'duplicated' : 'available');
-    } catch {
-      setStatus('idle');
-      setError('NETWORK');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : '';
+
+      if (/이미|사용|가입|중복/.test(errorMessage)) {
+        setStatus('duplicated');
+      } else {
+        setStatus('idle');
+        setError('UNKNOWN');
+      }
     }
   };
 
@@ -33,7 +38,7 @@ export const useEmailCheck = () => {
 
   return {
     status,
-    error,       // ❗ 메시지 아님
+    error,
     checkEmail,
     resetStatus,
   };
