@@ -36,7 +36,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ formData, onChange, onSign
             name="password"
             type="password"
             placeholder="비밀번호를 입력해주세요"
-            allowToggle
+            iconType="passwordToggle"
             value={formData.password}
             onChange={onChange}
             required
