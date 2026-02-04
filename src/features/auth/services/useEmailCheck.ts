@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { request } from '@/shared/api/';
-import type { EmailDuplicateStatus } from '../model/types';
+import type { ValidationStatus } from '../model/types';
 
 type EmailCheckError = 'NETWORK' | 'UNKNOWN' | null;
 
 export const useEmailCheck = () => {
-  const [status, setStatus] = useState<EmailDuplicateStatus>('idle');
+  const [status, setStatus] = useState<ValidationStatus>('idle');
   const [error, setError] = useState<EmailCheckError>(null);
 
   const checkEmail = async (email: string) => {

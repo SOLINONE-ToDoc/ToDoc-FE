@@ -1,5 +1,5 @@
 import type { SignUpFormData, SignUpErrors, VisitorSignUpRequest } from '../model/types';
-import { EMAIL_ERROR_MESSAGES, PASSWORD_ERROR_MESSAGES } from '../constants/messages';
+import { VALIDATION_MESSAGES, PASSWORD_ERROR_MESSAGES } from '../constants/messages';
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{1,12}$/;
@@ -7,7 +7,7 @@ const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#
 export const useSignUpValidation = (formData: SignUpFormData) => {
   let emailError: string | undefined;
   if (formData.email && !EMAIL_REGEX.test(formData.email)) {
-    emailError = EMAIL_ERROR_MESSAGES.INVALID_FORMAT;
+    emailError = VALIDATION_MESSAGES.EMAIL.INVALID;
   }
 
   let passwordError: string | undefined;

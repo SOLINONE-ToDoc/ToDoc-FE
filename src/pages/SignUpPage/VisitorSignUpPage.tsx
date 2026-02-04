@@ -7,7 +7,7 @@ import {
   useSignUpValidation,
   useEmailCheck,
   useSignUp,
-  EMAIL_ERROR_MESSAGES
+  VALIDATION_MESSAGES
 } from '@/features/auth';
 import type { VisitorSignUpRequest } from '@/features/auth';
 
@@ -28,7 +28,7 @@ export const VisitorSignUpPage = () => {
 
   const combinedErrors = {
     ...validationErrors,
-    email: validationErrors.email || (emailStatus === 'duplicated' ? EMAIL_ERROR_MESSAGES.DUPLICATED : undefined)
+    email: validationErrors.email || (emailStatus === 'duplicated' ? VALIDATION_MESSAGES.EMAIL.DUPLICATED : undefined)
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {

@@ -3,7 +3,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export type EmailDuplicateStatus = 'idle' | 'checking' | 'duplicated' | 'available';
+export type ValidationStatus = 'idle' | 'checking' | 'available' | 'duplicated';
 
 export interface VisitorSignUpRequest {
   userType: 'VISITOR';
