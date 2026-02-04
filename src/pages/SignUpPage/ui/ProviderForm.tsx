@@ -3,8 +3,9 @@ import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { ICONS } from '@/shared/constants';
 import type { ProviderSignUpRequest, SignUpFormData, SignUpErrors } from '@/features/auth';
-import { formatBusinessNumber } from '@/shared/utils';
+import { formatBusinessNumber, formatDateToYYYYMMDD } from '@/shared/utils';
 import { getConfirmStatus } from '@/shared/lib';
+import { Calendar } from '@/shared/ui/Calendar';
 
 interface BusinessNumberButtonProps {
   disabled: boolean;
@@ -17,6 +18,7 @@ interface SignUpFormProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onGenerateNickname: () => void;
   businessNumberButton: BusinessNumberButtonProps;
+  onDateSelect?: (date: string) => void;
   errors?: SignUpErrors<ProviderSignUpRequest>;
 }
 
@@ -24,6 +26,7 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
   formData,
   onChange,
   businessNumberButton,
+  onDateSelect,
   errors = {}
 }) => {
 
@@ -34,6 +37,8 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
     e.target.value = formatted;
     onChange(e);
   };
+
+  const [isCalendarOpen, setCalendarOpen] = React.useState(false);
 
   return (
     <form className="flex flex-col w-full" noValidate>
@@ -71,9 +76,9 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
 
         <div className="flex flex-col gap-3">
           <label className="text-[16px] lg:text-[18px] font-semibold">개업 연월일*</label>
-          <div className="flex w-full gap-2">
+          <div className="relative flex w-full gap-2">
             <Input
-                name="date"
+                name="openedAt"
                 type="text"
                 placeholder="0000.00.00"
                 value={providerData.openedAt}
@@ -87,15 +92,23 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
               size="input"
               variant="ghost"
               leftIcon={<ICONS.Calender />}
-              onClick={() => {/* 캘린더 넣기 */}}
+              onClick={() => setCalendarOpen(true)}
             >
-              {providerData.openedAt || (
                 <span className="flex">
                   <span className="lg:hidden">선택</span>
                   <span className="hidden lg:inline">날짜 선택</span>
                 </span>
-              )}
             </Button>
+            {isCalendarOpen && (
+              <Calendar
+                value={providerData.openedAt}
+                onSelect={(date) => {
+                  const formatted = formatDateToYYYYMMDD(date);
+                  onDateSelect?.(formatted);
+                }}
+                onClose={() => setCalendarOpen(false)}
+              />
+            )}
           </div>
         </div>
 

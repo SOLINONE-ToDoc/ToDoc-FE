@@ -126,6 +126,9 @@ export const ProviderSignUpPage = () => {
             isValid: businessStatus === 'available',
             onClick: handleCheckBusinessDuplicate,
           }}
+          onDateSelect={(date: string) => {
+            setFormData(prev => ({ ...prev, openedAt: date }));
+          }}
         />
 
         <div className="mt-5 w-full">

@@ -26,7 +26,7 @@ export interface ProviderSignUpRequest {
   name: string;
   placeName: string;
   businessNumber: string;
-  openedAt: `${number}.${number}.${number}` | '';
+  openedAt: string;
   address: string;
   nickname: string;
   email: string;
