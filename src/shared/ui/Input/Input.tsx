@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/shared/lib';
 import { ICONS } from '@/shared/constants';
 
-type InputIconType = 'passwordToggle' | 'refresh';
+type InputIconType = 'passwordToggle' | 'refresh' | 'search';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -52,6 +52,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           );
         case 'refresh':
           return <ICONS.Refresh className="stroke-current" width={24} height={24} />;
+        case 'search':
+          return <ICONS.Search className="stroke-current" width={24} height={24} />;
         default:
           return null;
       }
@@ -103,16 +105,20 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
           </div>
 
-          {error && helperText && (
-            <div className={cn(
-              'flex items-center text-medium text-[12px] lg:text-[14px]',
-              'mt-1 lg:mt-3 text-content-error'
-            )}>
-              <ICONS.Alert width={24} height={24} className="shrink-0 scale-75 lg:scale-100" />
-              <span>{helperText}</span>
-            </div>
-          )}
-        </div>
+          {helperText && (
+          <div className={cn(
+            'flex items-center gap-1 text-medium text-[12px] lg:text-[14px] mt-1 lg:mt-3',
+            error ? 'text-content-error' : 'text-content-muted'
+          )}>
+            <ICONS.Alert
+              width={24}
+              height={24}
+              className="shrink-0 scale-75 lg:scale-100 stroke-current"
+            />
+            <span>{helperText}</span>
+          </div>
+        )}
+      </div>
       </div>
     );
   }

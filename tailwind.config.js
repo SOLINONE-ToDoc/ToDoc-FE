@@ -44,6 +44,7 @@ export default {
           base: '#ffffff',
           primary: '#000000',
           secondary: '#e9e9e9',
+          tertiary: '#404040',
           disabled: '#8b8b8b',
 
           input: {
