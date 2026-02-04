@@ -4,6 +4,7 @@ import type { UserType } from '@/entities/user';
 import { useLogin, type LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './ui/LoginForm';
+import { LoginHeader } from './ui/LoginHeader';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ export const LoginPage = () => {
 
   return (
      <main className="flex flex-col items-center px-5 w-full max-w-[750px] mx-auto min-h-screen pt-[168px]">
+      <LoginHeader />
       <LoginForm
         formData={formData}
         onChange={handleChange}
@@ -49,12 +51,12 @@ export const LoginPage = () => {
         isLoading={isLoading}
       />
 
-      <div className="flex items-center justify-center gap-2 mt-10">
+      <div className="flex items-center justify-center mt-10">
         <Button
           variant="outline"
           size="pill"
           type="button" onClick={() => setUserType(prev => prev === 'VISITOR' ? 'PROVIDER' : 'VISITOR')}>
-          {userType === 'VISITOR' ? '사장님이신가요?' : '일반회원이신가요?'}&nbsp;
+          {userType === 'VISITOR' ? '사장님이신가요?' : '일반회원이신가요?'}
           <span className="text-content-muted">여기를 눌러 로그인해주세요</span>
         </Button>
       </div>
