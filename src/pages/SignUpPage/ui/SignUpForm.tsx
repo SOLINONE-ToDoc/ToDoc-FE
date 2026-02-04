@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
-import type { SignUpFormData, SignUpErrors } from '@/features/auth';
+import type { VisitorSignUpRequest, SignUpFormData, SignUpErrors } from '@/features/auth';
 
 interface EmailButtonProps {
   disabled: boolean;
@@ -14,7 +14,7 @@ interface SignUpFormProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onGenerateNickname: () => void;
   emailButton?: EmailButtonProps;
-  errors?: SignUpErrors;
+  errors?: SignUpErrors<VisitorSignUpRequest>;
 }
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({
