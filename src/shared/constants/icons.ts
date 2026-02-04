@@ -1,11 +1,13 @@
-import IcLogo from '@/shared/assets/icons/todoc.svg?react';
-import IcEye from '@/shared/assets/icons/eye.svg?react';
-import IcEyeOff from '@/shared/assets/icons/eye-off.svg?react';
-import IcRefresh from '@/shared/assets/icons/refresh.svg?react';
-import IcAlert from '@/shared/assets/icons/alert.svg?react';
-import IcCalendar from '@/shared/assets/icons/calendar.svg?react';
-import IcSearch from '@/shared/assets/icons/search.svg?react';
-import IcAccepted from '@/shared/assets/icons/accepted.svg?react';
+import IcLogo from '../assets/icons/todoc.svg?react';
+import IcEye from '../assets/icons/eye.svg?react';
+import IcEyeOff from '../assets/icons/eye-off.svg?react';
+import IcRefresh from '../assets/icons/refresh.svg?react';
+import IcAlert from '../assets/icons/alert.svg?react';
+import IcCalendar from '../assets/icons/calendar.svg?react';
+import IcSearch from '../assets/icons/search.svg?react';
+import IcAccepted from '../assets/icons/accepted.svg?react';
+import IcBack from '../assets/icons/back.svg?react';
+import IcNext from '../assets/icons/next.svg?react';
 
 export const ICONS = {
   Logo: IcLogo,
@@ -16,4 +18,6 @@ export const ICONS = {
   Calender: IcCalendar,
   Search: IcSearch,
   Accepted: IcAccepted,
+  Back: IcBack,
+  Next: IcNext,
 } as const;
