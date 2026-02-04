@@ -21,6 +21,12 @@ const config: StorybookConfig = {
         },
       })
     );
+
+    config.define = {
+      ...config.define,
+      'process.env.VITE_KAKAO_MAP_KEY': JSON.stringify(process.env.VITE_KAKAO_MAP_KEY),
+    };
+
     return config;
   },
 };
