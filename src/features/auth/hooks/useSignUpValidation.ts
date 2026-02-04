@@ -1,4 +1,4 @@
-import type { SignUpFormData, SignUpErrors } from '../model/types';
+import type { SignUpFormData, SignUpErrors, VisitorSignUpRequest } from '../model/types';
 import { EMAIL_ERROR_MESSAGES, PASSWORD_ERROR_MESSAGES } from '../constants/messages';
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
@@ -20,7 +20,7 @@ export const useSignUpValidation = (formData: SignUpFormData) => {
     passwordConfirmError = PASSWORD_ERROR_MESSAGES.NOT_MATCH;
   }
 
-  const errors: SignUpErrors = {
+  const errors: SignUpErrors<VisitorSignUpRequest> = {
   email: emailError,
   password: passwordError,
   passwordConfirm: passwordError || passwordConfirmError,
