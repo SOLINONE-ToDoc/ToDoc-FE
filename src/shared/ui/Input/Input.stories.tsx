@@ -53,7 +53,7 @@ export const ErrorState: Story = {
     labelClassName: 'lg:text-[24px]',
     type: 'password',
     value: '1234',
-    error: true,
+    helperStatus: 'error',
     helperText: '비밀번호가 일치하지 않습니다.',
     fullWidth: true,
   },

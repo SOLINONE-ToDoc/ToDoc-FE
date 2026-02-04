@@ -3,13 +3,14 @@ import { cn } from '@/shared/lib';
 import { ICONS } from '@/shared/constants';
 
 type InputIconType = 'passwordToggle' | 'refresh' | 'search';
+export type HelperStatus = 'error' | 'success' | 'default';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   labelClassName?: string;
   fullWidth?: boolean;
-  error?: boolean;
   helperText?: string;
+  helperStatus?: HelperStatus;
   iconType?: InputIconType;
   onIconClick?: () => void;
 }
@@ -21,7 +22,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       labelClassName,
       type = 'text',
       fullWidth = true,
-      error,
+      helperStatus,
       helperText,
       iconType,
       onIconClick,
@@ -63,6 +64,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       if (iconType === 'passwordToggle') setVisible(v => !v);
       else onIconClick?.();
     };
+
+    let HelperIcon = ICONS.Alert;
+
+    if (helperStatus === 'success') {
+      HelperIcon = ICONS.Accepted;
+    }
 
     return (
       <div className={cn('flex flex-col gap-3', fullWidth && 'w-full')}>
@@ -106,19 +113,23 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </div>
 
           {helperText && (
-          <div className={cn(
-            'flex items-center gap-1 text-medium text-[12px] lg:text-[14px] mt-1 lg:mt-3',
-            error ? 'text-content-error' : 'text-content-muted'
-          )}>
-            <ICONS.Alert
-              width={24}
-              height={24}
-              className="shrink-0 scale-75 lg:scale-100 stroke-current"
-            />
-            <span>{helperText}</span>
-          </div>
-        )}
-      </div>
+            <div
+              className={cn(
+                'flex items-center text-medium text-[12px] lg:text-[14px] mt-1 lg:mt-3',
+                helperStatus === 'error' && 'text-content-error',
+                helperStatus === 'success' && 'text-content-success',
+                helperStatus === 'default' && 'text-content-muted'
+              )}
+              >
+              <HelperIcon
+                width={24}
+                height={24}
+                className="shrink-0 scale-75 lg:scale-100 stroke-current"
+              />
+              <span>{helperText}</span>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

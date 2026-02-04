@@ -3,6 +3,8 @@ import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { ICONS } from '@/shared/constants';
 import type { ProviderSignUpRequest, SignUpFormData, SignUpErrors } from '@/features/auth';
+import { formatBusinessNumber } from '@/shared/utils';
+import { getConfirmStatus } from '@/shared/lib';
 
 interface BusinessNumberButtonProps {
   disabled: boolean;
@@ -27,6 +29,12 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
 
   const providerData = formData as Extract<SignUpFormData, { userType: 'PROVIDER' }>;
 
+  const handleBusinessNumberChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const formatted = formatBusinessNumber(e.target.value);
+    e.target.value = formatted;
+    onChange(e);
+  };
+
   return (
     <form className="flex flex-col w-full" noValidate>
       <div className="flex flex-col gap-10 lg:gap-[68px]">
@@ -38,11 +46,15 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
               type="text"
               placeholder="000-00-00000"
               value={providerData.businessNumber}
-              onChange={onChange}
+              onChange={handleBusinessNumberChange}
               required
               className="flex-1"
-              error={!!errors.businessNumber}
-              helperText={errors?.businessNumber}
+              helperStatus={getConfirmStatus(
+                providerData.businessNumber,
+                errors?.businessNumber,
+                businessNumberButton?.isValid
+              )}
+              helperText={errors.businessNumber}
             />
 
             <Button

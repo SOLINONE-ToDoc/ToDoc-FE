@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import type { VisitorSignUpRequest, SignUpFormData, SignUpErrors } from '@/features/auth';
+import { getConfirmStatus } from '@/shared/lib';
 
 interface EmailButtonProps {
   disabled: boolean;
@@ -51,7 +52,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               onChange={onChange}
               required
               className="flex-1"
-              error={!!errors.email}
+              helperStatus={getConfirmStatus(
+                formData.email,
+                errors?.email,
+                emailButton?.isValid
+              )}
               helperText={errors?.email}
             />
 
@@ -84,7 +89,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             iconType="passwordToggle"
             value={formData.passwordConfirm}
             onChange={onChange}
-            error={!!errors.passwordConfirm}
+            helperStatus={getConfirmStatus(
+              formData.passwordConfirm,
+              errors?.passwordConfirm
+            )}
             helperText={errors?.passwordConfirm}
             required
           />

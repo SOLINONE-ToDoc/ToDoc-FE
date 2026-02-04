@@ -5,6 +5,7 @@ import IcRefresh from '@/shared/assets/icons/refresh.svg?react';
 import IcAlert from '@/shared/assets/icons/alert.svg?react';
 import IcCalendar from '@/shared/assets/icons/calendar.svg?react';
 import IcSearch from '@/shared/assets/icons/search.svg?react';
+import IcAccepted from '@/shared/assets/icons/accepted.svg?react';
 
 export const ICONS = {
   Logo: IcLogo,
@@ -14,4 +15,5 @@ export const ICONS = {
   Alert: IcAlert,
   Calender: IcCalendar,
   Search: IcSearch,
+  Accepted: IcAccepted,
 } as const;

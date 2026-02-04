@@ -3,7 +3,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export type ValidationStatus = 'idle' | 'checking' | 'available' | 'duplicated';
+export type ValidationStatus = 'idle' | 'checking' | 'available' | 'duplicated' | 'unavailable';
 
 export interface VisitorSignUpRequest {
   userType: 'VISITOR';
@@ -11,6 +11,12 @@ export interface VisitorSignUpRequest {
   email: string;
   password: string;
   passwordConfirm: string;
+}
+
+export interface BusinessVerifyResponse {
+  businessNumber: string;
+  valid: boolean;
+  message: string;
 }
 
 export type PlaceType = 'RESTAURANT' | 'CAFE' | 'OTHER';

@@ -26,9 +26,15 @@ export const VisitorSignUpPage = () => {
   const { errors: validationErrors, isValid: isFormValid } = useSignUpValidation(formData);
   const { signUp, isLoading } = useSignUp();
 
-  const combinedErrors = {
+  const combinedErrors: Partial<Record<keyof VisitorSignUpRequest, string>> = {
     ...validationErrors,
-    email: validationErrors.email || (emailStatus === 'duplicated' ? VALIDATION_MESSAGES.EMAIL.DUPLICATED : undefined)
+    email:
+      validationErrors.email ??
+      (emailStatus === 'duplicated'
+        ? VALIDATION_MESSAGES.EMAIL.DUPLICATED
+        : emailStatus === 'available'
+        ? VALIDATION_MESSAGES.EMAIL.AVAILABLE
+        : undefined),
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {

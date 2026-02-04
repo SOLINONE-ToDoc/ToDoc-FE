@@ -13,5 +13,6 @@ export const VALIDATION_MESSAGES = {
     AVAILABLE: '사용 가능한 사업자 번호입니다',
     DUPLICATED: '이미 등록된 사업자 번호입니다',
     INVALID: '사업자 번호 형식이 올바르지 않습니다',
+    INVALID_NUMBER: '사용할 수 없는 사업자 번호입니다',
   },
 };
