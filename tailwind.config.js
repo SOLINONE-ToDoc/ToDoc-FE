@@ -40,6 +40,12 @@ export default {
           600: '#404040',
         },
 
+        red: {
+          100: '#FFE8E5',
+          300: '#FFA199',
+          400: '#FF5546',
+        },
+
         surface: {
           base: '#ffffff',
           primary: '#000000',

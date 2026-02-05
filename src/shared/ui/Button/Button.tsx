@@ -1,10 +1,11 @@
 import React from 'react';
 import { cn } from '@/shared/lib/';
 
-type ButtonSize = 'pill' | 'xl' | 'input' | 'text';
-type ButtonVariant = 'primary' | 'secondary' | 'disabled' | 'outline' | 'text' | 'ghost';
+type ButtonSize = 'sPill' | 'pill' | 'xl' | 'input' | 'text';
+type ButtonVariant = 'primary' | 'secondary' | 'disabled' | 'outline' | 'text' | 'emphasize' | 'ghost';
 
 const SIZES: Record<ButtonSize, string> = {
+  sPill: 'h-8 font-medium text-[14px] rounded-full px-4',
   pill: 'h-[41px] font-medium text-[14px] lg:text-[16px] rounded-full px-4',
   xl: 'h-[52px] font-medium text-body-1 lg:h-[80px] lg:text-[24px] rounded-[4px]',
   input: 'h-[44px] w-[76px] font-medium text-[12px] lg:text-[14px] lg:h-[56px] lg:w-[136px] rounded-[4px] shrink-0 whitespace-nowrap',
@@ -17,6 +18,7 @@ const VARIANTS: Record<ButtonVariant, string> = {
   disabled: 'bg-surface-disabled text-content-onInverse hover:bg-surface-primary',
   outline: 'border border-line-default bg-transparent text-content-primary',
   text: 'bg-transparent text-content-secondary hover:underline',
+  emphasize: 'bg-red-100 text-red-400 hover:bg-red-400 hover:text-content-onInverse',
   ghost: 'bg-surface-tertiary text-content-onInverse',
 };
 
