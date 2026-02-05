@@ -8,7 +8,7 @@ interface Props {
 
 export const SignUpButton = ({ onClick, disabled, isLoading }: Props) => {
   return (
-    <div className="w-full mt-auto pb-10 lg:pb-20">
+    <div className="w-full mt-5">
       <Button
         type="submit"
         variant="primary"

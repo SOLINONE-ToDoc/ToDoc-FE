@@ -146,7 +146,7 @@ export const ProviderSignUpPage = () => {
   };
 
   return (
-    <main className="flex flex-col items-center px-5 gap-[64px] lg:gap-[100px] w-full max-w-[750px] mx-auto min-h-screen pt-[168px]">
+    <main className="flex flex-col items-center px-5 gap-[64px] lg:gap-[100px] w-full max-w-[750px] mx-auto min-h-screen pt-[140px] lg:pb-[200px]">
       <div className="flex flex-col w-full gap-10 lg:gap-[68px]">
         <Input
           label="이름"
