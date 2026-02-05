@@ -5,7 +5,7 @@ import {
   ProviderSignUpPage,
   VisitorSignUpPage,
   SignUpSuccessPage,
-} from '@/pages/SignUpPage';
+} from '@/pages/SignUp';
 
 function App() {
   return (
