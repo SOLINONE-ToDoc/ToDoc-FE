@@ -9,6 +9,7 @@ import IcAccepted from '../assets/icons/accepted.svg?react';
 import IcBack from '../assets/icons/back.svg?react';
 import IcNext from '../assets/icons/next.svg?react';
 import IcDelete from '../assets/icons/delete.svg?react';
+import IcSetting from '../assets/icons/setting.svg?react';
 
 export const ICONS = {
   Logo: IcLogo,
@@ -22,4 +23,5 @@ export const ICONS = {
   Back: IcBack,
   Next: IcNext,
   Delete: IcDelete,
+  Setting: IcSetting,
 } as const;
