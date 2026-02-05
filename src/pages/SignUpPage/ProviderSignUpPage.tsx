@@ -34,7 +34,7 @@ export const ProviderSignUpPage = () => {
     placeName: '',
     address: '',
     placeType: 'OTHER',
-    zonecode: '',
+    zoneCode: '',
     latitude: '',
     longitude: '',
   });
@@ -128,7 +128,7 @@ export const ProviderSignUpPage = () => {
       address: place.road_address_name || place.address_name,
       latitude: place.y,
       longitude: place.x,
-      zonecode: place.zonecode,
+      zoneCode: place.zonecode,
       placeType: mappedPlaceType,
     }));
 

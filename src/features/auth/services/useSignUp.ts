@@ -21,6 +21,7 @@ export const useSignUp = () => {
           placeType: data.placeType,
           latitude: data.latitude,
           longitude: data.longitude,
+          zoneCode: data.zoneCode,
         };
 
         await request<string>('/api/users/signup/provider', 'POST', payload);

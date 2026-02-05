@@ -32,7 +32,7 @@ export interface ProviderSignUpRequest {
   email: string;
   password: string;
   passwordConfirm: string;
-  zonecode: string;
+  zoneCode: string;
   placeType: PlaceType;
   latitude: string;
   longitude: string;
