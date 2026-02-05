@@ -13,6 +13,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   helperStatus?: HelperStatus;
   iconType?: InputIconType;
   onIconClick?: () => void;
+  onSearch?: () => void;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
