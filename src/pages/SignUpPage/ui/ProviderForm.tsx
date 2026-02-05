@@ -21,6 +21,7 @@ interface SignUpFormProps {
   onGenerateNickname: () => void;
   businessNumberButton: BusinessNumberButtonProps;
   onDateSelect?: (date: string) => void;
+  todayStr: string;
   searchResults: KakaoPlaceWithZonecode[];
   onPlaceSelect: (place: KakaoPlaceWithZonecode) => void;
   onPlaceSearch: () => void;
@@ -33,6 +34,7 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
   onChange,
   businessNumberButton,
   onDateSelect,
+  todayStr,
   searchResults,
   onPlaceSelect,
   onPlaceSearch,
@@ -90,7 +92,7 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
             <Input
                 name="openedAt"
                 type="text"
-                placeholder="0000.00.00"
+                placeholder={todayStr}
                 value={providerData.openedAt}
                 onChange={onChange}
                 required

@@ -16,9 +16,11 @@ import { Input } from '@/shared/ui/Input';
 import type { KakaoPlaceWithZonecode } from '@/shared/types';
 import { useKakaoPlaceSearch, useKakaoZipcode } from '@/shared/hooks';
 import { mapKakaoCategoryToPlaceType } from '@/entities/place';
+import { getTodayFormatted } from '@/shared/utils';
 
 export const ProviderSignUpPage = () => {
   const navigate = useNavigate();
+  const todayStr = React.useMemo(() => getTodayFormatted(), []);
 
   const [formData, setFormData] = React.useState<ProviderSignUpRequest>({
     userType: 'PROVIDER',
@@ -177,6 +179,7 @@ export const ProviderSignUpPage = () => {
             isValid: businessStatus === 'available',
             onClick: handleCheckBusinessDuplicate,
           }}
+          todayStr={todayStr}
           onDateSelect={(date: string) => {
             setFormData(prev => ({ ...prev, openedAt: date }));
           }}

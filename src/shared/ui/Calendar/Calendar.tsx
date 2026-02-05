@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { cn } from '@/shared/lib';
 import { ICONS } from '@/shared/constants';
+import { padZero } from '@/shared/utils';
 
 interface CalendarProps {
   value?: string;
@@ -11,8 +12,6 @@ interface CalendarProps {
 const getDaysInMonth = (year: number, month: number) => {
   return new Date(year, month + 1, 0).getDate();
 };
-
-const padZero = (num: number) => num.toString().padStart(2, '0');
 
 export const Calendar: React.FC<CalendarProps> = React.memo(({ value, onSelect, onClose }) => {
   const today = useMemo(() => new Date(), []);
@@ -76,6 +75,13 @@ export const Calendar: React.FC<CalendarProps> = React.memo(({ value, onSelect, 
     e.stopPropagation();
     setYear(y);
     setIsYearPickerOpen(false);
+  };
+
+  const handleComplete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const formatted = `${year}.${padZero(month + 1)}.${padZero(selectedDay)}`;
+    onSelect(formatted);
+    onClose?.();
   };
 
   const isToday = useCallback(
@@ -177,7 +183,7 @@ export const Calendar: React.FC<CalendarProps> = React.memo(({ value, onSelect, 
           <div className="flex justify-end mt-2 border-t pt-3">
             <button
               type="button"
-              onClick={(e) => { e.stopPropagation(); onClose?.(); }}
+              onClick={handleComplete}
               className="px-4 py-2 bg-gray-100 rounded text-caption font-medium hover:bg-gray-200"
             >
               완료
