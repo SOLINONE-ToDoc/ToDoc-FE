@@ -26,6 +26,7 @@ export const OnboardingCard = ({
         'flex flex-col items-center justify-start',
         'transition-all duration-300 hover:bg-red-400 lg:hover:-rotate-[4deg] group',
         'gap-3 lg:gap-4',
+        'select-none',
         className
       )}
     >

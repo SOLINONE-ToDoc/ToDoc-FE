@@ -42,6 +42,7 @@ export default {
 
         red: {
           100: '#FFE8E5',
+          200: '#FFD0CC',
           300: '#FFA199',
           400: '#FF5546',
         },

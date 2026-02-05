@@ -9,7 +9,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
   return (
     <div className="hidden lg:block">
     <footer className={cn(
-      'flex justify-start items-center w-full h-[280px] bg-surface-tertiary',
+      'flex justify-start items-center w-full h-[280px] bg-surface-tertiary select-none',
       className
     )}>
       <div className="flex flex-col gap-5 pl-[156px]">
