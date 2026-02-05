@@ -1,14 +1,25 @@
 import type { PlaceType } from "@/entities/place";
+import type { UserType } from "@/entities/auth";
 
 export interface LoginRequest {
   email: string;
   password: string;
 }
 
+export interface LoginResponse {
+  accessToken: string;
+  email: string;
+  expiresIn: number;
+  nickname: string;
+  role: string;
+  tokenType: string;
+  userId: number;
+}
+
 export type ValidationStatus = 'idle' | 'checking' | 'available' | 'duplicated' | 'unavailable';
 
 export interface VisitorSignUpRequest {
-  userType: 'VISITOR';
+  userType: UserType;
   nickname: string;
   email: string;
   password: string;
