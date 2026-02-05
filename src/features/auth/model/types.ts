@@ -1,3 +1,5 @@
+import type { PlaceType } from "@/entities/place";
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -19,8 +21,6 @@ export interface BusinessVerifyResponse {
   message: string;
 }
 
-export type PlaceType = 'RESTAURANT' | 'CAFE' | 'OTHER';
-
 export interface ProviderSignUpRequest {
   userType: 'PROVIDER';
   name: string;
@@ -32,9 +32,10 @@ export interface ProviderSignUpRequest {
   email: string;
   password: string;
   passwordConfirm: string;
+  zonecode: string;
   placeType: PlaceType;
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
 }
 
 export type SignUpFormData = VisitorSignUpRequest | ProviderSignUpRequest;

@@ -6,6 +6,8 @@ import type { ProviderSignUpRequest, SignUpFormData, SignUpErrors } from '@/feat
 import { formatBusinessNumber, formatDateToYYYYMMDD } from '@/shared/utils';
 import { getConfirmStatus } from '@/shared/lib';
 import { Calendar } from '@/shared/ui/Calendar';
+import { PlaceResultList } from '@/shared/ui/Map';
+import type { KakaoPlaceWithZonecode } from '@/shared/types';
 
 interface BusinessNumberButtonProps {
   disabled: boolean;
@@ -19,6 +21,10 @@ interface SignUpFormProps {
   onGenerateNickname: () => void;
   businessNumberButton: BusinessNumberButtonProps;
   onDateSelect?: (date: string) => void;
+  searchResults: KakaoPlaceWithZonecode[];
+  onPlaceSelect: (place: KakaoPlaceWithZonecode) => void;
+  onPlaceSearch: () => void;
+  isPlaceSearching: boolean;
   errors?: SignUpErrors<ProviderSignUpRequest>;
 }
 
@@ -27,6 +33,10 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
   onChange,
   businessNumberButton,
   onDateSelect,
+  searchResults,
+  onPlaceSelect,
+  onPlaceSearch,
+  isPlaceSearching,
   errors = {}
 }) => {
 
@@ -116,14 +126,24 @@ export const ProviderForm: React.FC<SignUpFormProps> = ({
           <label className="text-[16px] lg:text-[18px] font-semibold">매장 추가</label>
           <Input
             name="placeName"
-            type="search"
+            type="text"
             placeholder="매장명을 입력해주세요"
             iconType="search"
             value={providerData.placeName}
             onChange={onChange}
+            onIconClick={onPlaceSearch}
+            onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), onPlaceSearch())}
+            disabled={isPlaceSearching}
             helperText="매장 추가는 회원가입 후 진행해도 괜찮아요"
-            required
           />
+
+          {searchResults.length > 0 && (
+          <PlaceResultList
+            results={searchResults}
+            onSelect={onPlaceSelect}
+            className="pt-4"
+          />
+        )}
         </div>
       </div>
     </form>

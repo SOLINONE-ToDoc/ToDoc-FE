@@ -13,6 +13,9 @@ import {
 } from '@/features/auth';
 import type { VisitorSignUpRequest, ProviderSignUpRequest, SignUpErrors } from '@/features/auth';
 import { Input } from '@/shared/ui/Input';
+import type { KakaoPlaceWithZonecode } from '@/shared/types';
+import { useKakaoPlaceSearch, useKakaoZipcode } from '@/shared/hooks';
+import { mapKakaoCategoryToPlaceType } from '@/entities/place';
 
 export const ProviderSignUpPage = () => {
   const navigate = useNavigate();
@@ -28,15 +31,42 @@ export const ProviderSignUpPage = () => {
     openedAt: '',
     placeName: '',
     address: '',
-    placeType: 'RESTAURANT',
-    latitude: 0.1,
-    longitude: 0.1,
+    placeType: 'OTHER',
+    zonecode: '',
+    latitude: '',
+    longitude: '',
   });
 
   const { status: emailStatus, checkEmail, resetStatus: resetEmailStatus } = useEmailCheck();
   const { status: businessStatus, checkBusinessNumber, setStatus: setBusinessStatus } = useBusinessNumberCheck();
   const { errors: validationErrors, isValid: isFormValid } = useSignUpValidation(formData);
+  const { search, results, reset: resetPlaceSearch, isLoading: isPlaceSearching } = useKakaoPlaceSearch();
+  const { getZipcode } = useKakaoZipcode();
   const { signUp, isLoading } = useSignUp();
+
+  const [enrichedPlaceResults, setEnrichedPlaceResults] = React.useState<KakaoPlaceWithZonecode[]>([]);
+
+  React.useEffect(() => {
+    const enrichResults = async () => {
+      if (results.length > 0) {
+        const enriched = await Promise.all(
+          results.map(async (place) => {
+            try {
+              const zonecode = await getZipcode(Number(place.x), Number(place.y));
+              return { ...place, zonecode };
+            } catch (err) {
+              console.error(`Failed to get zonecode for ${place.place_name}:`, err);
+              return { ...place, zonecode: '' };
+            }
+          })
+        );
+        setEnrichedPlaceResults(enriched);
+      } else {
+        setEnrichedPlaceResults([]);
+      }
+    };
+    enrichResults();
+  }, [results, getZipcode]);
 
   const combinedErrors: SignUpErrors<ProviderSignUpRequest> = {
     ...validationErrors,
@@ -80,6 +110,27 @@ export const ProviderSignUpPage = () => {
   const handleCheckBusinessDuplicate = () => {
     const pureNumber = formData.businessNumber.replace(/-/g, '');
     checkBusinessNumber(pureNumber);
+  };
+
+  const handlePlaceSearch = () => {
+    if (!formData.placeName.trim()) return;
+    search(formData.placeName);
+  };
+
+  const handlePlaceSelect = async (place: KakaoPlaceWithZonecode) => {
+    const mappedPlaceType = mapKakaoCategoryToPlaceType(place.category_group_code);
+
+    setFormData(prev => ({
+      ...prev,
+      placeName: place.place_name,
+      address: place.road_address_name || place.address_name,
+      latitude: place.y,
+      longitude: place.x,
+      zonecode: place.zonecode,
+      placeType: mappedPlaceType,
+    }));
+
+    resetPlaceSearch();
   };
 
   const handleSignUp = async () => {
@@ -129,6 +180,10 @@ export const ProviderSignUpPage = () => {
           onDateSelect={(date: string) => {
             setFormData(prev => ({ ...prev, openedAt: date }));
           }}
+          searchResults={enrichedPlaceResults}
+          onPlaceSearch={handlePlaceSearch}
+          onPlaceSelect={handlePlaceSelect}
+          isPlaceSearching={isPlaceSearching}
         />
 
         <div className="mt-5 w-full">
