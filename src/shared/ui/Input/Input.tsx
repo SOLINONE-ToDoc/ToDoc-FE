@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/shared/lib';
 import { ICONS } from '@/shared/constants';
 
-type InputIconType = 'passwordToggle' | 'refresh' | 'search';
+type InputIconType = 'passwordToggle' | 'refresh' | 'search' | 'delete';
 export type HelperStatus = 'error' | 'success' | 'default';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -44,6 +44,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const renderIcon = () => {
       if (!iconType) return null;
 
+      if (iconType === 'delete' && !props.value) return null;
+
       switch (iconType) {
         case 'passwordToggle':
           return visible ? (
@@ -55,14 +57,24 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           return <ICONS.Refresh className="stroke-current" width={24} height={24} />;
         case 'search':
           return <ICONS.Search className="stroke-current" width={24} height={24} />;
+        case 'delete':
+          return <ICONS.Delete className="stroke-current" width={24} height={24} />;
         default:
           return null;
       }
     };
 
-    const handleIconClick = () => {
-      if (iconType === 'passwordToggle') setVisible(v => !v);
-      else onIconClick?.();
+    const handleIconClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+
+      if (iconType === 'passwordToggle') {
+        setVisible(v => !v);
+      } else {
+        onIconClick?.();
+        if (typeof ref !== 'function' && ref?.current) {
+          ref.current.focus();
+        }
+      }
     };
 
     let HelperIcon = ICONS.Alert;
