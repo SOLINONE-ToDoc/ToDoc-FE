@@ -8,6 +8,7 @@ import {
   VisitorSignUpPage,
   SignUpSuccessPage,
 } from '@/pages/SignUp';
+import { MapPage } from '@/pages/Map';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup/visitor" element={<VisitorSignUpPage />} />
           <Route path="/signup/provider" element={<ProviderSignUpPage />} />
           <Route path="/signup/success" element={<SignUpSuccessPage />} />
+          <Route path="/map" element={<MapPage />} />
         </Routes>
       </main>
       <Footer />
