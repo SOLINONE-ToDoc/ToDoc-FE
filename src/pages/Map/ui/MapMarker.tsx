@@ -42,8 +42,8 @@ export const MapMarker = ({ coords, isSelected = false, onClick }: MapMarkerOpti
   const overlay = new kakao.maps.CustomOverlay({
     position: new kakao.maps.LatLng(coords.lat, coords.lng),
     content: el,
-    xAnchor: 0.5,
-    yAnchor: 50/52,
+    xAnchor: 0.7,
+    yAnchor: 0.6,
   });
 
   return overlay;
