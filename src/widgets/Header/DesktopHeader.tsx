@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ICONS } from "@/shared/constants";
 import { Button } from "@/shared/ui/Button";
@@ -13,13 +12,7 @@ export const DesktopHeader = () => {
 
   const isLoggedIn = !!userInfo;
   const isProvider = userInfo?.role === 'PROVIDER';
-  const { selectedPlace, places, fetchPlaces } = useProviderStore();
-
-  useEffect(() => {
-    if (isLoggedIn && isProvider && places.length === 0) {
-      fetchPlaces();
-    }
-  }, [isLoggedIn, isProvider, places.length, fetchPlaces]);
+  const { selectedPlace, places } = useProviderStore();
 
   return (
     <header className="relative w-[756px] h-[64px] mt-[44px] mx-auto">
@@ -47,9 +40,10 @@ export const DesktopHeader = () => {
 
         <div className="flex items-center gap-4">
           {isLoggedIn && isProvider && (
-            <Button variant="inversePrimary" size="lPill" type="button" onClick={() => navigate('/place')}>
+            <Button variant="inversePrimary" size="lPill" type="button">
               편집하기
             </Button>
+            // 라우팅 넣어야함
           )}
 
           {isLoggedIn && (
