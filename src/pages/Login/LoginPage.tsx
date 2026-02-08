@@ -5,6 +5,8 @@ import { useLogin, type LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './ui/LoginForm';
 import { LoginHeader } from './ui/LoginHeader';
+import { useAuthStore } from '@/entities/auth';
+import { useProviderStore } from '@/entities/provider';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -30,12 +32,17 @@ export const LoginPage = () => {
   };
 
   const handleSubmit = async () => {
-    const finalRequest: LoginRequest = {
-      ...formData,
-    };
+    const finalRequest: LoginRequest = { ...formData };
 
     const success = await login(finalRequest);
-    if (success) {
+    if (!success) return;
+
+    const { userInfo } = useAuthStore.getState();
+    if (userInfo?.role === 'PROVIDER') {
+      const { fetchPlaces } = useProviderStore.getState();
+      await fetchPlaces();
+      navigate('/place');
+    } else {
       navigate('/');
     }
   };

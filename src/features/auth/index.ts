@@ -1,6 +1,7 @@
 export * from './constants/messages';
 export * from './hooks/useSignUpValidation';
 export * from './model/types';
+export * from './services/fetchProviderPlaceList';
 export * from './services/useBusinessNumberCheck';
 export * from './services/useEmailCheck';
 export * from './services/useLogin';
