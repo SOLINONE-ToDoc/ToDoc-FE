@@ -11,6 +11,7 @@ import IcNext from '../assets/icons/next.svg?react';
 import IcDelete from '../assets/icons/delete.svg?react';
 import IcSetting from '../assets/icons/setting.svg?react';
 import IcCheck from '../assets/icons/check.svg?react';
+import IcDown from '../assets/icons/down.svg?react';
 
 export const ICONS = {
   Logo: IcLogo,
@@ -26,4 +27,5 @@ export const ICONS = {
   Delete: IcDelete,
   Setting: IcSetting,
   Check: IcCheck,
+  Down: IcDown,
 } as const;
