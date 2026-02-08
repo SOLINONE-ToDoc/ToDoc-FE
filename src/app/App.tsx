@@ -9,6 +9,7 @@ import {
   SignUpSuccessPage,
 } from '@/pages/SignUp';
 import { MapPage } from '@/pages/Map';
+import { DashboardPage } from '@/pages/Dashboard';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup/provider" element={<ProviderSignUpPage />} />
           <Route path="/signup/success" element={<SignUpSuccessPage />} />
           <Route path="/map" element={<MapPage />} />
+          <Route path="/place" element={<DashboardPage />} />
         </Routes>
       </main>
       <Footer />
