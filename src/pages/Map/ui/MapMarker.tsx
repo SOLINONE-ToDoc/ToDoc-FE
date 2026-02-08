@@ -4,12 +4,12 @@ import type { MapPlace } from '@/entities/map';
 
 interface MapMarkerOptions {
   place: MapPlace;
-  visitMessage: string;
+  visitMessage: string | null;
   isSelected?: boolean;
   onClick?: () => void;
 }
 
-export const createMapMarker = ({ place, visitMessage, isSelected = false, onClick }: MapMarkerOptions) => {
+export const createMapMarker = ({ place, isSelected = false, onClick }: MapMarkerOptions) => {
   const { latitude, longitude } = place;
 
   const container = document.createElement("div");
@@ -52,15 +52,14 @@ export const createMapMarker = ({ place, visitMessage, isSelected = false, onCli
   messageDiv.style.pointerEvents = "none";
   container.appendChild(messageDiv);
 
-  const updateMessage = (msg: string | null, selected: boolean) => {
-    if (msg || (selected && place.myStatus === null)) {
-      messageDiv.innerText = msg || "방문 전";
+  const updateMessage = (msg: string | null) => {
+    if (msg) {
+      messageDiv.innerText = msg;
       messageDiv.style.display = 'block';
     } else {
       messageDiv.style.display = 'none';
     }
   };
-  updateMessage(visitMessage, isSelected);
 
   const textContainer = document.createElement("div");
   textContainer.style.display = "flex";
@@ -122,10 +121,10 @@ export const createMapMarker = ({ place, visitMessage, isSelected = false, onCli
 
   return {
     overlay,
-    update: (newVisitMessage: string, newIsSelected: boolean) => {
-      updateMessage(newVisitMessage, newIsSelected);
-      applyStyle(newIsSelected);
-    },
+    update: (newVisitMessage: string | null, newIsSelected: boolean) => {
+    updateMessage(newVisitMessage);
+    applyStyle(newIsSelected);
+  },
     setMap: (mapInstance: kakao.maps.Map | null) => {
       overlay.setMap(mapInstance);
     }

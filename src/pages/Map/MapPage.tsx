@@ -1,14 +1,9 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { MapPreview } from "./ui/MapPreview";
 import { useCurrentLocation, useMapPlaces } from "@/features/map";
-import type { Coords, MapPlace } from "@/entities/map";
+import type { Coords, MapPlaceWithMessage } from "@/entities/map";
 import { getDistance } from "@/shared/lib";
 import { getRelativeVisitText } from '@/shared/utils';
-
-export interface MapPlaceWithMessage extends MapPlace {
-  visitMessage: string;
-  isSelected: boolean;
-}
 
 export const MapPage = () => {
   const { coords: myLocation, status } = useCurrentLocation();
@@ -65,20 +60,37 @@ export const MapPage = () => {
   }, []);
 
   const placesWithMessage: MapPlaceWithMessage[] = useMemo(() => {
-    return places.map(place => {
-      let visitMessage = '';
+    if (!center) return [];
 
-      if (place.myStatus === 'RECENT') visitMessage = '최근 방문';
-      else if (place.myStatus === 'VISITED' && place.lastVistedAt)
-        visitMessage = getRelativeVisitText(place.lastVistedAt);
+    return places.map(place => {
+      const isSelected = selectedMarkerId === place.placeId;
+      let visitMessage: string | null = null;
+
+      if (place.myStatus === 'VISITED') {
+        const distance = getDistance(
+          { lat: place.latitude, lng: place.longitude },
+          center
+        );
+
+        if ((isSelected || distance < 150) && place.myContent) {
+          visitMessage = place.myContent;
+        }
+        else if (place.lastVistedAt) {
+          visitMessage = getRelativeVisitText(place.lastVistedAt);
+        }
+      }
+
+      if (place.myStatus === null && isSelected) {
+        visitMessage = '방문 전';
+      }
 
       return {
         ...place,
+        isSelected,
         visitMessage,
-        isSelected: selectedMarkerId === place.placeId,
       };
     });
-  }, [places, selectedMarkerId]);
+  }, [places, selectedMarkerId, center]);
 
   if (!center || status === 'loading' || status === 'idle' || (status === 'granted' && !center)) {
     return <div>로딩 스피너</div>;

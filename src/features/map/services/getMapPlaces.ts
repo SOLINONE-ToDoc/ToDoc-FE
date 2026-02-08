@@ -6,7 +6,7 @@ export const getMapPlaces = ({
   lat,
   lng,
   radius = 1000,
-  ui = 'MAP',
+  ui = 'LIST',
 }: GetMapPlacesParams) => {
 
   const params = new URLSearchParams({

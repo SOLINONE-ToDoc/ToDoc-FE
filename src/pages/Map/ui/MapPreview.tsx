@@ -1,18 +1,14 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { debounce } from 'lodash';
-import type { Coords, MapPlace } from '@/entities/map';
+import type { Coords, MapPlaceWithMessage } from '@/entities/map';
 import { createMapMarker } from './MapMarker';
 
 interface MapMarkerInstance {
   overlay: kakao.maps.CustomOverlay;
-  update: (newVisitMessage: string, newIsSelected: boolean) => void;
+  update: (newVisitMessage: string | null, newIsSelected: boolean) => void;
   setMap: (mapInstance: kakao.maps.Map | null) => void;
 }
 
-export interface MapPlaceWithMessage extends MapPlace {
-  visitMessage: string;
-  isSelected: boolean;
-}
 interface MapPreviewProps {
   initialCenter: Coords;
   selectedPlaceId: number | null;

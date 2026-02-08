@@ -22,3 +22,8 @@ export interface MapPlace {
   myContent: string | null;
   lastVistedAt: string | null;
 }
+
+export interface MapPlaceWithMessage extends MapPlace {
+  visitMessage: string | null;
+  isSelected: boolean;
+}
