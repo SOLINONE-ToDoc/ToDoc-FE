@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { UserType } from '@/entities/user';
+import type { UserType } from '@/entities/auth';
 import { useLogin, type LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './ui/LoginForm';

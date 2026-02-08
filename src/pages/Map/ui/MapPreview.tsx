@@ -1,43 +1,99 @@
-import { useEffect, useRef } from 'react';
-import type { Coords } from '@/entities/map';
-import { MapMarker } from './MapMarker';
+import { useEffect, useRef, useMemo } from 'react';
+import { debounce } from 'lodash';
+import type { Coords, MapPlace } from '@/entities/map';
+import { createMapMarker } from './MapMarker';
 
-interface MapPreviewProps {
-  coords: Coords;
+interface MapMarkerInstance {
+  overlay: kakao.maps.CustomOverlay;
+  update: (newVisitMessage: string, newIsSelected: boolean) => void;
+  setMap: (mapInstance: kakao.maps.Map | null) => void;
 }
 
-export const MapPreview = ({ coords }: MapPreviewProps) => {
+export interface MapPlaceWithMessage extends MapPlace {
+  visitMessage: string;
+  isSelected: boolean;
+}
+interface MapPreviewProps {
+  initialCenter: Coords;
+  selectedPlaceId: number | null;
+  places: MapPlaceWithMessage[];
+  onIdle: (newCenter: Coords, level: number) => void;
+  onMarkerClick: (placeId: number) => void;
+}
+
+export const MapPreview = ({
+  initialCenter,
+  places,
+  onIdle,
+  onMarkerClick,
+}: MapPreviewProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<kakao.maps.Map | null>(null);
-  const markerInstance = useRef<kakao.maps.CustomOverlay | null>(null);
+  const markersRef = useRef<Map<number, MapMarkerInstance>>(new Map());
+
+  const debouncedCenterChange = useMemo(
+    () => debounce((map: kakao.maps.Map) => {
+      onIdle({
+        lat: map.getCenter().getLat(),
+        lng: map.getCenter().getLng(),
+      }, map.getLevel());
+    }, 500),
+    [onIdle]
+  );
 
   useEffect(() => {
-  if (!mapRef.current) return;
+    if (!mapRef.current || mapInstance.current) return;
 
-  if (!mapInstance.current) {
     const container = mapRef.current;
-    const center = new kakao.maps.LatLng(coords.lat, coords.lng);
-    mapInstance.current = new kakao.maps.Map(container, { center, level: 1 });
+    const kakaoCenter = new kakao.maps.LatLng(initialCenter.lat, initialCenter.lng);
 
-    const marker = MapMarker({
-      coords,
-      isSelected: false,
-      onClick: () => {
-        console.log("마커 클릭됨");
-      }
+    mapInstance.current = new kakao.maps.Map(container, { center: kakaoCenter, level: 3 });
+
+    kakao.maps.event.addListener(mapInstance.current, 'idle', () => {
+      if (!mapInstance.current) return;
+      debouncedCenterChange(mapInstance.current);
     });
 
-    marker.setMap(mapInstance.current);
-    markerInstance.current = marker;
-  }
-}, [coords]);
+    kakao.maps.event.addListener(mapInstance.current, 'zoom_changed', () => {
+      if (!mapInstance.current) return;
+      debouncedCenterChange(mapInstance.current);
+    });
 
-  return (
-    <div className="flex flex-col gap-4">
-      <div
-        ref={mapRef}
-        className="w-full h-screen"
-      />
-    </div>
-  );
+    return () => {
+      debouncedCenterChange.cancel();
+    };
+  }, [initialCenter, debouncedCenterChange]);
+
+  useEffect(() => {
+  if (!mapInstance.current) return;
+
+  const markerMap = markersRef.current;
+
+  places.forEach(place => {
+    const existing = markerMap.get(place.placeId);
+
+    if (existing) {
+      existing.update(place.visitMessage, place.isSelected);
+    } else {
+      const marker = createMapMarker({
+        place,
+        visitMessage: place.visitMessage,
+        isSelected: place.isSelected,
+        onClick: () => onMarkerClick(place.placeId),
+      });
+      marker.setMap(mapInstance.current);
+      markerMap.set(place.placeId, marker);
+    }
+  });
+
+  Array.from(markerMap.keys()).forEach(placeId => {
+    if (!places.find(p => p.placeId === placeId)) {
+      const marker = markerMap.get(placeId)!;
+      marker.setMap(null);
+      markerMap.delete(placeId);
+    }
+  });
+}, [places, onMarkerClick]);
+
+  return <div ref={mapRef} className="w-full h-screen" />;
 };
