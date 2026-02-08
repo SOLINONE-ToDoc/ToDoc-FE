@@ -10,8 +10,8 @@ export const useLogin = () => {
   const login = async (data: LoginRequest) => {
     setIsLoading(true);
     try {
-      const result = await request<LoginResponse>('/api/users/login', 'POST', data);
-      const { accessToken, expiresIn, ...userInfo } = result;
+      const res = await request<LoginResponse>('/api/users/login', 'POST', data);
+      const { accessToken, expiresIn, ...userInfo } = res.data;
       setAuth(accessToken, userInfo, expiresIn);
 
       return true;

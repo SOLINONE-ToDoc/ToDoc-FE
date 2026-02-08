@@ -11,13 +11,13 @@ export const useBusinessNumberCheck = () => {
     setStatus('checking');
 
     try {
-      const data = await request<BusinessVerifyResponse>(
+      const res = await request<BusinessVerifyResponse>(
         '/api/users/business/verify',
         'POST',
         { businessNumber }
       );
 
-      if (data.valid) {
+      if (res.data.valid) {
         setStatus('available');
       } else {
         setStatus('unavailable');
