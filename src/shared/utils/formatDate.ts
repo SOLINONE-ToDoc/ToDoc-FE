@@ -14,3 +14,18 @@ export const formatDateToYYYYMMDD = (date: string | Date): YYYYMMDD => {
 };
 
 export const getTodayFormatted = (): YYYYMMDD => formatDateToYYYYMMDD(new Date());
+
+export const getRelativeVisitText = (visitedAt: string | null | Date): string => {
+  if (!visitedAt) return "방문 전";
+
+  const visitDate = typeof visitedAt === 'string' ? new Date(visitedAt) : visitedAt;
+  const now = new Date();
+
+  const diffMs = now.getTime() - visitDate.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays <= 7) return '최근 방문';
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)}주 전 방문`;
+  if (diffDays < 365) return `${Math.floor(diffDays / 30)}달 전 방문`;
+  return `${Math.floor(diffDays / 365)}년 전 방문`;
+};
