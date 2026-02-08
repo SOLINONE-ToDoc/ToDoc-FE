@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ICONS } from '@/shared/constants';
 
 export const SignUpSuccessPage = () => {
   const navigate = useNavigate();
@@ -21,21 +22,8 @@ export const SignUpSuccessPage = () => {
   }, [navigate]);
 
   return (
-    <main className="flex flex-col items-center justify-center gap-8 w-full max-w-[750px] mx-auto min-h-screen text-center">
-      <div
-        className="
-          absolute -z-10
-          w-[300px] h-[300px] blur-[130px]
-          lg:w-[460px] lg:h-[460px] lg:blur-[130px]
-          rounded-full opacity-20 bg-brand-gradient
-          animate-gentle-pulse
-        "
-        style={{
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)'
-        }}
-      />
+    <main className="flex flex-col items-center justify-center gap-8 w-full max-w-[750px] mx-auto text-center min-h-[calc(100vh-108px)]">
+      <ICONS.Check />
       <h1 className="text-title lg:text-[28px] font-semibold text-content-primary">
         회원가입 완료!
       </h1>
