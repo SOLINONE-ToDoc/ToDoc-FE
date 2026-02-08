@@ -9,6 +9,7 @@
     -webkit-tap-highlight-color: transparent;
     @apply outline-none focus:outline-none;
   }
+  background-color: #F5F5F5;
 }
 
 input:-webkit-autofill,
