@@ -19,19 +19,6 @@ export const MyNoteList = ({ contents, isLoading }: MyNoteListProps) => {
     );
   }
 
-  if (contents.length === 0) {
-    return (
-      <>
-        <div className="text-heading-1 font-semibold">
-          작성한 방명록이 없어요
-        </div>
-        <div className="text-gray-400 text-body-2 font-regular">
-          방명록이 있는 매장에 내 기록을 남겨보세요
-        </div>
-      </>
-    );
-  }
-
   return (
     <div className={cn(
       "grid gap-x-4 gap-y-4 justify-items-center w-full",
