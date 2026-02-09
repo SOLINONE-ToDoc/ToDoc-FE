@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { BoardContent } from "../model/types";
-import { getBoardStream } from "../service/getBoardStream";
+import { getBoardStream } from "../services/getBoardStream";
 
 export const useBoardStream = (placeId: number | null) => {
   const [contents, setContents] = useState<BoardContent[]>([]);

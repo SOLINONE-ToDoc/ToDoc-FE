@@ -21,3 +21,19 @@ export interface BrifContent {
   fontId: number;
   createdAt: string;
 }
+
+export interface PlaceDetail {
+  placeId: number;
+  placeName: string;
+  hasBoard: boolean;
+  board: {
+    boardId: number;
+    qrUrl: string;
+    themeId: number;
+    contents: BoardContent[];
+  };
+}
+
+export interface ProviderPlaceDetailData {
+  places: PlaceDetail[];
+}
