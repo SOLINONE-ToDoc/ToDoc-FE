@@ -8,7 +8,7 @@ export const Header = () => {
         <MobileHeader />
       </div> */}
 
-      <div className="hidden lg:block">
+      <div className="fixed hidden lg:block z-[9999] left-1/2 -translate-x-1/2 top-0">
         <DesktopHeader />
       </div>
     </>

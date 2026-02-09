@@ -15,8 +15,8 @@ export const DesktopHeader = () => {
   const { selectedPlace, places } = useProviderStore();
 
   return (
-    <header className="relative w-[756px] h-[64px] mt-[44px] mx-auto">
-      <div className="flex items-center justify-between pl-9 p-4 py-3 h-full bg-gray-200 rounded-full ">
+    <header className="w-[724px] h-[64px] mt-[44px] mx-auto">
+      <div className="flex items-center justify-between pl-9 p-4 py-3 h-full bg-gray-200/80 rounded-full backdrop-blur-[60px]">
 
         <div className="flex items-center gap-6">
           <button onClick={() => navigate('/')} className="p-0 m-0 bg-transparent border-0 cursor-pointer">
