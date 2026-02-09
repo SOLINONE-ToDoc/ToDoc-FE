@@ -12,7 +12,9 @@ export const ExploreHeader = () => {
       />
       <div className="relative flex flex-col bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_60%,rgba(255,255,255,0)_100%)]">
         <div className="flex items-start h-[44px] justify-between mt-5 px-5">
-          <Logo width={43} height={24} />
+          <button onClick={() => navigate('/')} className="p-0 m-0 bg-transparent border-0 cursor-pointer">
+              <Logo width={43} height={24} />
+          </button>
           <ICONS.Setting width={24} height={24} />
         </div>
 
