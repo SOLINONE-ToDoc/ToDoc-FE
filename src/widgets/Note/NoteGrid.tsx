@@ -1,18 +1,10 @@
 import { Note } from "@/shared/ui/Note";
 import { formatDate } from '@/shared/utils';
 import { cn } from "@/shared/lib";
-
-export interface ContentResponse {
-  contentId: number;
-  content: string;
-  contentLength: number;
-  fontId: number;
-  themeUrl: string;
-  createdAt: string;
-}
+import type { BoardContent } from "@/entities/board";
 
 interface NoteGridProps {
-  contents: ContentResponse[];
+  contents: BoardContent[];
 }
 
 export const NoteGrid = ({ contents }: NoteGridProps) => {
