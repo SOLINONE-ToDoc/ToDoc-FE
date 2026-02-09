@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProviderBootstrap } from './provider/ProviderBootstrap';
-import { AppLayout, ExploreLayout } from './layouts';
+import { AppLayout, ExploreLayout, ExploreWithLayout } from './layouts';
 import { Footer } from '@/widgets/Footer';
 import { HomePage } from '@/pages/Home';
 import { LoginPage } from '@/pages/Login';
@@ -25,11 +25,15 @@ function App() {
               <Route path="/signup/visitor" element={<VisitorSignUpPage />} />
               <Route path="/signup/provider" element={<ProviderSignUpPage />} />
               <Route path="/signup/success" element={<SignUpSuccessPage />} />
-              <Route path="/place" element={<DashboardPage />} />
             </Route>
 
             <Route element={<ExploreLayout />}>
               <Route path="/map" element={<MapPage />} />
+            </Route>
+
+            <Route element={<ExploreWithLayout />}>
+              <Route path="/map" element={<MapPage />} />
+              <Route path="/place" element={<DashboardPage />} />
             </Route>
 
           </Routes>

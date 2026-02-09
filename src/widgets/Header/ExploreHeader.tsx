@@ -6,7 +6,7 @@ export const ExploreHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 pt-[env(safe-area-inset-top)]">
+    <header className="fixed lg:hidden top-0 left-0 w-full z-50 pt-[env(safe-area-inset-top)]">
       <div
         className="absolute top-0 left-0 w-full h-[120px] "
       />
@@ -30,6 +30,7 @@ export const ExploreHeader = () => {
             지도
           </button>
           <button className="hover:text-content-muted">내 방명록</button>
+          {/* 라우팅 넣어야됨 */}
         </nav>
       </div>
     </header>
