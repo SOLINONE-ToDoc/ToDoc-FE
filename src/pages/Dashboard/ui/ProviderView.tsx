@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { RandomNotes } from '@/widgets/Note';
 import { useProviderBoard } from '@/entities/board';
 import { QrButton } from './QrButton';
+import { LiveTag } from './LiveTag';
 
 export const ProviderView = () => {
   const { placeId } = useParams<{ placeId: string }>();
@@ -17,8 +18,11 @@ return (
           <p className="text-sm">손님들이 글을 남기면 여기에 실시간으로 나타납니다!</p>
         </div>
       )}
-        <div className="fixed right-[46px] top-[44px] z-[9999]">
+      <div className="fixed right-[46px] top-[44px] z-[9999]">
         <QrButton qrUrl={qrUrl} />
+      </div>
+      <div className="fixed right-[46px] bottom-[44px] z-[9999]">
+       <LiveTag />
       </div>
     </div>
   );
