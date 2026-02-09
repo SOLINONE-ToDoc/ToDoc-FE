@@ -7,6 +7,7 @@ export const useProviderBoard = (placeId: number | null) => {
   const [contents, setContents] = useState<BoardContent[]>([]);
   const [placeName, setPlaceName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [qrUrl, setQrUrl] = useState('');
 
   useEffect(() => {
     if (!placeId) return;
@@ -19,6 +20,7 @@ export const useProviderBoard = (placeId: number | null) => {
         if (currentPlace) {
           setPlaceName(currentPlace.placeName);
           setContents(currentPlace.board.contents);
+          setQrUrl(currentPlace.board.qrUrl);
         }
       } catch (error) {
         console.error('사장님 보드 로딩 실패:', error);
@@ -52,5 +54,5 @@ export const useProviderBoard = (placeId: number | null) => {
     };
   }, [placeId]);
 
-  return { contents, placeName, isLoading };
+  return { contents, placeName, qrUrl, isLoading };
 };
