@@ -34,7 +34,7 @@ function App() {
             </Route>
 
             <Route element={<ExploreWithLayout />}>
-              <Route path="/place" element={<DashboardPage />} />
+              <Route path="/place/:placeId" element={<DashboardPage />} />
             </Route>
 
           </Routes>

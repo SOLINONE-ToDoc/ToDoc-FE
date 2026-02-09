@@ -1,90 +1,23 @@
-import { useRef, useState } from 'react';
-import { Note } from '@/shared/ui/Note';
-import { DUMMY_CONTENTS } from './dummys';
-import { formatDate } from '@/shared/utils';
-
-type RandomNote = {
-  x: number;
-  y: number;
-  rotation: 'left' | 'right' | 'none';
-  zIndex: number;
-  bgImage: string;
-};
+import { useParams } from 'react-router-dom';
+import { RandomNotes } from '@/widgets/Note';
+import { useBoardStream } from '@/entities/board';
 
 export const ProviderView = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const NOTE_W = 168;
-  const NOTE_H = 228;
-  const MIN_DISTANCE = 110;
+  // 기존 목록 물러오기 추가해야함
+  const { placeId } = useParams<{ placeId: string }>();
+  const streamContents = useBoardStream(placeId ? Number(placeId) : null);
 
-const [randomNotes] = useState<RandomNote[]>(() => {
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-
-  const placed: RandomNote[] = [];
-
-  DUMMY_CONTENTS.forEach((item, i) => {
-    let attempt = 0;
-    let x = 0;
-    let y = 0;
-
-    while (attempt < 20) {
-      x = Math.random() * (vw - NOTE_W);
-      y = Math.random() * (vh - NOTE_H);
-
-      const tooClose = placed.some(p => {
-        const dx = p.x - x;
-        const dy = p.y - y;
-        return Math.hypot(dx, dy) < MIN_DISTANCE;
-      });
-
-      if (!tooClose) break;
-      attempt++;
-    }
-
-    const bgImage = item.themeUrl && item.themeUrl !== "" ? item.themeUrl : "";
-
-    placed.push({
-      x,
-      y,
-      rotation: Math.random() < 0.33 ? 'left' : Math.random() < 0.66 ? 'right' : 'none',
-      zIndex: i,
-      bgImage,
-    });
-  });
-
-  return placed;
-});
-
-  return (
-    <div
-      ref={containerRef}
-      className="w-full h-screen overflow-hidden relative touch-none"
-    >
-      <div className="relative w-full h-full">
-        {randomNotes.map((random, index) => {
-          const item = DUMMY_CONTENTS[index];
-
-          return (
-            <Note
-              key={item.contentId}
-              size="sm"
-              content={item.content}
-              date={formatDate(item.createdAt)}
-              rotation={random.rotation}
-              baseZIndex={random.zIndex}
-              bgImage={random.bgImage}
-              style={{
-                position: 'absolute',
-                left: `${random.x}px`,
-                top: `${random.y}px`,
-              }}
-              className="hover:scale-105 transition-transform"
-            />
-          );
-        })}
-      </div>
+return (
+    <div className="w-full h-screen overflow-hidden bg-[#F9F9F9] relative">
+      {streamContents.length > 0 ? (
+        <RandomNotes contents={streamContents} />
+      ) : (
+        <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-4">
+          <p className="text-lg font-medium">아직 도착한 방명록이 없어요.</p>
+          <p className="text-sm">손님들이 글을 남기면 여기에 실시간으로 나타납니다!</p>
+        </div>
+      )}
     </div>
   );
 };
