@@ -64,7 +64,7 @@ export const VisitorSignUpPage = () => {
   };
 
   return (
-    <main className="flex flex-col items-center px-5 gap-[64px] lg:gap-[100px] w-full max-w-[750px] mx-auto min-h-screen pt-[140px] lg:pb-[200px]">
+    <main className="flex flex-col items-center px-5 lg:px-0 gap-[64px] lg:gap-[100px] w-full max-w-[760px] mx-auto min-h-screen py-[140px] lg:pb-[200px] lg:pt-[248px]">
       <SignUpForm
         formData={formData}
         onChange={handleChange}

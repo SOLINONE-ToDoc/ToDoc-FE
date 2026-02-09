@@ -146,8 +146,10 @@ export const ProviderSignUpPage = () => {
   };
 
   return (
-    <main className="flex flex-col items-center px-5 gap-[64px] lg:gap-[100px] w-full max-w-[750px] mx-auto min-h-screen pt-[140px] lg:pb-[200px]">
+    <main className="flex flex-col items-center px-5 lg:px-0 gap-[64px] lg:gap-[100px] w-full max-w-[760px] mx-auto min-h-screen py-[140px] lg:pb-[200px] lg:pt-[248px]">
       <div className="flex flex-col w-full gap-10 lg:gap-[68px]">
+        <div className="flex flex-col w-full lg:gap-[64px]">
+        <span className='hidden lg:block lg:text-[28px] font-semibold'>회원가입-사장님</span>
         <Input
           label="이름"
           labelClassName="lg:text-[18px]"
@@ -158,6 +160,7 @@ export const ProviderSignUpPage = () => {
           onChange={handleChange}
           required
         />
+        </div>
         <SignUpForm
           formData={formData}
           onChange={handleChange}
