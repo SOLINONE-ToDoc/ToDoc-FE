@@ -29,8 +29,12 @@ export const ExploreHeader = () => {
           >
             지도
           </button>
-          <button className="hover:text-content-muted">내 방명록</button>
-          {/* 라우팅 넣어야됨 */}
+          <button
+            className="hover:text-content-muted"
+            onClick={() => navigate('/my')}
+          >
+            내 방명록
+            </button>
         </nav>
       </div>
     </header>
