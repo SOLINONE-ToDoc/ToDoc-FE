@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { request } from '@/shared/api';
-import type { SignUpFormData, VisitorSignUpPayload, ProviderSignUpPayload } from '../model/types';
+import type { SignUpFormData, VisitorSignUpPayload, ProviderSignUpPayload, ProviderSignUpRequest } from '../model/types';
 
 export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,25 +9,25 @@ export const useSignUp = () => {
     setIsLoading(true);
     try {
       if (data.userType === 'PROVIDER') {
+        const provider = data as ProviderSignUpRequest;
+
         const payload: ProviderSignUpPayload = {
-          name: data.name,
-          nickname: data.nickname,
-          email: data.email,
-          password: data.password,
-          businessNumber: data.businessNumber,
-          placeName: data.placeName,
-          address: data.address,
-          openedAt: data.openedAt,
-          placeType: data.placeType,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          zoneCode: data.zoneCode,
+          name: provider.name,
+          nickname: provider.nickname,
+          email: provider.email,
+          password: provider.password,
+          businessNumber: provider.businessNumber,
+          placeName: provider.placeName,
+          address: provider.address,
+          openedAt: provider.openedAt,
+          placeType: provider.placeType,
+          latitude: provider.latitude,
+          longitude: provider.longitude,
+          zoneCode: provider.zoneCode,
         };
 
         await request<string>('/api/users/signup/provider', 'POST', payload);
-      }
-
-      else {
+      } else {
         const payload: VisitorSignUpPayload = {
           nickname: data.nickname,
           email: data.email,
@@ -38,16 +38,8 @@ export const useSignUp = () => {
       }
 
       return true;
-
     } catch (error) {
-      let errorMessage = '현재 접속자가 많아 처리가 지연되고 있습니다. 잠시 후 다시 시도해 주세요.';
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else if (error && typeof error === 'object' && 'message' in error) {
-        errorMessage = String(error.message);
-      }
-      alert(errorMessage);
+      alert(error instanceof Error ? error.message : '회원가입에 실패했어요.');
       return false;
     } finally {
       setIsLoading(false);
@@ -56,3 +48,4 @@ export const useSignUp = () => {
 
   return { signUp, isLoading };
 };
+

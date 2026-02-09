@@ -14,8 +14,8 @@ export const useMapPlaces = (coords: Coords | null) => {
     const fetchPlaces = async () => {
       setIsLoading(true);
       try {
-        const data = await getMapPlaces({ lat: coords.lat, lng: coords.lng });
-        if (!cancelled) setPlaces(data);
+        const response = await getMapPlaces({ lat: coords.lat, lng: coords.lng });
+        if (!cancelled) setPlaces(response.data);
       } catch (err) {
         console.error('주변 장소 로딩 실패:', err);
       } finally {
