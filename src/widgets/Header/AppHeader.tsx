@@ -5,7 +5,7 @@ import { DropdownButton } from "@/shared/ui/Button";
 import { useAuthStore } from "@/entities/auth";
 import { useProviderStore } from '@/entities/provider';
 
-export const DesktopHeader = () => {
+export const AppHeader = () => {
   const Logo = ICONS.Logo;
   const navigate = useNavigate();
   const { userInfo, clearAuth } = useAuthStore();
@@ -15,7 +15,7 @@ export const DesktopHeader = () => {
   const { selectedPlace, places } = useProviderStore();
 
   return (
-    <header className="w-[724px] h-[64px] mt-[44px] mx-auto">
+    <header className="fixed hidden lg:block z-[9999] left-1/2 -translate-x-1/2 top-0 w-[724px] h-[64px] mt-[44px] mx-auto">
       <div className="flex items-center justify-between pl-9 p-4 py-3 h-full bg-gray-200/80 rounded-full backdrop-blur-[60px]">
 
         <div className="flex items-center gap-6">

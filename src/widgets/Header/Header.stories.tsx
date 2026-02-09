@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Header } from './Header';
+import { AppHeader } from './AppHeader';
 
-const meta: Meta<typeof Header> = {
+const meta: Meta<typeof AppHeader> = {
   title: 'Shared/Ui/Header',
-  component: Header,
+  component: AppHeader,
   parameters: {
   },
   decorators: [
@@ -16,7 +16,7 @@ const meta: Meta<typeof Header> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Header>;
+type Story = StoryObj<typeof AppHeader>;
 
 export const HeaderStory: Story = {
   parameters: {
