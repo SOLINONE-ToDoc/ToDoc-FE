@@ -30,14 +30,25 @@ export const getRelativeVisitText = (visitedAt: string | null | Date): string =>
   return `${Math.floor(diffDays / 365)}년 전 방문`;
 };
 
-export const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
+export const formatDate = (dateInput: string | Date) => {
+  let date: Date;
+
+  if (typeof dateInput === 'string') {
+    const standardized = dateInput
+      .replace(/\./g, '-')
+      .replace(/^(\d{2}-)/, '20$1');
+    date = new Date(standardized);
+  } else {
+    date = dateInput;
+  }
+
+  if (isNaN(date.getTime())) return String(dateInput);
 
   const year = String(date.getFullYear()).slice(-2);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const month = padZero(date.getMonth() + 1);
+  const day = padZero(date.getDate());
+  const hours = padZero(date.getHours());
+  const minutes = padZero(date.getMinutes());
 
   return `${year}.${month}.${day} ${hours}:${minutes}`;
 };
