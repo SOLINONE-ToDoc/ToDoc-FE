@@ -92,7 +92,7 @@ export const Note: React.FC<NoteProps> = ({
         boxShadow: NOTE_SHADOW,
       }}
       className={cn(
-        'flex flex-col justify-between select-none cursor-pointer transition-all will-change-transform transition-transform duration-300 bg-white',
+        'flex flex-col justify-between select-none cursor-pointer transition-all will-change-transform transition-transform duration-300 bg-white border border-gray-200',
         styles.container,
         ROTATES[rotation],
         isSelected && 'scale-[1.03] brightness-95',
