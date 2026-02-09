@@ -11,6 +11,7 @@ import {
 } from '@/pages/SignUp';
 import { MapPage } from '@/pages/Map';
 import { DashboardPage } from '@/pages/Dashboard';
+import { MyPage } from '@/pages/My/MyPage';
 
 function App() {
   return (
@@ -29,10 +30,10 @@ function App() {
 
             <Route element={<ExploreLayout />}>
               <Route path="/map" element={<MapPage />} />
+              <Route path="/my" element={<MyPage />} />
             </Route>
 
             <Route element={<ExploreWithLayout />}>
-              <Route path="/map" element={<MapPage />} />
               <Route path="/place" element={<DashboardPage />} />
             </Route>
 
