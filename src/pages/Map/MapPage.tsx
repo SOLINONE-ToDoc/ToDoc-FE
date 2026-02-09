@@ -4,6 +4,9 @@ import { useCurrentLocation, useMapPlaces } from "@/features/map";
 import type { Coords, MapPlaceWithMessage } from "@/entities/map";
 import { getDistance } from "@/shared/lib";
 import { getRelativeVisitText } from '@/shared/utils';
+import { type BottomSheetSnap, BottomSheet } from "./ui/BottomSheet";
+import { MapListSheet } from "./ui/MapListSheet";
+import { MapDetailSheet } from "./ui/MapDetailSheet";
 
 export const MapPage = () => {
   const { coords: myLocation, status } = useCurrentLocation();
@@ -11,6 +14,19 @@ export const MapPage = () => {
   const lastFetchedCenter = useRef<Coords | null>(null);
   const lastZoomLevel = useRef<number | null>(null);
   const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null);
+
+  const [sheetSnap, setSheetSnap] = useState<BottomSheetSnap>('min');
+  const [sheetMode, setSheetMode] = useState<'detail' | 'list'>('list');
+  const snapHeights: Record<BottomSheetSnap, number> =
+  sheetMode === 'list'
+    ? { min: 8, mid: 50, max: 90 }
+    : { min: 15, mid: 50, max: 95 };
+
+  const handleMapClick = useCallback(() => {
+    setSelectedMarkerId(null);
+    setSheetSnap('min');
+    setSheetMode('list');
+  }, []);
 
   if (!center && status === 'granted' && myLocation) {
     setCenter(myLocation);
@@ -57,6 +73,9 @@ export const MapPage = () => {
 
   const handleMarkerClick = useCallback((placeId: number) => {
     setSelectedMarkerId(prev => (prev === placeId ? null : placeId));
+    setSelectedMarkerId(placeId);
+    setSheetMode('detail');
+    setSheetSnap('min');
   }, []);
 
   const placesWithMessage: MapPlaceWithMessage[] = useMemo(() => {
@@ -75,8 +94,8 @@ export const MapPage = () => {
         if ((isSelected || distance < 150) && place.myContent) {
           visitMessage = place.myContent;
         }
-        else if (place.lastVistedAt) {
-          visitMessage = getRelativeVisitText(place.lastVistedAt);
+        else if (place.lastVisitedAt) {
+          visitMessage = getRelativeVisitText(place.lastVisitedAt);
         }
       }
 
@@ -92,6 +111,12 @@ export const MapPage = () => {
     });
   }, [places, selectedMarkerId, center]);
 
+  const handlePlaceSelect = (placeId: number) => {
+    setSelectedMarkerId(placeId);
+    setSheetMode('detail');
+    setSheetSnap('min');
+  };
+
   if (!center || status === 'loading' || status === 'idle' || (status === 'granted' && !center)) {
     return <div>로딩 스피너</div>;
   }
@@ -105,14 +130,31 @@ export const MapPage = () => {
   }
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full mt-[30px]">
       <MapPreview
         initialCenter={center}
         selectedPlaceId={selectedMarkerId}
         places={placesWithMessage}
         onIdle={handleMapIdle}
         onMarkerClick={handleMarkerClick}
+        onMapClick={handleMapClick}
       />
+
+      <BottomSheet snap={sheetSnap} heights={snapHeights} onSnapChange={setSheetSnap}>
+        {sheetMode === 'list' && (
+          <MapListSheet
+            places={placesWithMessage}
+            selectedPlaceId={selectedMarkerId}
+            onSelect={handlePlaceSelect}
+          />
+        )}
+        {sheetMode === 'detail' && selectedMarkerId && (
+          <MapDetailSheet
+            places={placesWithMessage}
+            selectedPlaceId={selectedMarkerId}
+          />
+        )}
+      </BottomSheet>
     </div>
   );
 };

@@ -15,6 +15,7 @@ interface MapPreviewProps {
   places: MapPlaceWithMessage[];
   onIdle: (newCenter: Coords, level: number) => void;
   onMarkerClick: (placeId: number) => void;
+  onMapClick: () => void;
 }
 
 export const MapPreview = ({
@@ -22,6 +23,7 @@ export const MapPreview = ({
   places,
   onIdle,
   onMarkerClick,
+  onMapClick,
 }: MapPreviewProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<kakao.maps.Map | null>(null);
@@ -55,10 +57,14 @@ export const MapPreview = ({
       debouncedCenterChange(mapInstance.current);
     });
 
+    kakao.maps.event.addListener(mapInstance.current, 'click', () => {
+      onMapClick();
+    });
+
     return () => {
       debouncedCenterChange.cancel();
     };
-  }, [initialCenter, debouncedCenterChange]);
+  }, [initialCenter, debouncedCenterChange, onMapClick]);
 
   useEffect(() => {
   if (!mapInstance.current) return;
@@ -91,5 +97,5 @@ export const MapPreview = ({
   });
 }, [places, onMarkerClick]);
 
-  return <div ref={mapRef} className="w-full h-screen" />;
+  return <div ref={mapRef} className="w-full h-[calc(100vh-30px)] relative" />;
 };
