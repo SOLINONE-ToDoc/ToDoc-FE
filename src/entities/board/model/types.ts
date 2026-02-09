@@ -13,3 +13,11 @@ export interface Board {
   qrUrl: string;
   contents: BoardContent[];
 }
+
+export interface BrifContent {
+  contentId: number;
+  content: string;
+  themeUrl: string;
+  fontId: number;
+  createdAt: string;
+}
