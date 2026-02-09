@@ -48,7 +48,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <main className="flex flex-col items-center px-5 w-full max-w-[750px] mx-auto min-h-screen justify-center pt-0 lg:pb-[200px] lg:pt-[80px]">
+    <main className="flex flex-col items-center px-5 lg:px-0 w-full max-w-[760px] mx-auto min-h-screen justify-center pt-0 lg:pb-[200px] lg:pt-[188px]">
       <LoginHeader />
       <LoginForm
         formData={formData}
