@@ -8,22 +8,22 @@ const NOTE_SHADOW = '0 0 12px rgba(0, 0, 0, 0.06)';
 
 const SIZES: Record<NoteSize, { container: string; content: string; date: string }> = {
   sm: {
-    container: 'w-[168px] h-[228px] p-4 rounded-[4px] gap-[10px]',
+    container: 'w-[168px] h-[228px] p-4 gap-[10px]',
     content: 'text-body-1 font-regular',
     date: 'text-[12px] font-medium',
   },
   md: {
-    container: 'w-[184px] h-[248px] p-4 rounded-[4px] gap-[10px]',
+    container: 'w-[184px] h-[248px] p-4 gap-[10px]',
     content: 'text-[18px] font-regular',
     date: 'text-[14px] font-medium',
   },
   lg: {
-    container: 'w-[212px] h-[284px] p-5 rounded-[5px] gap-3',
+    container: 'w-[212px] h-[284px] p-5 gap-3',
     content: 'text-[20px] font-regular',
     date: 'text-[14px] font-medium',
   },
   xl: {
-    container: 'w-[248px] h-[332px] p-6 rounded-[6px] gap-[14px]',
+    container: 'w-[248px] h-[332px] p-6 gap-[14px]',
     content: 'text-[24px] font-regular',
     date: 'text-[16px] font-medium',
   },
