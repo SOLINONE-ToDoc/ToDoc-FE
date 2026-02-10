@@ -5,6 +5,7 @@ import ImgStep3 from '../assets/images/step3.svg?react';
 import ImgStep3Hover from '../assets/images/step3hover.svg?react';
 import ImgStep4 from '../assets/images/step4.svg?react';
 import ImgStep4Hover from '../assets/images/step4hover.svg?react';
+import ImgKeyCaps from '../assets/images/keycaps.svg?react';
 
 export const IMAGES = {
   Step1: ImgStep1,
@@ -14,5 +15,5 @@ export const IMAGES = {
   Step3Hover: ImgStep3Hover,
   Step4: ImgStep4,
   Step4Hover: ImgStep4Hover,
-
+  KeyCaps: ImgKeyCaps,
 } as const;
