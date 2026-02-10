@@ -14,6 +14,8 @@ import IcCheck from '../assets/icons/check.svg?react';
 import IcDown from '../assets/icons/down.svg?react';
 import IcLogin from '../assets/icons/login.svg?react';
 import IcEmpty from '../assets/icons/empty.svg?react';
+import IcPlus from '../assets/icons/plus.svg?react';
+import IcPencil from '../assets/icons/pencil.svg?react';
 
 export const ICONS = {
   Logo: IcLogo,
@@ -32,4 +34,6 @@ export const ICONS = {
   Down: IcDown,
   Login: IcLogin,
   Empty: IcEmpty,
+  Plus: IcPlus,
+  Pencil: IcPencil,
 } as const;

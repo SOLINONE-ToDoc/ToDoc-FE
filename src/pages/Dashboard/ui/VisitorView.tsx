@@ -5,6 +5,7 @@ import { NoteGrid } from '@/widgets/Note';
 import { cn } from '@/shared/lib';
 import { useVisitorBoard } from '@/entities/board';
 import { usePlaceStore } from '@/entities/place';
+import { WriteButton } from './WriteButton';
 
 export const VisitorView = () => {
 
@@ -67,6 +68,9 @@ export const VisitorView = () => {
       >
         <NoteGrid contents={contents} />
       </motion.div>
+      <div className="fixed right-[24px] bottom-[24px] z-[9999]">
+        <WriteButton />
+      </div>
     </div>
   );
 };
