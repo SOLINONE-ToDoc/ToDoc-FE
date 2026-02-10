@@ -17,6 +17,7 @@ import { MapPage } from '@/pages/Map';
 import {
   DashboardPage,
   DashboardWritePage,
+  DashboardWriteLoadingPage,
 } from '@/pages/Dashboard';
 import { MyPage } from '@/pages/My/MyPage';
 
@@ -44,6 +45,7 @@ function App() {
             </Route>
 
             <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
+            <Route path="/place/:placeId/write/loading" element={<DashboardWriteLoadingPage />} />
 
           </Routes>
         </main>
