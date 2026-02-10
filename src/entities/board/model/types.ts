@@ -45,3 +45,9 @@ export interface UserBoard {
   qrUrl: string;
   contents: BoardContent[];
 }
+
+export interface WriteStore {
+  content: string;
+  setContent: (content: string) => void;
+  reset: () => void;
+}

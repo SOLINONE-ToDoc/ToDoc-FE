@@ -43,7 +43,7 @@ function App() {
               <Route path="/place/:placeId" element={<DashboardPage />} />
             </Route>
 
-              <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
+            <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
 
           </Routes>
         </main>

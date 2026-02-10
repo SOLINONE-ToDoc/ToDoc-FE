@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePlaceInfo } from "@/entities/place";
+import { useWriteStore } from "@/entities/board";
 import { ICON_LOCATION } from "./assets/icons";
-import { ICONS } from "@/shared/constants";
 import { ConfirmPopup } from "@/shared/ui/Popup";
+import { TopNavigationBar } from "@/widgets/Navigation";
 
 export const DashboardWritePage = () => {
   const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
   const { placeName } = usePlaceInfo(Number(placeId));
 
-  const [content, setContent] = useState('');
+  const { content, setContent, reset } = useWriteStore();
   const [showPopup, setShowPopup] = useState(false);
   const MAX_LENGTH = 60;
 
@@ -23,35 +24,37 @@ export const DashboardWritePage = () => {
   const handleBackClick = () => {
     if (content.length > 0) {
       setShowPopup(true);
+    } else {
+      navigate(-1);
     }
+  };
+
+  const handleConfirmBack = () => {
+    reset();
+    navigate(-1);
+  };
+
+  const handleNext = () => {
+    navigate(`/place/${placeId}/write/loading`);
   };
 
   return (
     <div className="flex flex-col h-screen bg-white">
-      <header className="sticky top-0 z-50 flex items-center h-[56px] px-5 bg-white">
-        <div className="flex-1 flex items-center">
+      <TopNavigationBar
+        title="작성하기"
+        onBack={handleBackClick}
+        rightElement={
           <button
-            type="button"
-            onClick={handleBackClick}
-            className="w-6 h-6 flex items-center justify-center"
-          >
-            <ICONS.Back width={24} height={24} />
-          </button>
-        </div>
-        <div className="flex-[2] flex items-center justify-center">
-          <h1 className="text-heading-1 font-medium whitespace-nowrap">작성하기</h1>
-        </div>
-        <div className="flex-1 flex items-center justify-end">
-          <button
-            type="button"
+            onClick={handleNext}
             disabled={content.length === 0}
-            className={`text-heading-1 font-semibold transition-colors ${content.length > 0 ? "text-content-primary" : "text-gray-300"
-              }`}
+            className={`text-heading-1 font-semibold ${
+              content.length > 0 ? "text-content-primary" : "text-gray-300"
+            }`}
           >
             다음
           </button>
-        </div>
-      </header>
+        }
+      />
       <div className="flex items-center h-[56px] gap-2 pt-3 px-5 pb-5 border-b border-gray-200">
         <ICON_LOCATION className="text-content-primary" />
         <h1 className="text-body-1 font-regular">{placeName}</h1>
@@ -83,7 +86,7 @@ export const DashboardWritePage = () => {
       <ConfirmPopup
         title={<>뒤로 가면 작성한 내용이<br />모두 사라져요</>}
         onCancel={() => setShowPopup(false)}
-        onConfirm={() => navigate(-1)}
+        onConfirm={handleConfirmBack}
       />
     )}
     </div>
