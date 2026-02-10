@@ -1,5 +1,5 @@
 import { request } from '@/shared/api';
-import type { ProviderPlaceDetailData, Board } from '../model/types';
+import type { ProviderPlaceDetailData, UserBoard } from '../model/types';
 
 export const boardService = {
   getProviderPlaceDetail: async (placeId: number) => {
@@ -7,6 +7,6 @@ export const boardService = {
   },
 
   getBoardDetail: async (placeId: number) => {
-    return request<Board>(`/api/boards/${placeId}`, 'GET');
+    return request<UserBoard>(`/api/boards/${placeId}`, 'GET');
   }
 };

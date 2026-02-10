@@ -8,6 +8,7 @@ export const useVisitorBoard = (placeId: number | null) => {
   const [isLoading, setIsLoading] = useState(true);
   const [qrUrl, setQrUrl] = useState('');
   const [themeId, setThemeId] = useState<number | null>(null);
+  const [placeName, setPlaceName] = useState('');
 
   useEffect(() => {
     if (!placeId) return;
@@ -22,6 +23,7 @@ export const useVisitorBoard = (placeId: number | null) => {
           setContents(boardData.contents);
           setQrUrl(boardData.qrUrl);
           setThemeId(boardData.themeId);
+          setPlaceName(boardData.placeName);
         }
       } catch (error) {
         console.error('방문자 보드 로딩 실패:', error);
@@ -55,5 +57,5 @@ export const useVisitorBoard = (placeId: number | null) => {
     };
   }, [placeId]);
 
-  return { contents, qrUrl, themeId, isLoading };
+  return { contents, qrUrl, themeId, isLoading, placeName };
 };
