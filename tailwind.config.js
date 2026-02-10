@@ -18,10 +18,30 @@ export default {
         'gentle-pulse': {
           '0%, 100%': { opacity: '0.2' },
           '50%': { opacity: '0.3' },
+        },
+        'scan-with-hold': {
+          '0%': { transform: 'translateY(-20px)' },
+          '45%, 55%': { transform: 'translateY(65px)' },
+          '100%': { transform: 'translateY(-20px)' },
+        },
+        'shadow-flip': {
+          '0%, 10%': { opacity: '0' },
+          '15%, 40%': {
+            transform: 'scaleY(1) translateY(-15px)',
+            opacity: '1'
+          },
+          '45%, 55%': { opacity: '0' },
+          '60%, 85%': {
+            transform: 'scaleY(-1) translateY(44px)',
+            opacity: '1'
+          },
+          '90%, 100%': { opacity: '0' }
         }
       },
       animation: {
         'gentle-pulse': 'gentle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'scan-with-hold': 'scan-with-hold 4s ease-in-out infinite',
+        'shadow-flip': 'shadow-flip 4s ease-in-out infinite',
       },
       backgroundImage: {
         'brand-gradient': 'linear-gradient(45deg, #ff5546 1%, #9747ff 50%, #ff5546 100%)',
