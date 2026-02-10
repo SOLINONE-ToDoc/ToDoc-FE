@@ -41,7 +41,15 @@ export const LoginPage = () => {
     if (userInfo?.role === 'PROVIDER') {
       const { fetchPlaces } = useProviderStore.getState();
       await fetchPlaces();
-      navigate('/place');
+      const updatedPlaces = useProviderStore.getState().places;
+
+      if (updatedPlaces && updatedPlaces.length > 0) {
+
+        const firstPid = updatedPlaces[0].placeId;
+        navigate(`/place/${firstPid}`);
+      } else {
+        navigate('/place');
+      }
     } else {
       navigate('/');
     }
