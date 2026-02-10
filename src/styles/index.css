@@ -3,13 +3,16 @@
 @tailwind utilities;
 
 @layer base {
-  button, 
-  a, 
+  body {
+    background-color: #F5F5F5;
+  }
+
+  button,
+  a,
   [role="button"] {
     -webkit-tap-highlight-color: transparent;
     @apply outline-none focus:outline-none;
   }
-  background-color: #F5F5F5;
 }
 
 input:-webkit-autofill,
@@ -20,8 +23,10 @@ input:-webkit-autofill:active {
 }
 
 body {
-  @apply font-pretendard antialiased text-content-primary bg-surface-base;
+  font-family: 'Pretendard', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  @apply antialiased text-content-primary bg-surface-base;
 }
+
 
 ::selection {
   background-color: #FFD0CC;

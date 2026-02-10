@@ -77,8 +77,8 @@ export const DashboardWriteFont = () => {
         fontId: selectedFontId,
         content: contentWrite,
         themeUrl: "",
-        userLatitude: 37.561478,
-        userLongitude: 126.985707,
+        userLatitude: coords.lat,
+        userLongitude: coords.lng,
       };
 
       // { lat: 37.561478, lng: 126.985707 };

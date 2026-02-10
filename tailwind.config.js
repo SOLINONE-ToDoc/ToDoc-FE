@@ -1,12 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { FONTS } from './src/shared/constants/fonts';
-
-const tailwindFontFamily = Object.values(FONTS).reduce((acc, font) => {
-  const key = font.tailwindClass.replace('font-', '');
-  acc[key] = [font.fontFamily, 'sans-serif'];
-  return acc;
-}, {});
-
 export default {
   content: [
     "./index.html",
@@ -127,8 +119,6 @@ export default {
         'body-2': ['14px', { lineHeight: 'normal' }],
         'caption': ['12px', { lineHeight: '16px' }],
       },
-
-      fontFamily: tailwindFontFamily,
     },
   },
   plugins: [],
