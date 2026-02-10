@@ -9,7 +9,7 @@ interface MapMarkerOptions {
   onClick?: () => void;
 }
 
-export const createMapMarker = ({ place, isSelected = false, onClick }: MapMarkerOptions) => {
+export const createMapMarker = ({ place, visitMessage, isSelected = false, onClick }: MapMarkerOptions) => {
   const { latitude, longitude } = place;
 
   const container = document.createElement("div");
@@ -50,8 +50,6 @@ export const createMapMarker = ({ place, isSelected = false, onClick }: MapMarke
   messageDiv.style.whiteSpace = "nowrap";
   messageDiv.style.textAlign = "center";
   messageDiv.style.pointerEvents = "none";
-  container.appendChild(messageDiv);
-
   const updateMessage = (msg: string | null) => {
     if (msg) {
       messageDiv.innerText = msg;
@@ -60,6 +58,10 @@ export const createMapMarker = ({ place, isSelected = false, onClick }: MapMarke
       messageDiv.style.display = 'none';
     }
   };
+
+  container.appendChild(messageDiv);
+
+  updateMessage(visitMessage);
 
   const textContainer = document.createElement("div");
   textContainer.style.display = "flex";

@@ -94,22 +94,32 @@ export const MapPage = () => {
       const isSelected = selectedMarkerId === place.placeId;
       let visitMessage: string | null = null;
 
-      if (place.myStatus === 'VISITED') {
-        const distance = getDistance(
-          { lat: place.latitude, lng: place.longitude },
-          center
-        );
-
-        if ((isSelected || distance < 150) && place.myContent) {
-          visitMessage = place.myContent;
+      if (isSelected) {
+        if (place.myStatus === 'VISITED') {
+          if (place.myContent) {
+            visitMessage = place.myContent;
+          } else if (place.lastVisitedAt) {
+            visitMessage = getRelativeVisitText(place.lastVisitedAt);
+          } else {
+            visitMessage = '방문한 장소';
+          }
+        } else if (place.myStatus === 'RECENT') {
+          visitMessage = '최근 방문';
+        } else if (place.myStatus === null) {
+          visitMessage = '방문 전';
         }
-        else if (place.lastVisitedAt) {
-          visitMessage = getRelativeVisitText(place.lastVisitedAt);
+      } else {
+        if (place.myStatus === 'VISITED') {
+          const distance = getDistance(
+            { lat: place.latitude, lng: place.longitude },
+            center
+          );
+          if (distance < 150 && place.myContent) {
+            visitMessage = place.myContent;
+          } else if (place.lastVisitedAt) {
+            visitMessage = getRelativeVisitText(place.lastVisitedAt);
+          }
         }
-      }
-
-      if (place.myStatus === null && isSelected) {
-        visitMessage = '방문 전';
       }
 
       return {
