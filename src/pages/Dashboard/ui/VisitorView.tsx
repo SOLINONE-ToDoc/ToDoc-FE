@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { NoteGrid } from '@/widgets/Note';
@@ -6,9 +6,10 @@ import { cn } from '@/shared/lib';
 import { useVisitorBoard } from '@/entities/board';
 import { usePlaceStore } from '@/entities/place';
 import { WriteButton } from './WriteButton';
+import { PlaceTag } from './PlaceTag';
 
 export const VisitorView = () => {
-
+  const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
   const { setLastSelectedPlaceId } = usePlaceStore();
 
@@ -18,7 +19,17 @@ export const VisitorView = () => {
     }
   }, [placeId, setLastSelectedPlaceId]);
 
-  const { contents } = useVisitorBoard(Number(placeId));
+  const { contents, placeName } = useVisitorBoard(Number(placeId));
+
+  const handleWriteNavigation = () => {
+    if (placeId) {
+      navigate(`/place/${placeId}/write`);
+    }
+  };
+
+  const handleMyNote = () => {
+    // 내 보드 찾는거 만들어야함
+  };
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -68,8 +79,14 @@ export const VisitorView = () => {
       >
         <NoteGrid contents={contents} />
       </motion.div>
+      <div className="fixed left-[24px] bottom-[32px] z-[9999]">
+        <PlaceTag placeName={placeName} />
+      </div>
       <div className="fixed right-[24px] bottom-[24px] z-[9999]">
-        <WriteButton />
+        <WriteButton
+          onWriteClick={handleWriteNavigation}
+          onSearchMyNoteClick={handleMyNote}
+        />
       </div>
     </div>
   );

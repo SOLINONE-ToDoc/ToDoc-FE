@@ -1,6 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProviderBootstrap } from './provider/ProviderBootstrap';
-import { AppLayout, ExploreLayout, ExploreWithLayout } from './layouts';
+import {
+  AppLayout,
+  ExploreLayout,
+  ExploreWithLayout,
+  WriteLayout,
+} from './layouts';
 import { Footer } from '@/widgets/Footer';
 import { HomePage } from '@/pages/Home';
 import { LoginPage } from '@/pages/Login';
@@ -10,7 +15,10 @@ import {
   SignUpSuccessPage,
 } from '@/pages/SignUp';
 import { MapPage } from '@/pages/Map';
-import { DashboardPage } from '@/pages/Dashboard';
+import {
+  DashboardPage,
+  DashboardWritePage,
+} from '@/pages/Dashboard';
 import { MyPage } from '@/pages/My/MyPage';
 
 function App() {
@@ -19,7 +27,6 @@ function App() {
       <ProviderBootstrap>
         <main className="flex-1">
           <Routes>
-
             <Route element={<AppLayout />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -35,6 +42,10 @@ function App() {
 
             <Route element={<ExploreWithLayout />}>
               <Route path="/place/:placeId" element={<DashboardPage />} />
+            </Route>
+
+            <Route element={<WriteLayout />}>
+              <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
             </Route>
 
           </Routes>

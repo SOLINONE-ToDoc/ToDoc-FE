@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { ICONS } from '@/shared/constants';
 import { Button } from '@/shared/ui/Button';
 
-export const WriteButton = () => {
+interface WriteButtonProps {
+  onWriteClick: () => void;
+  onSearchMyNoteClick: () => void;
+}
+
+export const WriteButton = ({ onWriteClick, onSearchMyNoteClick }: WriteButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +32,10 @@ export const WriteButton = () => {
               size="text"
               variant="plain"
               leftIcon={<ICONS.Pencil />}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                onWriteClick();
+                setIsOpen(false);
+              }}
               className="flex items-center justify-start gap-2 text-left w-full text-body-1 font-regular"
             >
               방명록 작성하기
@@ -37,7 +45,10 @@ export const WriteButton = () => {
               size="text"
               variant="plain"
               leftIcon={<ICONS.Search />}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                onSearchMyNoteClick();
+                setIsOpen(false);
+              }}
               className="flex items-center justify-start gap-2 text-left w-full text-body-1 font-regular"
             >
               내 방명록 찾기

@@ -16,13 +16,9 @@ export const DashboardPage = () => {
     }
   }, [userInfo, status, handleLocation]);
 
-  // 2. 사장님(PROVIDER)인 경우
   if (userInfo?.role === 'PROVIDER') {
-    // 나중에 가게 선택이 안 되어 있을 때의 로직(ProviderBoardCreatePage 등)을
-    // 여기서 분기하거나 ProviderView 내부에서 처리하면 됩니다.
     return <ProviderView />;
   }
 
-  // 3. 방문자(VISITOR)인 경우
   return <VisitorView />;
 };

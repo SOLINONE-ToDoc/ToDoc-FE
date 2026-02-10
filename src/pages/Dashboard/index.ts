@@ -1,1 +1,2 @@
-export * from './Dashboard';
+export * from './DashboardPage';
+export * from './DashboardWritePage';
