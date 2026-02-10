@@ -51,7 +51,6 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
             key={`row-${actualRowIndex}`}
             className={cn(
               "flex gap-[12px] justify-center",
-              actualRowIndex % 2 === 0 ? "ml-[92px]" : "mr-[92px]"
             )}
           >
             {visibleCols.map((item, relativeColIndex) => {
