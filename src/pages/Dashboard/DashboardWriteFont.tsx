@@ -11,6 +11,7 @@ import { FontRecommendSheet } from "./ui/FontRecommendSheet";
 import { FontTag } from "./ui/FontTag";
 import { postBoardContent } from "@/features/board";
 import { useLocationStore } from '@/entities/map';
+import { loadFontById } from "@/shared/lib";
 
 export const DashboardWriteFont = () => {
   const navigate = useNavigate();
@@ -32,7 +33,13 @@ export const DashboardWriteFont = () => {
   const [sheetSnap, setSheetSnap] = useState<BottomSheetSnap>('min');
   const snapHeights: Record<BottomSheetSnap, number> = { min: 30, mid: 40, max: 75 };
   const currentSheetHeight = snapHeights[sheetSnap];
-//   const mock = { lat: 37.561478, lng: 126.985707 };
+
+  useEffect(() => {
+    if (selectedFontId) {
+      loadFontById(selectedFontId);
+    }
+  }, [selectedFontId]);
+  //   const mock = { lat: 37.561478, lng: 126.985707 };
   useEffect(() => {
     if (!selectedFontId && recommendFonts.length > 0) {
       setSelectedFont(recommendFonts[0]);
@@ -64,19 +71,18 @@ export const DashboardWriteFont = () => {
       alert("위치 정보를 가져올 수 없습니다. GPS 설정을 확인해주세요.");
       return;
     }
-console.log(coords.lat, coords.lng);
+    console.log(coords.lat, coords.lng);
     try {
       const payload = {
         fontId: selectedFontId,
         content: contentWrite,
-        themeUrl: ""
+        themeUrl: "",
+        userLatitude: 37.561478,
+        userLongitude: 126.985707,
       };
 
-      const res = await postBoardContent(
-        placeId,
-        { latitude: coords.lat, longitude: coords.lng },
-        payload
-      );
+      // { lat: 37.561478, lng: 126.985707 };
+      const res = await postBoardContent(placeId, payload);
 
       if (res.status === "SUCCESS") {
         resetRecommend();

@@ -41,21 +41,21 @@ export const MapPage = () => {
     }
   }, [status, handleLocation]);
 
-  useEffect(() => {
-    if (status === 'granted' && myLocation && !center) {
-      setTimeout(() => {
-        setCenter(myLocation);
-        lastFetchedCenter.current = myLocation;
-        lastZoomLevel.current = 1;
-      }, 0);
-    }
-  }, [status, myLocation, center]);
-
   // useEffect(() => {
-  //   const mock = { lat: 37.561478, lng: 126.985707 };
-  //   setCenter(mock);
-  //   lastFetchedCenter.current = mock;
-  // }, []);
+  //   if (status === 'granted' && myLocation && !center) {
+  //     setTimeout(() => {
+  //       setCenter(myLocation);
+  //       lastFetchedCenter.current = myLocation;
+  //       lastZoomLevel.current = 1;
+  //     }, 0);
+  //   }
+  // }, [status, myLocation, center]);
+
+  useEffect(() => {
+    const mock = { lat: 37.561478, lng: 126.985707 };
+    setCenter(mock);
+    lastFetchedCenter.current = mock;
+  }, []);
 
   const { places } = useMapPlaces(center);
 

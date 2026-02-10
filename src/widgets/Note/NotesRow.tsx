@@ -1,6 +1,7 @@
 import { Note } from '@/shared/ui/Note';
 import type { BrifContent } from '@/entities/board';
 import { formatDate } from '@/shared/utils';
+import { FONT_MAP } from '@/entities/font';
 
 interface NotesRowProps {
   contents: BrifContent[];
@@ -28,6 +29,9 @@ export const NotesRow = ({ contents }: NotesRowProps) => {
               rotation={isOdd ? 'right' : 'left'}
               baseZIndex={total - index}
               bgImage={item.themeUrl ?? undefined}
+              style={{
+                fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+              }}
             />
           </div>
         );

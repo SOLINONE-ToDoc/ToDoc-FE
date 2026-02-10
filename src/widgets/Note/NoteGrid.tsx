@@ -2,6 +2,7 @@ import { Note } from "@/shared/ui/Note";
 import { formatDate } from '@/shared/utils';
 import { cn } from "@/shared/lib";
 import type { BoardContent } from "@/entities/board";
+import { FONT_MAP } from "@/entities/font";
 
 interface NoteGridProps {
   contents: BoardContent[];
@@ -57,6 +58,9 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
                     date={formatDate(item.createdAt)}
                     baseZIndex={50 + actualRowIndex}
                     bgImage={item.themeUrl || undefined}
+                    style={{
+                      fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+                    }}
                   />
                 ) : (
                   <div className="w-[168px] h-[168px]" />

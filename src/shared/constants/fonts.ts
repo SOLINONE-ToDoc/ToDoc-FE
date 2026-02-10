@@ -1,6 +1,9 @@
 export interface FontInfo {
-  label: string;
-  fontFamily: string;
+  fontId: number;
+  fontName: string;
+  fontNameEng: string;
+  category: string;
+  field: string;
   tailwindClass: string;
   src: string;
 }
@@ -13,10 +16,12 @@ export const FONTS = {
     src: '../../shared/assets/fonts/HakgyoansimYieodalligiL.woff2',
   },
   galmuri9: {
+    id: 19,
     label: '갈무리9',
     fontFamily: 'Galmuri9',
     tailwindClass: 'font-galmuri-9',
     src: '../../shared/assets/fonts/Galmuri9.woff2',
+    category: 'RETRO',
   },
   kccSonGigeong: {
     label: 'kcc손기정체',
@@ -311,6 +316,12 @@ export const FONTS = {
     fontFamily: 'Nanum Myeongjo',
     tailwindClass: 'font-nanum-myeongjo',
     src: "url('https://fonts.gstatic.com/ea/nanummyeongjo/v2/NanumMyeongjo-Regular.woff2')",
+  },
+  nanumSquareNeo: {
+    label: '나눔스퀘어네오',
+    fontFamily: 'NanumSquareNeo',
+    tailwindClass: 'font-nanum-square-neo',
+    src: "url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-aLt.woff2')"
   },
   nanumSquareNeo: {
     label: '나눔스퀘어네오',

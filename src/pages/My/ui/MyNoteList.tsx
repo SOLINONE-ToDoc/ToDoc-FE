@@ -1,6 +1,7 @@
 import { Note } from '@/shared/ui/Note';
 import { formatDate } from '@/shared/utils';
 import type { BrifContent } from '@/entities/board';
+import { FONT_MAP } from '@/entities/font';
 import { cn } from '@/shared/lib';
 
 interface MyNoteListProps {
@@ -13,7 +14,7 @@ export const MyNoteList = ({ contents, isLoading }: MyNoteListProps) => {
     return (
       <div className="grid grid-cols-2 gap-4">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i}/>
+          <div key={i} />
         ))}
       </div>
     );
@@ -35,6 +36,9 @@ export const MyNoteList = ({ contents, isLoading }: MyNoteListProps) => {
             size="sm"
             baseZIndex={10}
             bgImage={note.themeUrl === "string" ? undefined : note.themeUrl}
+            style={{
+              fontFamily: FONT_MAP[note.fontId]?.fontFamily,
+            }}
           />
         </div>
       ))}

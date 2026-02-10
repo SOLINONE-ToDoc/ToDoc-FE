@@ -1,13 +1,14 @@
 import { Note } from "@/shared/ui/Note";
 import { formatDate } from "@/shared/utils";
 import type { BrifContent } from '@/entities/board';
+import { FONT_MAP } from '@/entities/font';
 
 interface ThreeNotesProps {
   contents: BrifContent[];
 }
 
 export const ThreeNotes = ({ contents }: ThreeNotesProps) => {
-  const displayContents = contents?.slice(0,3) ?? [];
+  const displayContents = contents?.slice(0, 3) ?? [];
 
   if (displayContents.length === 0) return null;
 
@@ -21,6 +22,9 @@ export const ThreeNotes = ({ contents }: ThreeNotesProps) => {
             size="sm"
             baseZIndex={1000}
             bgImage={item.themeUrl ?? undefined}
+            style={{
+              fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+            }}
           />
         </div>
       ))}

@@ -3,12 +3,15 @@ import { RandomNotes } from '@/widgets/Note';
 import { useProviderBoard } from '@/entities/board';
 import { QrButton } from './QrButton';
 import { LiveTag } from './LiveTag';
+import { useFontPreload } from '@/shared/hooks';
 
 export const ProviderView = () => {
   const { placeId } = useParams<{ placeId: string }>();
   const { contents, qrUrl } = useProviderBoard(Number(placeId));
+  const fontIds = contents.map(c => c.fontId);
+  useFontPreload(fontIds);
 
-return (
+  return (
     <div className="w-full h-screen overflow-hidden bg-[#F9F9F9] relative">
       {contents.length > 0 ? (
         <RandomNotes contents={contents} />
@@ -22,7 +25,7 @@ return (
         <QrButton qrUrl={qrUrl} />
       </div>
       <div className="fixed right-[46px] bottom-[44px] z-[9999]">
-       <LiveTag />
+        <LiveTag />
       </div>
     </div>
   );

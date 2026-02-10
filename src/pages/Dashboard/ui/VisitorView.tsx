@@ -7,6 +7,7 @@ import { useVisitorBoard } from '@/entities/board';
 import { usePlaceStore } from '@/entities/place';
 import { WriteButton } from './WriteButton';
 import { PlaceTag } from './PlaceTag';
+import { useFontPreload } from '@/shared/hooks';
 
 export const VisitorView = () => {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ export const VisitorView = () => {
   }, [placeId, setLastSelectedPlaceId]);
 
   const { contents, placeName } = useVisitorBoard(Number(placeId));
+
+  const fontIds = contents.map((c) => c.fontId);
+  useFontPreload(fontIds);
 
   const handleWriteNavigation = () => {
     if (placeId) {

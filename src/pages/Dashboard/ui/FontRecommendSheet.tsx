@@ -15,7 +15,6 @@ export const FontRecommendSheet = () => {
           <h3 className="text-heading-1 font-semibold text-content-primary">
             폰트 추천
           </h3>
-          <AI.AiSearch />
         </div>
         <div className="flex items-center gap-2">
           <AI.Ai />
@@ -47,7 +46,8 @@ export const FontRecommendSheet = () => {
     ${isSelected ? "" : "bg-gray-100 border-2 border-transparent"}`}
             >
               <div className="flex flex-col gap-2 ">
-                <span className="text-heading-1 font-semibold text-black whitespace-nowrap truncate">
+                <span className="text-heading-1 font-semibold text-black whitespace-nowrap truncate"
+                  style={{ fontFamily: font.fontNameEng }}>
                   {font.fontName}
                 </span>
                 <p className="text-body-2 font-regular text-gray-400 line-clamp-2">
@@ -85,8 +85,9 @@ export const FontRecommendSheet = () => {
                 onClick={() => setSelectedFont(font)}
                 className={`w-[168px] flex-shrink-0 flex flex-col gap-1 p-4 rounded-[4px] transition-all text-left text-body-1 font-regular truncate
                 ${isSelected ? "bg-[#FF5546] text-white" : "bg-gray-100"}`}
+                style={{ fontFamily: font.fontNameEng }}
               >
-                  {font.fontName}
+                {font.fontName}
               </button>
             );
           })}

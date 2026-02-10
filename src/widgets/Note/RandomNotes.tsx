@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Note } from '@/shared/ui/Note';
 import { formatDate } from '@/shared/utils';
 import type { BoardContent } from '@/entities/board';
+import { FONT_MAP } from '@/entities/font';
 
 interface NotePosition {
   x: number;
@@ -69,6 +70,7 @@ export const RandomNotes = ({ contents }: { contents: BoardContent[] }) => {
               position: 'absolute',
               left: pos.x,
               top: pos.y,
+              fontFamily: FONT_MAP[item.fontId]?.fontFamily,
             }}
           />
         );
