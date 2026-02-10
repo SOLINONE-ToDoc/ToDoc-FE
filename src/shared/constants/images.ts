@@ -6,6 +6,7 @@ import ImgStep3Hover from '../assets/images/step3hover.svg?react';
 import ImgStep4 from '../assets/images/step4.svg?react';
 import ImgStep4Hover from '../assets/images/step4hover.svg?react';
 import ImgKeyCaps from '../assets/images/keycaps.svg?react';
+import ImgMock from '../assets/images/mock.svg?react';
 
 export const IMAGES = {
   Step1: ImgStep1,
@@ -17,3 +18,5 @@ export const IMAGES = {
   Step4Hover: ImgStep4Hover,
   KeyCaps: ImgKeyCaps,
 } as const;
+
+export const Mock = ImgMock;
