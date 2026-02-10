@@ -1,9 +1,11 @@
-import { ICONS } from "@/shared/constants";
 import { useNavigate } from "react-router-dom";
+import { usePlaceStore } from "@/entities/place";
+import { ICONS } from "@/shared/constants";
 
 export const ExploreHeader = () => {
   const Logo = ICONS.Logo;
   const navigate = useNavigate();
+  const { lastSelectedPlaceId } = usePlaceStore();
 
   return (
     <header className="fixed lg:hidden top-0 left-0 w-full z-50 pt-[env(safe-area-inset-top)]">
@@ -21,7 +23,7 @@ export const ExploreHeader = () => {
         <nav className="text-[20px] font-semibold flex items-start h-[60px] gap-4 px-5 relative z-10 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_50%,rgba(255,255,255,0)_100%)]">
           <button
             className="hover:text-content-muted"
-            onClick={() => navigate('/place')}
+            onClick={() => navigate(`/place/${lastSelectedPlaceId}`)}
           >
             보드
           </button>

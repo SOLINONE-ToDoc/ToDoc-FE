@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { MapPreview } from "./ui/MapPreview";
 import { useCurrentLocation, useMapPlaces } from "@/features/map";
 import type { Coords, MapPlaceWithMessage } from "@/entities/map";
+import { usePlaceStore } from "@/entities/place";
 import { getDistance } from "@/shared/lib";
 import { getRelativeVisitText } from '@/shared/utils';
 import { type BottomSheetSnap, BottomSheet } from "./ui/BottomSheet";
@@ -10,6 +11,8 @@ import { MapDetailSheet } from "./ui/MapDetailSheet";
 
 export const MapPage = () => {
   const { coords: myLocation, status, handleLocation } = useCurrentLocation();
+  const { setLastSelectedPlaceId } = usePlaceStore();
+
   const [center, setCenter] = useState<Coords | null>(null);
   const lastFetchedCenter = useRef<Coords | null>(null);
   const lastZoomLevel = useRef<number | null>(null);
@@ -78,11 +81,11 @@ export const MapPage = () => {
   }, []);
 
   const handleMarkerClick = useCallback((placeId: number) => {
-    setSelectedMarkerId(prev => (prev === placeId ? null : placeId));
     setSelectedMarkerId(placeId);
+    setLastSelectedPlaceId(placeId);
     setSheetMode('detail');
     setSheetSnap('min');
-  }, []);
+  }, [setLastSelectedPlaceId]);
 
   const placesWithMessage: MapPlaceWithMessage[] = useMemo(() => {
     if (!center) return [];
@@ -117,11 +120,12 @@ export const MapPage = () => {
     });
   }, [places, selectedMarkerId, center]);
 
-  const handlePlaceSelect = (placeId: number) => {
+  const handlePlaceSelect = useCallback((placeId: number) => {
     setSelectedMarkerId(placeId);
+    setLastSelectedPlaceId(placeId);
     setSheetMode('detail');
     setSheetSnap('min');
-  };
+  }, [setLastSelectedPlaceId]);
 
   if (!center || status === 'loading' || status === 'idle' || (status === 'granted' && !center)) {
     return <div>로딩 스피너</div>;

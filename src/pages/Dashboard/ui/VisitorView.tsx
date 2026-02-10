@@ -4,10 +4,19 @@ import { motion, useMotionValue } from 'framer-motion';
 import { NoteGrid } from '@/widgets/Note';
 import { cn } from '@/shared/lib';
 import { useVisitorBoard } from '@/entities/board';
+import { usePlaceStore } from '@/entities/place';
 
 export const VisitorView = () => {
 
   const { placeId } = useParams<{ placeId: string }>();
+  const { setLastSelectedPlaceId } = usePlaceStore();
+
+  useEffect(() => {
+    if (placeId) {
+      setLastSelectedPlaceId(Number(placeId));
+    }
+  }, [placeId, setLastSelectedPlaceId]);
+
   const { contents } = useVisitorBoard(Number(placeId));
 
   const containerRef = useRef<HTMLDivElement>(null);

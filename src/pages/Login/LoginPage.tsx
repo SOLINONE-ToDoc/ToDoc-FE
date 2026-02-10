@@ -7,10 +7,12 @@ import { LoginForm } from './ui/LoginForm';
 import { LoginHeader } from './ui/LoginHeader';
 import { useAuthStore } from '@/entities/auth';
 import { useProviderStore } from '@/entities/provider';
+import { usePlaceStore } from '@/entities/place';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { login, isLoading } = useLogin();
+  const { lastSelectedPlaceId } = usePlaceStore();
 
   const [userType, setUserType] = useState<UserType>('VISITOR');
 
@@ -38,20 +40,25 @@ export const LoginPage = () => {
     if (!success) return;
 
     const { userInfo } = useAuthStore.getState();
+
     if (userInfo?.role === 'PROVIDER') {
       const { fetchPlaces } = useProviderStore.getState();
       await fetchPlaces();
       const updatedPlaces = useProviderStore.getState().places;
 
       if (updatedPlaces && updatedPlaces.length > 0) {
-
         const firstPid = updatedPlaces[0].placeId;
-        navigate(`/place/${firstPid}`);
+        navigate(`/place/${firstPid}`, { replace: true });
       } else {
-        navigate('/place');
+        navigate('/place', { replace: true });
       }
-    } else {
-      navigate('/');
+    }
+    else {
+      if (lastSelectedPlaceId) {
+        navigate(`/place/${lastSelectedPlaceId}`, { replace: true });
+      } else {
+        navigate('/', { replace: true });
+      }
     }
   };
 
