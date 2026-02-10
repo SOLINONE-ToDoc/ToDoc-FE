@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { usePlaceInfo } from "@/entities/place";
 import { ICON_LOCATION } from "./assets/icons";
+import { ICONS } from "@/shared/constants";
 
 export const DashboardWritePage = () => {
+  const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
   const { placeName } = usePlaceInfo(Number(placeId));
 
@@ -17,12 +19,36 @@ export const DashboardWritePage = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-56px)] bg-white">
-      <header className="flex items-center h-[60px] gap-2 pt-4 px-5 pb-5 border-b border-gray-200">
-        <ICON_LOCATION className="text-content-primary"/>
+    <div className="flex flex-col h-screen bg-white">
+      <header className="sticky top-0 z-50 flex items-center h-[56px] px-5 bg-white">
+        <div className="flex-1 flex items-center">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-6 h-6 flex items-center justify-center"
+          >
+            <ICONS.Back width={24} height={24} />
+          </button>
+        </div>
+        <div className="flex-[2] flex items-center justify-center">
+          <h1 className="text-heading-1 font-medium whitespace-nowrap">작성하기</h1>
+        </div>
+        <div className="flex-1 flex items-center justify-end">
+          <button
+            type="button"
+            disabled={content.length === 0}
+            className={`text-heading-1 font-semibold transition-colors ${content.length > 0 ? "text-content-primary" : "text-gray-300"
+              }`}
+          >
+            다음
+          </button>
+        </div>
+      </header>
+      <div className="flex items-center h-[60px] gap-2 pt-4 px-5 pb-5 border-b border-gray-200">
+        <ICON_LOCATION className="text-content-primary" />
         <h1 className="text-body-1 font-regular">{placeName}</h1>
         <div className="w-6" />
-      </header>
+      </div>
 
       <main className="flex-1 flex flex-col p-5">
         <div className="relative flex-1 flex flex-col group">

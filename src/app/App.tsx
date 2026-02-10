@@ -4,7 +4,6 @@ import {
   AppLayout,
   ExploreLayout,
   ExploreWithLayout,
-  WriteLayout,
 } from './layouts';
 import { Footer } from '@/widgets/Footer';
 import { HomePage } from '@/pages/Home';
@@ -44,9 +43,7 @@ function App() {
               <Route path="/place/:placeId" element={<DashboardPage />} />
             </Route>
 
-            <Route element={<WriteLayout />}>
               <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
-            </Route>
 
           </Routes>
         </main>
