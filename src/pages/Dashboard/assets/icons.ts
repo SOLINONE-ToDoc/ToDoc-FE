@@ -11,6 +11,8 @@ import fontEx2 from './font_ex_2.svg?react';
 import fontEx3 from './font_ex_3.svg?react';
 import fontEx4 from './font_ex_4.svg?react';
 import fontEx5 from './font_ex_5.svg?react';
+import aiSearchSvg from './ai_search.svg?react';
+import aISvg from './ai.svg?react';
 
 export const ICON_QR = qrSvg;
 export const ICON_DOWNLOAD = downloadSvg;
@@ -30,4 +32,9 @@ export const FONT_KEYCAPS = {
   FontKeyCap3: fontEx3,
   FontKeyCap4: fontEx4,
   FontKeyCap5: fontEx5,
+};
+
+export const AI = {
+  Ai: aISvg,
+  AiSearch: aiSearchSvg,
 };

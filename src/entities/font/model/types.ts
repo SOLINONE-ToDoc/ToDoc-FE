@@ -23,9 +23,11 @@ export interface WriteStore {
   content: string;
   recommendFonts: FontRecommend[];
   selectedFontId: number | null;
+  selectedFont: FontRecommend | null;
   setContent: (content: string) => void;
   setRecommendFonts: (fonts: FontRecommend[]) => void;
   setSelectedFontId: (id: number) => void;
+  setSelectedFont: (font: FontRecommend) => void;
   reset: () => void;
 }
 
