@@ -1,38 +1,35 @@
-import { useState, useEffect } from "react";
-import type { Coords, LocationStatus } from "@/entities/map";
+import { useCallback } from "react";
+import { useLocationStore } from "@/entities/map";
 
 export const useCurrentLocation = () => {
-  const [coords, setCoords] = useState<Coords | null>(null);
-  const [status, setStatus] = useState<LocationStatus>("loading");
+  const { coords, status, setCoords, setStatus } = useLocationStore();
 
-  useEffect(() => {
-    const handleLocation = async () => {
-      if (!navigator.geolocation) {
-        setTimeout(() => setStatus("error"), 0);
-        return;
-      }
+  const handleLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      setStatus("error");
+      return;
+    }
 
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCoords({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-          setStatus("granted");
-        },
-        (error) => {
-          if (error.code === error.PERMISSION_DENIED) {
-            setStatus("denied");
-          } else {
-            setStatus("error");
-          }
-        },
-        { enableHighAccuracy: true }
-      );
-    };
+    setStatus("loading");
 
-    handleLocation();
-  }, []);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCoords({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        setStatus("granted");
+      },
+      (error) => {
+        if (error.code === error.PERMISSION_DENIED) {
+          setStatus("denied");
+        } else {
+          setStatus("error");
+        }
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }, [setCoords, setStatus]);
 
-  return { coords, status };
+  return { coords, status, handleLocation };
 };

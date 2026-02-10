@@ -9,7 +9,7 @@ import { MapListSheet } from "./ui/MapListSheet";
 import { MapDetailSheet } from "./ui/MapDetailSheet";
 
 export const MapPage = () => {
-  const { coords: myLocation, status } = useCurrentLocation();
+  const { coords: myLocation, status, handleLocation } = useCurrentLocation();
   const [center, setCenter] = useState<Coords | null>(null);
   const lastFetchedCenter = useRef<Coords | null>(null);
   const lastZoomLevel = useRef<number | null>(null);
@@ -31,6 +31,12 @@ export const MapPage = () => {
   if (!center && status === 'granted' && myLocation) {
     setCenter(myLocation);
   }
+
+  useEffect(() => {
+    if (status === 'idle') {
+      handleLocation();
+    }
+  }, [status, handleLocation]);
 
   useEffect(() => {
     if (status === 'granted' && myLocation && !center) {

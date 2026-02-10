@@ -31,3 +31,10 @@ export interface MapPlaceWithMessage extends MapPlace {
   visitMessage: string | null;
   isSelected: boolean;
 }
+
+export interface LocationState {
+  coords: Coords | null;
+  status: LocationStatus;
+  setCoords: (coords: Coords | null) => void;
+  setStatus: (status: LocationStatus) => void;
+}
