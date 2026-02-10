@@ -5,9 +5,9 @@ import type { Coords, MapPlaceWithMessage } from "@/entities/map";
 import { usePlaceStore } from "@/entities/place";
 import { getDistance } from "@/shared/lib";
 import { getRelativeVisitText } from '@/shared/utils';
-import { type BottomSheetSnap, BottomSheet } from "./ui/BottomSheet";
 import { MapListSheet } from "./ui/MapListSheet";
 import { MapDetailSheet } from "./ui/MapDetailSheet";
+import { BottomSheet, type BottomSheetSnap } from "@/shared/ui/BottomSheet";
 
 export const MapPage = () => {
   const { coords: myLocation, status, handleLocation } = useCurrentLocation();
