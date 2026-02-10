@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { usePlaceInfo } from "@/entities/place";
 import { ICON_LOCATION } from "./assets/icons";
 import { ICONS } from "@/shared/constants";
+import { ConfirmPopup } from "@/shared/ui/Popup";
 
 export const DashboardWritePage = () => {
   const navigate = useNavigate();
@@ -10,11 +11,18 @@ export const DashboardWritePage = () => {
   const { placeName } = usePlaceInfo(Number(placeId));
 
   const [content, setContent] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const MAX_LENGTH = 60;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= MAX_LENGTH) {
       setContent(e.target.value);
+    }
+  };
+
+  const handleBackClick = () => {
+    if (content.length > 0) {
+      setShowPopup(true);
     }
   };
 
@@ -24,7 +32,7 @@ export const DashboardWritePage = () => {
         <div className="flex-1 flex items-center">
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={handleBackClick}
             className="w-6 h-6 flex items-center justify-center"
           >
             <ICONS.Back width={24} height={24} />
@@ -44,7 +52,7 @@ export const DashboardWritePage = () => {
           </button>
         </div>
       </header>
-      <div className="flex items-center h-[60px] gap-2 pt-4 px-5 pb-5 border-b border-gray-200">
+      <div className="flex items-center h-[56px] gap-2 pt-3 px-5 pb-5 border-b border-gray-200">
         <ICON_LOCATION className="text-content-primary" />
         <h1 className="text-body-1 font-regular">{placeName}</h1>
         <div className="w-6" />
@@ -71,6 +79,13 @@ export const DashboardWritePage = () => {
 
         </div>
       </main>
+      {showPopup && (
+      <ConfirmPopup
+        title={<>뒤로 가면 작성한 내용이<br />모두 사라져요</>}
+        onCancel={() => setShowPopup(false)}
+        onConfirm={() => navigate(-1)}
+      />
+    )}
     </div>
   );
 };
