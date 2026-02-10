@@ -3,19 +3,19 @@ import { useRef, useEffect } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { NoteGrid } from '@/widgets/Note';
 import { cn } from '@/shared/lib';
-import { useBoardStream } from '@/entities/board';
+import { useVisitorBoard } from '@/entities/board';
 
 export const VisitorView = () => {
 
   const { placeId } = useParams<{ placeId: string }>();
-  const streamContents = useBoardStream(placeId ? Number(placeId) : null);
+  const { contents } = useVisitorBoard(Number(placeId));
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const isSmallCount = streamContents.length > 0 && streamContents.length <= 3;
+  const isSmallCount = contents.length > 0 && contents.length <= 3;
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
@@ -41,7 +41,7 @@ export const VisitorView = () => {
     observer.observe(canvasRef.current);
 
     return () => observer.disconnect();
-  }, [streamContents.length, x, y]);
+  }, [contents.length, x, y]);
 
   return (
     <div ref={containerRef} className="w-full h-screen overflow-hidden bg-[#F9F9F9] relative touch-none">
@@ -56,7 +56,7 @@ export const VisitorView = () => {
           isSmallCount ? "p-5" : "p-5 pt-[108px] cursor-grab active:cursor-grabbing"
         )}
       >
-        <NoteGrid contents={streamContents} />
+        <NoteGrid contents={contents} />
       </motion.div>
     </div>
   );
