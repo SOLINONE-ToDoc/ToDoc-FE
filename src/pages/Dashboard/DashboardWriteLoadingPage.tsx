@@ -4,7 +4,7 @@ import { useWriteStore } from "@/entities/board";
 import { ConfirmPopup } from "@/shared/ui/Popup";
 import { TopNavigationBar } from "@/widgets/Navigation";
 import { NoticeTag } from "./ui/NoticeTag";
-import { SCAN_NOTE, FONT_KEYCAPS } from "./assets/icons";
+import { SCAN_NOTE } from "./assets/icons";
 import { useFontRecommendation } from "@/features/font";
 import { useFontRecommendStore } from "@/entities/font";
 
@@ -18,37 +18,9 @@ export const DashboardWriteLoadingPage = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [progress, setProgress] = useState(0);
-  const keycaps = Object.values(FONT_KEYCAPS);
-
   useEffect(() => {
     getRecommendation();
   }, [getRecommendation]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev < 100) return prev + 1;
-        clearInterval(interval);
-        return 100;
-      });
-    }, 60);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getCurrentKeycapIndex = () => {
-    if (progress <= 37) return null;
-    if (progress >= 100) return null;
-
-    if (progress > 85) return 4;
-    if (progress > 70) return 3;
-    if (progress > 55) return 2;
-    if (progress > 45) return 1;
-    return 0;
-  };
-
-  const currentIndex = getCurrentKeycapIndex();
-  const CurrentKeyCap = currentIndex !== null ? keycaps[currentIndex] : null;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -127,12 +99,6 @@ export const DashboardWriteLoadingPage = () => {
                 </div>
               </>
             )}
-            {CurrentKeyCap && (
-              <div className="absolute z-20">
-                <CurrentKeyCap className="h-auto" />
-              </div>
-            )}
-
           </div>
         </div>
         <div className="fixed bottom-[32px] left-1/2 -translate-x-1/2 z-[9999] w-max">
