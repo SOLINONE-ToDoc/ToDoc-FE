@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePlaceInfo } from "@/entities/place";
 import { useWriteStore } from "@/entities/board";
@@ -11,7 +11,7 @@ export const DashboardWritePage = () => {
   const { placeId } = useParams<{ placeId: string }>();
   const { placeName } = usePlaceInfo(Number(placeId));
 
-  const { content, setContent, reset } = useWriteStore();
+  const { content, setContent, reset, createdAt, setCreatedAt } = useWriteStore();
   const [showPopup, setShowPopup] = useState(false);
   const MAX_LENGTH = 60;
 
@@ -20,6 +20,12 @@ export const DashboardWritePage = () => {
       setContent(e.target.value);
     }
   };
+
+  useEffect(() => {
+    if (!createdAt) {
+      setCreatedAt(new Date());
+    }
+  }, [createdAt, setCreatedAt]);
 
   const handleBackClick = () => {
     if (content.length > 0) {
@@ -47,9 +53,8 @@ export const DashboardWritePage = () => {
           <button
             onClick={handleNext}
             disabled={content.length === 0}
-            className={`text-heading-1 font-semibold ${
-              content.length > 0 ? "text-content-primary" : "text-gray-300"
-            }`}
+            className={`text-heading-1 font-semibold ${content.length > 0 ? "text-content-primary" : "text-gray-300"
+              }`}
           >
             다음
           </button>
@@ -83,12 +88,12 @@ export const DashboardWritePage = () => {
         </div>
       </main>
       {showPopup && (
-      <ConfirmPopup
-        title={<>뒤로 가면 작성한 내용이<br />모두 사라져요</>}
-        onCancel={() => setShowPopup(false)}
-        onConfirm={handleConfirmBack}
-      />
-    )}
+        <ConfirmPopup
+          title={<>뒤로 가면 작성한 내용이<br />모두 사라져요</>}
+          onCancel={() => setShowPopup(false)}
+          onConfirm={handleConfirmBack}
+        />
+      )}
     </div>
   );
 };

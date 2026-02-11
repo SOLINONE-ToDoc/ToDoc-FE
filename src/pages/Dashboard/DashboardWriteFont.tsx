@@ -27,7 +27,7 @@ export const DashboardWriteFont = () => {
     setSelectedFont,
     recommendThemeUrl,
   } = useFontRecommendStore();
-  const { content: contentWrite, reset: resetWrite } = useWriteStore();
+  const { content: contentWrite } = useWriteStore();
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -86,9 +86,7 @@ export const DashboardWriteFont = () => {
       const res = await postBoardContent(placeId, payload);
 
       if (res.status === "SUCCESS") {
-        resetRecommend();
-        resetWrite();
-        navigate(`/place/${placeId}`, { replace: true });
+        navigate(`/place/${placeId}/write/success`, { replace: true });
       }
     } catch (error) {
       alert(error instanceof Error ? error.message : "방명록 작성에 실패했습니다.");

@@ -48,6 +48,8 @@ export interface UserBoard {
 
 export interface WriteStore {
   content: string;
+  createdAt: Date | null;
   setContent: (content: string) => void;
+  setCreatedAt: (date: Date) => void;
   reset: () => void;
 }

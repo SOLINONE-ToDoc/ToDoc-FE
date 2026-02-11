@@ -31,7 +31,7 @@ export const DashboardWriteLoadingPage = () => {
         clearInterval(interval);
         return 100;
       });
-    }, 60);
+    }, 70);
 
     return () => clearInterval(interval);
   }, []);
@@ -57,7 +57,7 @@ export const DashboardWriteLoadingPage = () => {
         clearInterval(interval);
         return 100;
       });
-    }, 60);
+    }, 55);
 
     return () => clearInterval(interval);
   }, []);

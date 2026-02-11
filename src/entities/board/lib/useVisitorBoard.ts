@@ -9,7 +9,7 @@ export const useVisitorBoard = (placeId: number | null) => {
   const [qrUrl, setQrUrl] = useState('');
   const [themeId, setThemeId] = useState<number | null>(null);
   const [placeName, setPlaceName] = useState('');
-
+console.log('요청 placeId:', placeId)
   useEffect(() => {
     if (!placeId) return;
 
