@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-1: "Sandoll Geobok";
+  --font-2: "Sandoll GtNeoCond";
+  --font-3: "SD Jan";
+  --font-4: "SD WalkieTalkie Round";
+  --font-5: "SD Psyche";
+  --font-6: "SD Heululing";
+  --font-7: "SD Fishtail";
+  --font-8: "SD PixelBimiljjokji";
+  --font-9: "SD PixelGoodbam";
+  --font-10: "SD PixelYosuljipangi";
+  --font-11: "Sandoll Euseuseu";
+  --font-12: "Sandoll Ggigigig";
+  --font-13: "Sandoll HoyoyoColor";
+  --font-14: "Sandoll Dunggulrim2";
+  --font-15: "Sandoll Epilogue";
+  --font-16: "Sandoll Shootdoli";
+  --font-17: "Sandoll Peperoday";
+}
+
 @layer base {
   body {
     background-color: #F5F5F5;
