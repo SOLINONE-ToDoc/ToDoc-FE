@@ -3,18 +3,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useWriteStore } from "@/entities/board";
 import { ConfirmPopup } from "@/shared/ui/Popup";
 import { TopNavigationBar } from "@/widgets/Navigation";
-import { NoticeTag } from "./ui/NoticeTag";
+import { NoticeTag } from "./ui";
 import { SCAN_NOTE, FONT_KEYCAPS } from "./assets/icons";
 import { useFontRecommendation } from "@/features/font";
 import { useFontRecommendStore } from "@/entities/font";
 
-export const DashboardWriteLoadingPage = () => {
+export const BoardWriteLoadingPage = () => {
   const navigate = useNavigate();
   const { placeId } = useParams();
-  const { content } = useWriteStore();
+  const { content, boardId } = useWriteStore();
 
   const { recommendFonts, recommendThemeUrl } = useFontRecommendStore();
-  const { isLoading, getRecommendation } = useFontRecommendation(content, Number(placeId));
+  const { isLoading, getRecommendation } = useFontRecommendation(content, boardId as number);
 
   const [showPopup, setShowPopup] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -27,14 +27,22 @@ export const DashboardWriteLoadingPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev < 100) return prev + 1;
+        const isDataLoading = recommendFonts.length === 0;
+        if (isDataLoading && prev >= 90) return 90;
+
+        if (prev < 100) {
+          const step = !isDataLoading ? 2 : 1;
+          const next = prev + step;
+          return next > 100 ? 100 : next;
+        }
+
         clearInterval(interval);
         return 100;
       });
-    }, 70);
+    }, 60);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [recommendFonts.length]);
 
   const getCurrentKeycapIndex = () => {
     if (progress <= 37) return null;
@@ -49,18 +57,6 @@ export const DashboardWriteLoadingPage = () => {
 
   const currentIndex = getCurrentKeycapIndex();
   const CurrentKeyCap = currentIndex !== null ? keycaps[currentIndex] : null;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev < 100) return prev + 1;
-        clearInterval(interval);
-        return 100;
-      });
-    }, 55);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const getLoadingText = () => {
     if (progress === 100) return "분석 완료!";

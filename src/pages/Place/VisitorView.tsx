@@ -5,22 +5,30 @@ import { NoteGrid } from '@/widgets/Note';
 import { cn } from '@/shared/lib';
 import { useVisitorBoard } from '@/entities/board';
 import { usePlaceStore } from '@/entities/place';
-import { WriteButton } from './WriteButton';
-import { PlaceTag } from './PlaceTag';
+import { WriteButton, PlaceTag } from './ui';
 import { useFontPreload } from '@/shared/hooks';
 import type { BoardContent } from '@/entities/board';
 import { Note } from '@/shared/ui/Note';
 import { FONT_MAP } from '@/entities/font';
-import { ICON_BOOST, ICON_SHARE, ICON_LOCATION } from '../assets/icons';
+import { ICON_BOOST, ICON_SHARE, ICON_LOCATION } from './assets/icons';
 import { boostContent } from '@/features/board';
 import { Toast } from '@/shared/ui/Toast';
 import { useLocationStore } from '@/entities/map';
 import { useAuthStore } from '@/entities/auth';
 import { useMyNoteInPlace } from '@/features/board';
+import { useWriteStore } from '@/entities/board';
+import { useCurrentLocation } from '@/features/map';
 
 export const VisitorView = () => {
   const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
+
+  const { handleLocation } = useCurrentLocation();
+
+  useEffect(() => {
+    handleLocation();
+  }, [handleLocation]);
+
   const { setLastSelectedPlaceId } = usePlaceStore();
   const { userInfo } = useAuthStore();
   const { coords } = useLocationStore();
@@ -42,7 +50,14 @@ export const VisitorView = () => {
     }
   }, [placeId, setLastSelectedPlaceId]);
 
-  const { contents, placeName } = useVisitorBoard(Number(placeId));
+  const { boardId, contents, placeName } = useVisitorBoard(Number(placeId));
+  const { setBoardId } = useWriteStore();
+
+  useEffect(() => {
+    if (boardId) {
+      setBoardId(boardId);
+    }
+  }, [boardId, setBoardId]);
 
   const fontIds = contents.map((c) => c.fontId);
   useFontPreload(fontIds);

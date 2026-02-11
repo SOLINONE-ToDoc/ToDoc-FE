@@ -6,7 +6,7 @@ import { ICON_LOCATION } from "./assets/icons";
 import { ConfirmPopup } from "@/shared/ui/Popup";
 import { TopNavigationBar } from "@/widgets/Navigation";
 
-export const DashboardWritePage = () => {
+export const BoardWritePage = () => {
   const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
   const { placeName } = usePlaceInfo(Number(placeId));

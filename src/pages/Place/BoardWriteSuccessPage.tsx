@@ -7,15 +7,20 @@ import { useWriteStore } from "@/entities/board";
 import { useFontRecommendStore } from "@/entities/font";
 import { formatDate } from "@/shared/utils";
 import { Button } from "@/shared/ui/Button";
-import { ICONS } from "@/shared/constants";
+import { GUIDE_ICONS, ICONS } from "@/shared/constants";
 import { usePlaceInfo } from "@/entities/place";
 import { FONT_CATEGORY_KR } from "@/entities/font";
 
-export const DashboardWriteSuccessPage = () => {
+export const BoardWriteSuccessPage = () => {
   const navigate = useNavigate();
   const { placeId } = useParams();
   const { selectedFont, recommendThemeUrl, reset: resetRecommend, } = useFontRecommendStore();
-  const { content: contentWrite, createdAt, reset: resetWrite } = useWriteStore();
+  const {
+    content: contentWrite,
+    createdAt,
+    orderNumber,
+    reset: resetWrite
+  } = useWriteStore();
   const { placeName } = usePlaceInfo(Number(placeId));
   const [showPopup, setShowPopup] = useState(false);
   if (!selectedFont || !createdAt) return null;
@@ -49,12 +54,12 @@ export const DashboardWriteSuccessPage = () => {
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 gap-[44px]">
         <div className="text-center animate-fade-in-up">
-          <ICONS.CheckKey width={40} height={60} className="w-full pb-[10px]"/>
+          <GUIDE_ICONS.CheckKey width={40} height={60} className="w-full pb-[10px]" />
           <h2 className="text-title font-semibold mb-2">
             방명록 작성 완료!
           </h2>
           <p className="text-body-1">
-            [{placeName}]에 100번째로 남겼어요
+            [{placeName}]에 {orderNumber}번째로 남겼어요
           </p>
           {/* 수정해야함 */}
         </div>

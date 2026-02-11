@@ -14,14 +14,16 @@ import {
   SignUpSuccessPage,
 } from '@/pages/SignUp';
 import { MapPage } from '@/pages/Map';
-import {
-  DashboardPage,
-  DashboardWritePage,
-  DashboardWriteLoadingPage,
-  DashboardWriteFont,
-  DashboardWriteSuccessPage,
-} from '@/pages/Dashboard';
 import { MyPage } from '@/pages/My/MyPage';
+import {
+  PlaceAddPage,
+  PlacePage,
+  BoardCreatePage,
+  BoardWritePage,
+  BoardWriteLoadingPage,
+  BoardWriteFont,
+  BoardWriteSuccessPage,
+} from '@/pages/Place';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
               <Route path="/signup/visitor" element={<VisitorSignUpPage />} />
               <Route path="/signup/provider" element={<ProviderSignUpPage />} />
               <Route path="/signup/success" element={<SignUpSuccessPage />} />
+
+              <Route path="/place/add" element={<PlaceAddPage />} />
             </Route>
 
             <Route element={<ExploreLayout />}>
@@ -43,13 +47,14 @@ function App() {
             </Route>
 
             <Route element={<ExploreWithLayout />}>
-              <Route path="/place/:placeId" element={<DashboardPage />} />
+              <Route path="/place/:placeId" element={<PlacePage />} />
             </Route>
 
-            <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
-            <Route path="/place/:placeId/write/loading" element={<DashboardWriteLoadingPage />} />
-            <Route path="/place/:placeId/write/font" element={<DashboardWriteFont />} />
-            <Route path="/place/:placeId/write/success" element={<DashboardWriteSuccessPage />} />
+            <Route path="/place/:placeId/create" element={<BoardCreatePage />} />
+            <Route path="/place/:placeId/write" element={<BoardWritePage />} />
+            <Route path="/place/:placeId/write/loading" element={<BoardWriteLoadingPage />} />
+            <Route path="/place/:placeId/write/font" element={<BoardWriteFont />} />
+            <Route path="/place/:placeId/write/success" element={<BoardWriteSuccessPage />} />
 
           </Routes>
         </main>

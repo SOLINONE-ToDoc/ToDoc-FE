@@ -7,13 +7,12 @@ import { ConfirmPopup } from "@/shared/ui/Popup";
 import { Note } from "@/shared/ui/Note";
 import { formatDate } from "@/shared/utils";
 import { BottomSheet, type BottomSheetSnap } from "@/shared/ui/BottomSheet";
-import { FontRecommendSheet } from "./ui/FontRecommendSheet";
-import { FontTag } from "./ui/FontTag";
+import { FontRecommendSheet,FontTag } from "./ui";
 import { postBoardContent } from "@/features/board";
 import { useLocationStore } from '@/entities/map';
 import { loadFontById } from "@/shared/lib";
 
-export const DashboardWriteFont = () => {
+export const BoardWriteFont = () => {
   const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
   const { coords } = useLocationStore();
@@ -27,7 +26,7 @@ export const DashboardWriteFont = () => {
     setSelectedFont,
     recommendThemeUrl,
   } = useFontRecommendStore();
-  const { content: contentWrite } = useWriteStore();
+  const { content: contentWrite, setOrderNumber } = useWriteStore();
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -40,7 +39,7 @@ export const DashboardWriteFont = () => {
       loadFontById(selectedFontId);
     }
   }, [selectedFontId]);
-  //   const mock = { lat: 37.561478, lng: 126.985707 };
+
   useEffect(() => {
     if (!selectedFontId && recommendFonts.length > 0) {
       setSelectedFont(recommendFonts[0]);
@@ -86,6 +85,8 @@ export const DashboardWriteFont = () => {
       const res = await postBoardContent(placeId, payload);
 
       if (res.status === "SUCCESS") {
+        const { orderNumber } = res.data;
+        setOrderNumber(orderNumber);
         navigate(`/place/${placeId}/write/success`, { replace: true });
       }
     } catch (error) {
@@ -145,14 +146,6 @@ export const DashboardWriteFont = () => {
           <FontRecommendSheet />
         </div>
       </BottomSheet>
-
-      {showPopup && (
-        <ConfirmPopup
-          title={<>뒤로 가면 작성한 내용이<br />모두 사라져요</>}
-          onCancel={() => setShowPopup(false)}
-          onConfirm={handleConfirmBack}
-        />
-      )}
     </div>
   );
 };
