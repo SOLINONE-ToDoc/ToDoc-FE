@@ -25,3 +25,10 @@ export interface PostContentResponse {
   themeUrl: string;
   createdAt: string;
 }
+
+export interface BoostPayload {
+  contentId: number;
+  userLatitude: number;
+  userLongitude: number;
+}
+

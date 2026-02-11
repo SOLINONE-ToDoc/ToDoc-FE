@@ -13,8 +13,8 @@ export const DashboardWriteLoadingPage = () => {
   const { placeId } = useParams();
   const { content } = useWriteStore();
 
-  const { recommendFonts, setRecommendFonts } = useFontRecommendStore();
-  const { fonts, getRecommendation } = useFontRecommendation(content);
+  const { recommendFonts, recommendThemeUrl } = useFontRecommendStore();
+  const { isLoading, getRecommendation } = useFontRecommendation(content, Number(placeId));
 
   const [showPopup, setShowPopup] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -25,10 +25,16 @@ export const DashboardWriteLoadingPage = () => {
   }, [getRecommendation]);
 
   useEffect(() => {
-    if (fonts && fonts.length > 0) {
-      setRecommendFonts(fonts);
-    }
-  }, [fonts, setRecommendFonts]);
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev < 100) return prev + 1;
+        clearInterval(interval);
+        return 100;
+      });
+    }, 60);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const getCurrentKeycapIndex = () => {
     if (progress <= 37) return null;
@@ -51,16 +57,19 @@ export const DashboardWriteLoadingPage = () => {
         clearInterval(interval);
         return 100;
       });
-    }, 50);
+    }, 60);
 
     return () => clearInterval(interval);
   }, []);
 
   const getLoadingText = () => {
     if (progress === 100) return "분석 완료!";
+    if (isLoading && progress > 80) return "AI가 마지막 고민 중...";
     if (progress > 37) return "딱 맞는 폰트 탐색 중...";
     return "내용 인식 중...";
   };
+
+  const isReadyToNext = progress === 100 && recommendFonts.length > 0 && !!recommendThemeUrl;
 
   const handleBackClick = () => {
     if (content.length > 0) {
@@ -73,8 +82,6 @@ export const DashboardWriteLoadingPage = () => {
   const handleConfirmBack = () => {
     navigate(-1);
   };
-
-  const isReadyToNext = progress === 100 && recommendFonts.length > 0;
 
   const handleNext = () => {
     if (isReadyToNext) {
@@ -91,9 +98,8 @@ export const DashboardWriteLoadingPage = () => {
           <button
             onClick={handleNext}
             disabled={!isReadyToNext}
-            className={`text-heading-1 font-semibold transition-colors ${
-              isReadyToNext ? "text-content-primary" : "text-gray-300"
-            }`}
+            className={`text-heading-1 font-semibold transition-colors ${isReadyToNext ? "text-content-primary" : "text-gray-300"
+              }`}
           >
             다음
           </button>

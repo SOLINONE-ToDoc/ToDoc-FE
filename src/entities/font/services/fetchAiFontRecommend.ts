@@ -1,15 +1,20 @@
 import { request } from '@/shared/api';
-import type { FontRecommend } from '../model/types';
+import type { AiFontRecommendResponse } from '../model/types';
 
-interface FontRecommendData {
-  fonts: FontRecommend[];
-}
+export const fetchAiFontRecommend = async (
+  content: string,
+  boardId: number
+): Promise<AiFontRecommendResponse | null> => {
+  try {
+    const res = await request<AiFontRecommendResponse>(
+      '/api/fonts/recommend/auto',
+      'POST',
+      { content, boardId }
+    );
 
-export const fetchAiFontRecommend = async (content: string): Promise<FontRecommend[]> => {
-  const res = await request<FontRecommendData>(
-    '/api/fonts/recommend/auto',
-    'POST',
-    { content }
-  );
-  return res.data.fonts || [];
+    return res.data;
+  } catch (err) {
+    console.error('AI 폰트 추천 실패:', err);
+    return null;
+  }
 };

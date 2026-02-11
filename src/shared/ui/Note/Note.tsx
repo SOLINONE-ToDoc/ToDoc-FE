@@ -89,6 +89,9 @@ export const Note: React.FC<NoteProps> = ({
         ...style,
         zIndex,
         backgroundImage: bgImage ? `url(${bgImage})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         boxShadow: NOTE_SHADOW,
       }}
       className={cn(

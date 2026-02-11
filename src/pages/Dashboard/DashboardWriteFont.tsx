@@ -25,6 +25,7 @@ export const DashboardWriteFont = () => {
     recommendFonts,
     selectedFontId,
     setSelectedFont,
+    recommendThemeUrl,
   } = useFontRecommendStore();
   const { content: contentWrite, reset: resetWrite } = useWriteStore();
 
@@ -76,7 +77,7 @@ export const DashboardWriteFont = () => {
       const payload = {
         fontId: selectedFontId,
         content: contentWrite,
-        themeUrl: "",
+        themeUrl: recommendThemeUrl || "",
         userLatitude: coords.lat,
         userLongitude: coords.lng,
       };
@@ -118,6 +119,7 @@ export const DashboardWriteFont = () => {
             content={contentWrite}
             date={formatDate(new Date())}
             baseZIndex={100}
+            bgImage={recommendThemeUrl || undefined}
             style={{ fontFamily: selectedFont?.fontNameEng }}
           />
         </div>

@@ -19,15 +19,23 @@ export interface FontRecommend {
   field: string;
   reason: string;
 }
+
+export interface AiFontRecommendResponse {
+  fonts: FontRecommend[];
+  themeUrl: string;
+}
+
 export interface WriteStore {
   content: string;
   recommendFonts: FontRecommend[];
+  recommendThemeUrl: string | null;
   selectedFontId: number | null;
   selectedFont: FontRecommend | null;
   setContent: (content: string) => void;
   setRecommendFonts: (fonts: FontRecommend[]) => void;
   setSelectedFontId: (id: number) => void;
   setSelectedFont: (font: FontRecommend) => void;
+  setRecommendData: (data: AiFontRecommendResponse) => void;
   reset: () => void;
 }
 
