@@ -17,6 +17,15 @@ export const AppHeader = () => {
 
   const isPlacePage = location.pathname.startsWith('/place');
 
+  const handlePlaceSelect = (option: string) => {
+    if (option === "추가하기") {
+      // navigate('/place/add');
+    } else {
+      const target = places.find(p => p.placeName === option);
+      if (target) navigate(`/place/${target.placeId}`);
+    }
+  };
+
   return (
     <header className="fixed hidden lg:block z-[9999] left-1/2 -translate-x-1/2 top-0 w-[724px] h-[64px] mt-[44px] mx-auto">
       <div className="flex items-center justify-between pl-9 p-4 py-3 h-full bg-gray-200/80 rounded-full backdrop-blur-[60px]">
@@ -28,9 +37,10 @@ export const AppHeader = () => {
 
           {isLoggedIn && isProvider && (
             <DropdownButton
-              className="w-[224px] h-[24px]"
-              label={selectedPlace?.placeName ?? ''}
-              options={places.map(p => p.placeName)}
+              className="w-[224px]"
+              label={selectedPlace?.placeName ?? '가게 선택'}
+              options={[...places.map(p => p.placeName), "추가하기"]}
+              onSelect={handlePlaceSelect}
             />
           )}
 
@@ -47,7 +57,7 @@ export const AppHeader = () => {
               variant="inversePrimary"
               size="lPill"
               type="button"
-              // onClick={() => navigate(`/place/${selectedPlace?.placeId}/edit`)}
+            // onClick={() => navigate(`/place/${selectedPlace?.placeId}/edit`)}
             >
               편집하기
             </Button>
