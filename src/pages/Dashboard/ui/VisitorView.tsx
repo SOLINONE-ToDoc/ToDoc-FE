@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { NoteGrid } from '@/widgets/Note';
 import { cn } from '@/shared/lib';
@@ -39,13 +39,37 @@ export const VisitorView = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const [constraints, setConstraints] = useState<{ left: number; right: number; top: number; bottom: number } | false>(false);
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
 
-    const updateCenter = () => {
+    const calculateBounds = () => {
       const containerRect = containerRef.current!.getBoundingClientRect();
       const canvasRect = canvasRef.current!.getBoundingClientRect();
+
+      let newConstraints: { left: number; right: number; top: number; bottom: number } | false = false;
+
+      if (canvasRect.width > containerRect.width || canvasRect.height > containerRect.height) {
+        let left = 0;
+        let right = 0;
+        let top = 0;
+        let bottom = 0;
+
+        if (canvasRect.width > containerRect.width) {
+          left = -(canvasRect.width - containerRect.width);
+          right = 0;
+        }
+
+        if (canvasRect.height > containerRect.height) {
+          top = -(canvasRect.height - containerRect.height);
+          bottom = 0;
+        }
+
+        newConstraints = { left, right, top, bottom };
+      }
+
+      setConstraints(newConstraints);
 
       if (canvasRect.width > 0 && canvasRect.height > 0) {
         x.set(-(canvasRect.width - containerRect.width) / 2);
@@ -53,9 +77,10 @@ export const VisitorView = () => {
       }
     };
 
-    updateCenter();
-    const observer = new ResizeObserver(updateCenter);
+    calculateBounds();
+    const observer = new ResizeObserver(calculateBounds);
     observer.observe(canvasRef.current);
+    observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [contents.length, x, y]);
 
@@ -66,8 +91,8 @@ export const VisitorView = () => {
     >
       <motion.div
         ref={canvasRef}
-        drag
-        dragConstraints={containerRef}
+        drag={constraints !== false}
+        dragConstraints={constraints !== false ? constraints : undefined}
         dragElastic={0.2}
         dragMomentum
         dragTransition={{ power: 0.2, timeConstant: 200 }}
