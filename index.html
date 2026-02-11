@@ -1,13 +1,63 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>토독</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script type="text/javascript" strategy="beforeInteractive" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_KEY%&libraries=services"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>토독</title>
+  <link rel="preconnect" href="https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com">
+  <link rel="stylesheet"
+    href="https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi1E7y-o_j2YxYRCvncBA4cL4MJVnAefF4rtalv5sTmhO8XuL-SVVd0ux1ZEI-FjubrpTeAc2IsSVjT87eq15pLjkjvv6Y37JIUls05xR5Gv6JYUaJ8hH9DqTJ9yLCG8L2VL4vezYlcmTzWB0n-xUelCoXfLUhRbLGX5nGWhr28DtU6mBaEfc7oZe21fgCcwy8e3uG8sn3Pl7iP4vUCJHgU2jE6I7Ky-vmF-LZe5Fj2Lexpo-oXqJvFG3hlYpgDQ1p9j2"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi9MJvKkDgb98Zt8Z_016_gGGhmKorhHBxwEje10cPTSnbaxVK7PK6aCNkQDVfbjf4uoB9nuC4lzcixIn_36fX9OqWJCRtCWI7ofh7i0vx1-dz0NM_5otZZ73UeVBIhEUzX_gP_0KYPHRwXRH9PU03hVYyJtbd_CHIS8aZpEqIWKl0ErQztk7DTTqAewa7R_GViD4HPgW0bp7eOE2_6fzBs9H6CG3xYtVz80zbi8pT1bfVKswxnlDtfTBSGrhYQUVIeBx](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi9MJvKkDgb98Zt8Z_016_gGGhmKorhHBxwEje10cPTSnbaxVK7PK6aCNkQDVfbjf4uoB9nuC4lzcixIn_36fX9OqWJCRtCWI7ofh7i0vx1-dz0NM_5otZZ73UeVBIhEUzX_gP_0KYPHRwXRH9PU03hVYyJtbd_CHIS8aZpEqIWKl0ErQztk7DTTqAewa7R_GViD4HPgW0bp7eOE2_6fzBs9H6CG3xYtVz80zbi8pT1bfVKswxnlDtfTBSGrhYQUVIeBx)"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi_DXnjJrdm3WLsxIOYhkhGDbW5AcGon1GLe8YRO85PBmIyliW6YwW1QCqyREH-8k4VjPxdtSJU7lNeOIvTKpyyWTY3iHv8Tp_iHJF1Dhr5CI_Ht7qUhCdVV5Xsgf-3a0k4sh2Lm-GSJbL87gCrfgjZWVw9ibgvcktDbZZu1HjhOPk4ugIrVMc4cgni9hUptOCDCSiz_9T8n2XFqkunaqthj-u-_HbTdnAwLq-kkXti-ylo2Mx8gOoXXJCYZspjs7vtrU](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi_DXnjJrdm3WLsxIOYhkhGDbW5AcGon1GLe8YRO85PBmIyliW6YwW1QCqyREH-8k4VjPxdtSJU7lNeOIvTKpyyWTY3iHv8Tp_iHJF1Dhr5CI_Ht7qUhCdVV5Xsgf-3a0k4sh2Lm-GSJbL87gCrfgjZWVw9ibgvcktDbZZu1HjhOPk4ugIrVMc4cgni9hUptOCDCSiz_9T8n2XFqkunaqthj-u-_HbTdnAwLq-kkXti-ylo2Mx8gOoXXJCYZspjs7vtrU)"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpgEQse68YztzGZ_eK8S6TbFLggmoCHvUKY-KjX_w6d0UBXvaEOYMsoPuVHoriIc-syH0Wuyvqss8bLnJJejjr5sm-dED7bmR9XyiE6DXWde68d2qkhUhAf36kHDmBpiAqnvtAuUPWF_gBkFWf6yuUk2_lswQhdlS5dwXUpfU0jkT_H9fTauDXVjEFjUiceVde8t-tzPVMq31PB3sV77b4AZ8CnWGUEpmaTdsiv32mhrcClsxGxKgQFP7GYLEA3snTm1nL](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpgEQse68YztzGZ_eK8S6TbFLggmoCHvUKY-KjX_w6d0UBXvaEOYMsoPuVHoriIc-syH0Wuyvqss8bLnJJejjr5sm-dED7bmR9XyiE6DXWde68d2qkhUhAf36kHDmBpiAqnvtAuUPWF_gBkFWf6yuUk2_lswQhdlS5dwXUpfU0jkT_H9fTauDXVjEFjUiceVde8t-tzPVMq31PB3sV77b4AZ8CnWGUEpmaTdsiv32mhrcClsxGxKgQFP7GYLEA3snTm1nL)"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpjC55opxOmtl8uyx29rEl1nI79-1BJ6M8c4UnI3Z5jtFoxbclBzqRPGjtBPqrYegO7CIgUT34UZPsGjLifCYnHzq1J8r4fRA6nNaQ6C3BqpTqGQ6LE-zYyN4e0v95cVIhSN2cn6S0JQPVkRdbY9pQ_B19_n-_KE5rE2hGCtWlq7F9C1vWevVrOef2L-lJ7UsjD49iaOXpwWwh_8gdg-94SSeiFUDdYsKrT2jzbTjEh8jkMbq7Ux9R7DIGUc9kGSnNJI4z](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpjC55opxOmtl8uyx29rEl1nI79-1BJ6M8c4UnI3Z5jtFoxbclBzqRPGjtBPqrYegO7CIgUT34UZPsGjLifCYnHzq1J8r4fRA6nNaQ6C3BqpTqGQ6LE-zYyN4e0v95cVIhSN2cn6S0JQPVkRdbY9pQ_B19_n-_KE5rE2hGCtWlq7F9C1vWevVrOef2L-lJ7UsjD49iaOXpwWwh_8gdg-94SSeiFUDdYsKrT2jzbTjEh8jkMbq7Ux9R7DIGUc9kGSnNJI4z)"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi9HExxk6cMlsRN7Dt4yx5hFLGZqUxIwlexQ-ZOHxnc8rW8vSu0FM1Ao_nEXPBBjDBXfHzqUYVn8_QRfhBgfUsoTRI-pSqhBwkzbDRm6VyWcHn8lnrInWLjLfX6W2fQWLT6fGcZrN2KCRYLaICzOCIKdSLrQFqdLGoRIlwHDVrloiYBpIGA-qMmnRb_GeqLHd5LOj2yTjejmeq_lme8Y1mmPxjUvmgwgNWLStynfhLkNcXvj7iYzY-jRTW3JT5G-bm9tT](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi9HExxk6cMlsRN7Dt4yx5hFLGZqUxIwlexQ-ZOHxnc8rW8vSu0FM1Ao_nEXPBBjDBXfHzqUYVn8_QRfhBgfUsoTRI-pSqhBwkzbDRm6VyWcHn8lnrInWLjLfX6W2fQWLT6fGcZrN2KCRYLaICzOCIKdSLrQFqdLGoRIlwHDVrloiYBpIGA-qMmnRb_GeqLHd5LOj2yTjejmeq_lme8Y1mmPxjUvmgwgNWLStynfhLkNcXvj7iYzY-jRTW3JT5G-bm9tT)"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi9LP0ETu3W_uuPv0sNIhpWRTJcbU5Lw-H70b5IPv3EIteUMh8VNIjpDEmm9Dh6mvH0sUKADQrnbKpmXCxq3aBzIkYS32K_TWTXBUCrVXFuIZ_jjM8t9Yrtfz9Yl-u6pXIx_6b9EZ0TKYHhVj1Jh-1XjZM9eVLCGpaXfaw1msMHYZXePr3J7NyclgoEHWfGPLdLcBlHpYKXnYxVGeS0NuOwwBxpHdZv28m4hQN6rbJjWYnKEKhdU66FSmZupraAYU6MBv](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABpi9LP0ETu3W_uuPv0sNIhpWRTJcbU5Lw-H70b5IPv3EIteUMh8VNIjpDEmm9Dh6mvH0sUKADQrnbKpmXCxq3aBzIkYS32K_TWTXBUCrVXFuIZ_jjM8t9Yrtfz9Yl-u6pXIx_6b9EZ0TKYHhVj1Jh-1XjZM9eVLCGpaXfaw1msMHYZXePr3J7NyclgoEHWfGPLdLcBlHpYKXnYxVGeS0NuOwwBxpHdZv28m4hQN6rbJjWYnKEKhdU66FSmZupraAYU6MBv)"
+    charset="utf-8" referrerpolicy="origin" />
+
+  <link rel="preconnect"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/)">
+  <link rel="stylesheet"
+    href="[https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABphJEDYUY2RSS32qzjLnRywMZY_bIrx9rGwvUixogYf1DDozUpYGiY8cYNmzhhcx9bOZr_4_JDolPn9i90B2-YGk1pXhSLp2m_xHdZQiSjPI8lkHA3jqxWACi-MMTUkG6fqCvAJXUtoZt7pdxqytoxHXCTBxAV0D-IP3m1G6GXsxl89VaEh8xqiZ4itXssW-3tM5pQOUUuzRhferBpvF0pCnWgdw9q6z20fhyfQ7Bsg8P9aIL5iAM0gYdlBoCJO89riZVV](https://qns2c88qif.execute-api.ap-northeast-2.amazonaws.com/v1/api/css/drop_fontstream_css/?sid=gAAAAABphJEDYUY2RSS32qzjLnRywMZY_bIrx9rGwvUixogYf1DDozUpYGiY8cYNmzhhcx9bOZr_4_JDolPn9i90B2-YGk1pXhSLp2m_xHdZQiSjPI8lkHA3jqxWACi-MMTUkG6fqCvAJXUtoZt7pdxqytoxHXCTBxAV0D-IP3m1G6GXsxl89VaEh8xqiZ4itXssW-3tM5pQOUUuzRhferBpvF0pCnWgdw9q6z20fhyfQ7Bsg8P9aIL5iAM0gYdlBoCJO89riZVV)"
+    charset="utf-8" referrerpolicy="origin" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  <script type="text/javascript" strategy="beforeInteractive"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_KEY%&libraries=services"></script>
+</body>
+
 </html>
