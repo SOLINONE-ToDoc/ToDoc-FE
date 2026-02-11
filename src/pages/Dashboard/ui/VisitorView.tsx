@@ -16,6 +16,7 @@ import { boostContent } from '@/features/board';
 import { Toast } from '@/shared/ui/Toast';
 import { useLocationStore } from '@/entities/map';
 import { useAuthStore } from '@/entities/auth';
+import { useMyNoteInPlace } from '@/features/board';
 
 export const VisitorView = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const VisitorView = () => {
   const { setLastSelectedPlaceId } = usePlaceStore();
   const { userInfo } = useAuthStore();
   const { coords } = useLocationStore();
+  const { hasMyNote } = useMyNoteInPlace();
   const [selectedNote, setSelectedNote] = useState<BoardContent | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -138,6 +140,15 @@ export const VisitorView = () => {
       setToastMessage("위치 정보를 가져올 수 없습니다.");
       return;
     }
+    const isMine = await hasMyNote(
+      Number(placeId),
+      selectedNote.contentId
+    );
+
+    if (!isMine) {
+      setToastMessage('본인의 방명록만 끌어올릴 수 있어요');
+      return;
+    }
 
     const payload = {
       contentId: selectedNote.contentId,
@@ -150,7 +161,7 @@ export const VisitorView = () => {
     if (isSuccess) {
       setToastMessage('방명록을 끌어올렸어요');
     } else {
-      setToastMessage('본인의 방명록만 끌어올릴 수 있어요');
+      setToastMessage('방명록을 끌어올리지 못했어요. 잠시 후 다시 시도해주세요.');
     }
   };
 
