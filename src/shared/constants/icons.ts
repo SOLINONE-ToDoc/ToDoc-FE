@@ -17,6 +17,7 @@ import IcEmpty from '../assets/icons/empty.svg?react';
 import IcPlus from '../assets/icons/plus.svg?react';
 import IcPencil from '../assets/icons/pencil.svg?react';
 import IcCheckKey from '../assets/icons/checkKey.svg?react';
+import IcXKey from '../assets/icons/xKey.svg?react';
 
 export const ICONS = {
   Logo: IcLogo,
@@ -33,9 +34,13 @@ export const ICONS = {
   Setting: IcSetting,
   Check: IcCheck,
   Down: IcDown,
-  Login: IcLogin,
-  Empty: IcEmpty,
   Plus: IcPlus,
   Pencil: IcPencil,
-  CheckKey: IcCheckKey,
 } as const;
+
+export const GUIDE_ICONS = {
+  Login: IcLogin,
+  Empty: IcEmpty,
+  CheckKey: IcCheckKey,
+  XKey: IcXKey,
+}
