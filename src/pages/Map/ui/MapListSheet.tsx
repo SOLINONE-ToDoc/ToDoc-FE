@@ -22,22 +22,22 @@ export const MapListSheet = ({ places, onSelect }: MapListSheetProps) => {
           <div className="flex flex-col justify-start gap-2">
             <div className="flex gap-4">
               <div className="w-[88px] h-[88px] rounded-[8px] bg-gray-200 shrink-0" />
-              <div className="flex flex-col justify-start gap-2">
-                <div className="text-heading-1 font-semibold">
-                  {place.placeName}
-                </div>
-                <div className="flex gap-2">
-                  <div className="text-caption font-semibold">
-                    {PLACE_TYPE_LABEL[place.placeType]}
+                <div className="flex flex-col justify-start gap-2">
+                  <div className="text-heading-1 font-semibold">
+                    {place.placeName}
                   </div>
-                  <div className="text-caption font-semibold">
-                    {getRelativeVisitText(place.lastVisitedAt)}
+                  <div className="flex gap-2">
+                    <div className="text-caption font-semibold">
+                      {PLACE_TYPE_LABEL[place.placeType]}
+                    </div>
+                    <div className="text-caption font-semibold">
+                      {getRelativeVisitText(place.lastVisitedAt)}
+                    </div>
+                  </div>
+                  <div className="text-caption font-regular text-gray-500">
+                    {place.address}
                   </div>
                 </div>
-                <div className="text-caption font-regular text-gray-500">
-                  {place.address}
-                </div>
-              </div>
               </div>
               {place.myContent && (
               <div className="flex gap-[10px] rounded-[4px] border border-gray-200 py-2 pl-3">

@@ -214,7 +214,7 @@ export const VisitorView = () => {
               baseZIndex={50}
               bgImage={selectedNote.themeUrl || undefined}
               style={{
-                fontFamily: FONT_MAP[selectedNote.fontId]?.fontFamily,
+                fontFamily: `"${FONT_MAP[selectedNote.fontId]?.fontFamily}"`,
               }}
             />
             <div className='flex flex-row gap-2 pointer-events-auto mt-[72px]'>

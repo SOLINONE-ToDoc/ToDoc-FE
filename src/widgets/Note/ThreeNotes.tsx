@@ -23,7 +23,7 @@ export const ThreeNotes = ({ contents }: ThreeNotesProps) => {
             baseZIndex={1000}
             bgImage={item.themeUrl ?? undefined}
             style={{
-              fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+              fontFamily: `"${FONT_MAP[item.fontId]?.fontFamily}"`,
             }}
           />
         </div>

@@ -70,8 +70,8 @@ export const RandomNotes = ({ contents }: { contents: BoardContent[] }) => {
               position: 'absolute',
               left: pos.x,
               top: pos.y,
-              fontFamily: FONT_MAP[item.fontId]?.fontFamily,
-            }}
+                fontFamily: `"${FONT_MAP[item.fontId]?.fontFamily}"`,
+              }}
           />
         );
       })}

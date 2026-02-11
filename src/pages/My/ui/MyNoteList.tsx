@@ -37,7 +37,7 @@ export const MyNoteList = ({ contents, isLoading }: MyNoteListProps) => {
             baseZIndex={10}
             bgImage={note.themeUrl === "string" ? undefined : note.themeUrl}
             style={{
-              fontFamily: FONT_MAP[note.fontId]?.fontFamily,
+              fontFamily: `"${FONT_MAP[note.fontId]?.fontFamily}"`,
             }}
           />
         </div>

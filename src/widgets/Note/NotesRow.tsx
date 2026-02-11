@@ -30,7 +30,7 @@ export const NotesRow = ({ contents }: NotesRowProps) => {
               baseZIndex={total - index}
               bgImage={item.themeUrl ?? undefined}
               style={{
-                fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+                fontFamily: `"${FONT_MAP[item.fontId]?.fontFamily}"`,
               }}
             />
           </div>

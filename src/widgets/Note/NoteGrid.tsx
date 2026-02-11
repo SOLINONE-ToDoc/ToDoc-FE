@@ -88,7 +88,7 @@ export const NoteGrid = ({ contents, onNoteClick }: NoteGridProps) => {
                       baseZIndex={50 + actualRowIndex}
                       bgImage={item.themeUrl || undefined}
                       style={{
-                        fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+                        fontFamily: `"${FONT_MAP[item.fontId]?.fontFamily}"`,
                       }}
                     />
                   </div>
