@@ -24,7 +24,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
         onClick={() => setIsOpen(prev => !prev)}
         className="inline-flex items-center justify-between w-full px-4 text-left text-[16px] font-semibold"
       >
-        <span className="block overflow-hidden whitespace-nowrap text-ellipsis">
+        <span className="block overflow-hidden whitespace-nowrap text-ellipsis ">
           {label}
         </span>
 
@@ -63,7 +63,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
                 className={itemClassName}
                 onClick={handleClick}
               >
-                <span>{option}</span>
+                <span className="truncate mr-2">{option}</span>
                 {isAddOption && <ICONS.Plus className="w-4 h-4"/>}
               </li>
             );

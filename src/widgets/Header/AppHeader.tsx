@@ -19,7 +19,7 @@ export const AppHeader = () => {
 
   const handlePlaceSelect = (option: string) => {
     if (option === "추가하기") {
-      // navigate('/place/add');
+      navigate('/place/add');
     } else {
       const target = places.find(p => p.placeName === option);
       if (target) navigate(`/place/${target.placeId}`);
