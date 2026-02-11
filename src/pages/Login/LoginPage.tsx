@@ -12,8 +12,6 @@ import { usePlaceStore } from '@/entities/place';
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { login, isLoading } = useLogin();
-  const { lastSelectedPlaceId } = usePlaceStore();
-
   const [userType, setUserType] = useState<UserType>('VISITOR');
 
   const [formData, setFormData] = useState<Pick<LoginRequest, 'email' | 'password'>>({
@@ -41,24 +39,20 @@ export const LoginPage = () => {
 
     const { userInfo } = useAuthStore.getState();
 
+    let targetPlaceId: number | null = null;
+
     if (userInfo?.role === 'PROVIDER') {
       const { fetchPlaces } = useProviderStore.getState();
       await fetchPlaces();
       const updatedPlaces = useProviderStore.getState().places;
-
-      if (updatedPlaces && updatedPlaces.length > 0) {
-        const firstPid = updatedPlaces[0].placeId;
-        navigate(`/place/${firstPid}`, { replace: true });
-      } else {
-        navigate('/place', { replace: true });
-      }
+      targetPlaceId = updatedPlaces?.[0]?.placeId ?? null;
+    } else {
+      targetPlaceId = usePlaceStore.getState().lastSelectedPlaceId;
     }
-    else {
-      if (lastSelectedPlaceId) {
-        navigate(`/place/${lastSelectedPlaceId}`, { replace: true });
-      } else {
-        navigate('/', { replace: true });
-      }
+    if (targetPlaceId) {
+      navigate(`/place/${targetPlaceId}`, { replace: true });
+    } else {
+      navigate('/', { replace: true });
     }
   };
 

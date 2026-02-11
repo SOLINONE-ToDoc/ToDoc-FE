@@ -12,7 +12,7 @@ export const SignUpSuccessPage = () => {
     }, 1000);
 
     const timeout = setTimeout(() => {
-      navigate('/', { replace: true });
+      navigate('/login', { replace: true });
     }, 5000);
 
     return () => {
@@ -32,7 +32,7 @@ export const SignUpSuccessPage = () => {
         잊지 못할 추억을 남겨보아요!
       </p>
       <p className="text-caption lg:text-[14px] font-medium text-content-muted">
-        {countdown}초 뒤 홈으로
+        {countdown}초 뒤 로그인으로
       </p>
     </main>
   );
