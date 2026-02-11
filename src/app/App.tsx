@@ -19,6 +19,7 @@ import {
   DashboardWritePage,
   DashboardWriteLoadingPage,
   DashboardWriteFont,
+  DashboardWriteSuccessPage,
 } from '@/pages/Dashboard';
 import { MyPage } from '@/pages/My/MyPage';
 
@@ -48,6 +49,7 @@ function App() {
             <Route path="/place/:placeId/write" element={<DashboardWritePage />} />
             <Route path="/place/:placeId/write/loading" element={<DashboardWriteLoadingPage />} />
             <Route path="/place/:placeId/write/font" element={<DashboardWriteFont />} />
+            <Route path="/place/:placeId/write/success" element={<DashboardWriteSuccessPage />} />
 
           </Routes>
         </main>
