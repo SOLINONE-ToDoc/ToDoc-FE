@@ -8,6 +8,11 @@ export function loadFontById(fontId: number) {
   const font = FONT_MAP[fontId];
   if (!font || !font.url) return;
 
+  if (!font.url) {
+    loadedFonts.add(fontId);
+    return;
+  }
+
   if (font.url.endsWith('.css')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
