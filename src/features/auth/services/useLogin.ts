@@ -9,18 +9,24 @@ export const useLogin = () => {
 
   const login = async (data: LoginRequest) => {
     setIsLoading(true);
+
     try {
-      const res = await request<LoginResponse>('/api/users/login', 'POST', data);
+      const res = await request<LoginResponse>(
+        '/api/users/login',
+        'POST',
+        data
+      );
+
       const { accessToken, expiresIn, ...userInfo } = res.data;
+
       setAuth(accessToken, userInfo, expiresIn);
 
       return true;
-
     } catch (error) {
-      const fixedMessage = '현재 접속자가 많아 처리가 지연되고 있습니다. 잠시 후 다시 시도해 주세요.';
-      alert(fixedMessage);
+      alert(
+        '현재 접속자가 많아 처리가 지연되고 있습니다. 잠시 후 다시 시도해 주세요.'
+      );
       console.error('Login Error:', error);
-
       return false;
     } finally {
       setIsLoading(false);

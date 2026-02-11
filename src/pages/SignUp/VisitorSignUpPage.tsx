@@ -15,7 +15,6 @@ export const VisitorSignUpPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = React.useState<VisitorSignUpRequest>({
-    userType: 'VISITOR',
     nickname: '신난 굴림체',
     email: '',
     password: '',
@@ -28,14 +27,15 @@ export const VisitorSignUpPage = () => {
 
   const combinedErrors: Partial<Record<keyof VisitorSignUpRequest, string>> = {
     ...validationErrors,
-    email:
-      validationErrors.email ??
-      (emailStatus === 'duplicated'
-        ? VALIDATION_MESSAGES.EMAIL.DUPLICATED
-        : emailStatus === 'available'
-        ? VALIDATION_MESSAGES.EMAIL.AVAILABLE
-        : undefined),
   };
+
+  if (!combinedErrors.email) {
+    if (emailStatus === 'duplicated') {
+      combinedErrors.email = VALIDATION_MESSAGES.EMAIL.DUPLICATED;
+    } else if (emailStatus === 'available') {
+      combinedErrors.email = VALIDATION_MESSAGES.EMAIL.AVAILABLE;
+    }
+  }
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;

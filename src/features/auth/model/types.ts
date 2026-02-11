@@ -1,25 +1,35 @@
 import type { PlaceType } from "@/entities/place";
-import type { UserType } from "@/entities/auth";
 
 export interface LoginRequest {
   email: string;
   password: string;
 }
 
-export interface LoginResponse {
+export interface BaseLoginResponse {
   accessToken: string;
   email: string;
   expiresIn: number;
   nickname: string;
-  role: string;
   tokenType: string;
   userId: number;
 }
 
+export interface VisitorLoginResponse extends BaseLoginResponse {
+  role: 'VISITOR';
+}
+
+export interface ProviderLoginResponse extends BaseLoginResponse {
+  role: 'PROVIDER';
+  placeIds: number[];
+}
+
+export type LoginResponse =
+  | VisitorLoginResponse
+  | ProviderLoginResponse;
+
 export type ValidationStatus = 'idle' | 'checking' | 'available' | 'duplicated' | 'unavailable';
 
 export interface VisitorSignUpRequest {
-  userType: UserType;
   nickname: string;
   email: string;
   password: string;

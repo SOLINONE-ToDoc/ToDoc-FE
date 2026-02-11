@@ -1,29 +1,37 @@
 import { useState } from 'react';
 import { request } from '@/shared/api';
-import type { SignUpFormData, VisitorSignUpPayload, ProviderSignUpPayload, ProviderSignUpRequest } from '../model/types';
+import type {
+  SignUpFormData,
+  VisitorSignUpPayload,
+  ProviderSignUpPayload,
+  ProviderSignUpRequest,
+} from '../model/types';
+
+function isProviderSignUp(data: SignUpFormData): data is ProviderSignUpRequest {
+  return 'businessNumber' in data;
+}
 
 export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const signUp = async (data: SignUpFormData) => {
     setIsLoading(true);
-    try {
-      if (data.userType === 'PROVIDER') {
-        const provider = data as ProviderSignUpRequest;
 
+    try {
+      if (isProviderSignUp(data)) {
         const payload: ProviderSignUpPayload = {
-          name: provider.name,
-          nickname: provider.nickname,
-          email: provider.email,
-          password: provider.password,
-          businessNumber: provider.businessNumber,
-          placeName: provider.placeName,
-          address: provider.address,
-          openedAt: provider.openedAt,
-          placeType: provider.placeType,
-          latitude: provider.latitude,
-          longitude: provider.longitude,
-          zoneCode: provider.zoneCode,
+          name: data.name,
+          nickname: data.nickname,
+          email: data.email,
+          password: data.password,
+          businessNumber: data.businessNumber,
+          placeName: data.placeName,
+          address: data.address,
+          openedAt: data.openedAt,
+          placeType: data.placeType,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          zoneCode: data.zoneCode,
         };
 
         await request<string>('/api/users/signup/provider', 'POST', payload);
@@ -48,4 +56,3 @@ export const useSignUp = () => {
 
   return { signUp, isLoading };
 };
-

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { UserType } from '@/entities/auth';
 import { useLogin, type LoginRequest } from '@/features/auth'
 import { Button } from '@/shared/ui/Button';
 import { LoginForm } from './ui/LoginForm';
 import { LoginHeader } from './ui/LoginHeader';
 import { useAuthStore } from '@/entities/auth';
-import { useProviderStore } from '@/entities/provider';
 import { usePlaceStore } from '@/entities/place';
+
+type SignupUserType = 'VISITOR' | 'PROVIDER';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { login, isLoading } = useLogin();
-  const [userType, setUserType] = useState<UserType>('VISITOR');
+
+  const [userType, setUserType] = useState<SignupUserType>('VISITOR');
 
   const [formData, setFormData] = useState<Pick<LoginRequest, 'email' | 'password'>>({
     email: '',
@@ -27,32 +28,38 @@ export const LoginPage = () => {
   };
 
   const handleSignupNavigation = () => {
-    const path = userType === 'VISITOR' ? '/signup/visitor' : '/signup/provider';
-    navigate(path);
+    if (userType === 'VISITOR') {
+      navigate('/signup/visitor');
+    } else {
+      navigate('/signup/provider');
+    }
   };
 
   const handleSubmit = async () => {
-    const finalRequest: LoginRequest = { ...formData };
-
-    const success = await login(finalRequest);
+    const success = await login(formData);
     if (!success) return;
 
     const { userInfo } = useAuthStore.getState();
 
+    if (!userInfo) {
+      console.error('로그인 했는데 정보 없는 경우');
+      return;
+    }
+
     let targetPlaceId: number | null = null;
 
-    if (userInfo?.role === 'PROVIDER') {
-      const { fetchPlaces } = useProviderStore.getState();
-      await fetchPlaces();
-      const updatedPlaces = useProviderStore.getState().places;
-      targetPlaceId = updatedPlaces?.[0]?.placeId ?? null;
+    if (userInfo.role === 'PROVIDER') {
+      if (userInfo.placeIds.length > 0) {
+        targetPlaceId = userInfo.placeIds[0];
+      }
     } else {
       targetPlaceId = usePlaceStore.getState().lastSelectedPlaceId;
     }
-    if (targetPlaceId) {
+
+    if (targetPlaceId !== null) {
       navigate(`/place/${targetPlaceId}`, { replace: true });
     } else {
-      navigate('/', { replace: true });
+      // navigate('/place/add', { replace: true });
     }
   };
 
