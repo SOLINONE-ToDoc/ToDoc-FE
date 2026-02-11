@@ -35,7 +35,7 @@ export interface FontAsset {
 }
 
 export const FONT_MAP: Record<number, { label: string; fontFamily: string; url: string | null }> = {
-  1: { label: 'Sandoll 거복', fontFamily: 'SandollGeobok', url: null },
+  1: { label: 'Sandoll 거복', fontFamily: 'Sandoll Geobok', url: null },
   2: { label: 'Sandoll 고딕NeoCond', fontFamily: 'Sandoll GtNeoCond', url: null },
   3: { label: 'SD 잔', fontFamily: 'SDJan', url: null },
   4: { label: 'SD 워키토키Round', fontFamily: 'SD WalkieTalkie Round', url: null },
