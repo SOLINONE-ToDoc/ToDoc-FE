@@ -43,9 +43,13 @@ export interface UserBoard {
 }
 
 export interface WriteStore {
+  boardId: number | null;
   content: string;
   createdAt: Date | null;
+  orderNumber: number | null;
+  setBoardId: (id: number) => void;
   setContent: (content: string) => void;
   setCreatedAt: (date: Date) => void;
+  setOrderNumber: (num: number) => void;
   reset: () => void;
 }

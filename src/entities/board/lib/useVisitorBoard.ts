@@ -9,7 +9,8 @@ export const useVisitorBoard = (placeId: number | null) => {
   const [qrUrl, setQrUrl] = useState('');
   const [themeId, setThemeId] = useState<number | null>(null);
   const [placeName, setPlaceName] = useState('');
-console.log('요청 placeId:', placeId)
+  const [boardId, setBoardId] = useState<number | null>(null);
+
   useEffect(() => {
     if (!placeId) return;
 
@@ -20,6 +21,7 @@ console.log('요청 placeId:', placeId)
         const boardData = res.data;
 
         if (boardData) {
+          setBoardId(boardData.boardId);
           setContents(boardData.contents);
           setQrUrl(boardData.qrUrl);
           setThemeId(boardData.themeId);
@@ -57,5 +59,5 @@ console.log('요청 placeId:', placeId)
     };
   }, [placeId]);
 
-  return { contents, qrUrl, themeId, isLoading, placeName };
+  return { boardId, contents, qrUrl, themeId, isLoading, placeName };
 };
