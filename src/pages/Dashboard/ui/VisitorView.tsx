@@ -46,25 +46,18 @@ export const VisitorView = () => {
     if (!containerRef.current || !canvasRef.current) return;
 
     const updateCenter = () => {
-      const containerWidth = containerRef.current!.offsetWidth;
-      const containerHeight = containerRef.current!.offsetHeight;
-      const canvasWidth = canvasRef.current!.offsetWidth;
-      const canvasHeight = canvasRef.current!.offsetHeight;
+      const containerRect = containerRef.current!.getBoundingClientRect();
+      const canvasRect = canvasRef.current!.getBoundingClientRect();
 
-      if (canvasWidth > 0 && canvasHeight > 0) {
-        x.set(-(canvasWidth - containerWidth) / 2);
-        y.set(-(canvasHeight - containerHeight) / 2);
+      if (canvasRect.width > 0 && canvasRect.height > 0) {
+        x.set(-(canvasRect.width - containerRect.width) / 2);
+        y.set(-(canvasRect.height - containerRect.height) / 2);
       }
     };
 
     updateCenter();
-
-    const observer = new ResizeObserver(() => {
-      updateCenter();
-    });
-
+    const observer = new ResizeObserver(updateCenter);
     observer.observe(canvasRef.current);
-
     return () => observer.disconnect();
   }, [contents.length, x, y]);
 
@@ -73,24 +66,28 @@ export const VisitorView = () => {
       <motion.div
         ref={canvasRef}
         drag={!isSmallCount}
-        dragConstraints={isSmallCount ? { left: 0, right: 0, top: 0, bottom: 0 } : containerRef}
-        dragElastic={isSmallCount ? 0 : 0.1}
+        dragConstraints={containerRef}
+        dragElastic={0.2}
+        dragMomentum={true}
+        dragTransition={{ power: 0.2, timeConstant: 200 }}
         style={{ x, y }}
         className={cn(
           "w-fit will-change-transform",
-          isSmallCount ? "p-5" : "p-5 pt-[108px] cursor-grab active:cursor-grabbing"
+          isSmallCount ? "p-5" : "p-[100px] cursor-grab active:cursor-grabbing"
         )}
       >
         <NoteGrid contents={contents} />
       </motion.div>
-      <div className="fixed left-[24px] bottom-[32px] z-[9999]">
-        <PlaceTag placeName={placeName} />
-      </div>
-      <div className="fixed right-[24px] bottom-[24px] z-[9999]">
-        <WriteButton
-          onWriteClick={handleWriteNavigation}
-          onSearchMyNoteClick={handleMyNote}
-        />
+      <div className="fixed inset-0 pointer-events-none z-[9999]">
+        <div className="absolute left-[24px] bottom-[32px] pointer-events-auto">
+          <PlaceTag placeName={placeName} />
+        </div>
+        <div className="absolute right-[24px] bottom-[24px] pointer-events-auto">
+          <WriteButton
+            onWriteClick={handleWriteNavigation}
+            onSearchMyNoteClick={handleMyNote}
+          />
+        </div>
       </div>
     </div>
   );
