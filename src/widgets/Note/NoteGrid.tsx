@@ -6,9 +6,10 @@ import { FONT_MAP } from "@/entities/font";
 
 interface NoteGridProps {
   contents: BoardContent[];
+  onNoteClick: (note: BoardContent) => void;
 }
 
-export const NoteGrid = ({ contents }: NoteGridProps) => {
+export const NoteGrid = ({ contents, onNoteClick }: NoteGridProps) => {
   const priorityCoords = [
     [3, 3], [3, 4], [3, 2], [4, 2], [4, 3], [4, 4], [2, 2], [2, 3], [2, 4],
     [3, 1], [3, 5], [3, 0], [3, 6], [4, 1], [4, 5], [4, 0], [4, 6],
@@ -73,9 +74,8 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
                     onPointerUp={(e) => {
                       const dragged = e.currentTarget.dataset.dragged === 'true';
                       e.currentTarget.releasePointerCapture(e.pointerId);
-
                       if (!dragged) {
-                        console.log('NOTE SELECTED:', item.contentId);
+                        onNoteClick(item);
                       }
                     }}
                     className="w-[168px] shrink-0"

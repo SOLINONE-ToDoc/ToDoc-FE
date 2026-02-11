@@ -13,12 +13,16 @@ import fontEx4 from './font_ex_4.svg?react';
 import fontEx5 from './font_ex_5.svg?react';
 import aiSearchSvg from './ai_search.svg?react';
 import aISvg from './ai.svg?react';
+import shareSvg from './share.svg?react';
+import boostSvg from './boost.svg?react';
 
 export const ICON_QR = qrSvg;
 export const ICON_DOWNLOAD = downloadSvg;
 export const ICON_LIVE = liveSvg;
 export const ICON_LOCATION = locationSvg;
 export const ICON_CIRCLE_DASHED = circleDashSvg;
+export const ICON_BOOST = boostSvg;
+export const ICON_SHARE = shareSvg;
 
 export const SCAN_NOTE = {
   Scanner: scannerSvg,

@@ -8,11 +8,16 @@ import { usePlaceStore } from '@/entities/place';
 import { WriteButton } from './WriteButton';
 import { PlaceTag } from './PlaceTag';
 import { useFontPreload } from '@/shared/hooks';
+import type { BoardContent } from '@/entities/board';
+import { Note } from '@/shared/ui/Note';
+import { FONT_MAP } from '@/entities/font';
+import { ICON_BOOST, ICON_SHARE, ICON_LOCATION } from '../assets/icons';
 
 export const VisitorView = () => {
   const navigate = useNavigate();
   const { placeId } = useParams<{ placeId: string }>();
   const { setLastSelectedPlaceId } = usePlaceStore();
+  const [selectedNote, setSelectedNote] = useState<BoardContent | null>(null);
 
   useEffect(() => {
     if (placeId) {
@@ -101,12 +106,56 @@ export const VisitorView = () => {
           "w-fit will-change-transform p-[100px] cursor-grab active:cursor-grabbing"
         )}
       >
-        <NoteGrid contents={contents} />
+        <NoteGrid contents={contents} onNoteClick={setSelectedNote} />
       </motion.div>
-      <div className="fixed inset-0 pointer-events-none z-[9999]">
-        <div className="absolute left-[24px] bottom-[32px] pointer-events-auto">
-          <PlaceTag placeName={placeName} />
+      {selectedNote && (
+        <div className="fixed inset-0 z-[10000] flex flex-col items-center justify-center p-6">
+          <div
+            className="absolute inset-0 bg-surface-overlay"
+            onClick={() => setSelectedNote(null)}
+          />
+
+          <div className="relative z-10 w-full flex flex-col items-center">
+            <div className='flex items-center justify-center h-[40px] px-3 mb-10 gap-1 rounded-full bg-black/50 select-none'>
+              <ICON_LOCATION width={24} height={24} className='text-white' />
+              <span className='text-body-2 font-regular text-content-onInverse'>
+                {placeName}
+              </span>
+            </div>
+            <Note
+              size="lg"
+              rotation="none"
+              content={selectedNote.content}
+              date={(selectedNote.createdAt)}
+              baseZIndex={50}
+              bgImage={selectedNote.themeUrl || undefined}
+              style={{
+                fontFamily: FONT_MAP[selectedNote.fontId]?.fontFamily,
+              }}
+            />
+            <div className='flex flex-row gap-2 pointer-events-auto mt-[72px]'>
+              <button
+                className="flex flex-col w-[144px] h-[77px] items-center justify-center bg-black text-white rounded-[12px] pt-3 pb-4 gap-2 transition-active active:scale-95"
+              >
+                <ICON_SHARE width={28} height={28}/>
+                <span className="text-body-2 font-medium">공유하기</span>
+              </button>
+            <button
+              className="flex flex-col w-[144px] h-[77px] items-center justify-center bg-red-400 text-white rounded-[12px] pt-3 pb-4 gap-2 transition-active active:scale-95"
+            >
+              <ICON_BOOST width={28} height={28}/>
+              <span className="text-body-2 font-medium text-center">방명록 끌어올리기</span>
+            </button>
+            </div>
+          </div>
         </div>
+      )}
+      <div className="fixed inset-0 pointer-events-none z-[9999]">
+        {!selectedNote && (
+          <div className="absolute left-[24px] bottom-[32px] pointer-events-auto">
+            <PlaceTag placeName={placeName} />
+          </div>
+        )}
         <div className="absolute right-[24px] bottom-[24px] pointer-events-auto">
           <WriteButton
             onWriteClick={handleWriteNavigation}
