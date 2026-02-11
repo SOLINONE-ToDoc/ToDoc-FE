@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFontRecommendStore, FONT_CATEGORY_KR, type FontCategory } from "@/entities/font";
+import { useFontRecommendStore, FONT_CATEGORY_MAP, type FontCategory } from "@/entities/font";
 import { AI } from "../assets/icons";
 import { useCategoryFonts } from "@/entities/font";
 
@@ -62,7 +62,7 @@ export const FontRecommendSheet = () => {
       <div className="flex flex-col gap-4 pt-5">
         <h3 className="text-heading-1 font-bold text-content-primary">폰트 탐색</h3>
         <div className="flex items-center gap-2 overflow-x-auto py-1 no-scrollbar">
-          {Object.entries(FONT_CATEGORY_KR).map(([category, name]) => {
+          {Object.entries(FONT_CATEGORY_MAP).map(([category, name]) => {
             const isSelected = selectedCategory === category;
             return (
               <button

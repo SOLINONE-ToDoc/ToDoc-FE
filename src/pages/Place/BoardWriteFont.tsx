@@ -10,7 +10,7 @@ import { BottomSheet, type BottomSheetSnap } from "@/shared/ui/BottomSheet";
 import { FontRecommendSheet,FontTag } from "./ui";
 import { postBoardContent } from "@/features/board";
 import { useLocationStore } from '@/entities/map';
-import { loadFontById } from "@/shared/lib";
+import { loadFontById } from "@/shared/lib/fontLoader"; // Ensure correct import path for loadFontById
 
 export const BoardWriteFont = () => {
   const navigate = useNavigate();
@@ -29,15 +29,27 @@ export const BoardWriteFont = () => {
   const { content: contentWrite, setOrderNumber } = useWriteStore();
 
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoadingFont, setIsLoadingFont] = useState(false); // New state for font loading
 
   const [sheetSnap, setSheetSnap] = useState<BottomSheetSnap>('min');
   const snapHeights: Record<BottomSheetSnap, number> = { min: 30, mid: 40, max: 75 };
   const currentSheetHeight = snapHeights[sheetSnap];
 
   useEffect(() => {
-    if (selectedFontId) {
-      loadFontById(selectedFontId);
-    }
+    const handleFontLoading = async () => {
+      if (selectedFontId) {
+        setIsLoadingFont(true);
+        try {
+          await loadFontById(selectedFontId);
+        } catch (error) {
+          console.error("폰트 로드 실패:", error);
+          // Optionally, show a user-friendly error message
+        } finally {
+          setIsLoadingFont(false);
+        }
+      }
+    };
+    handleFontLoading();
   }, [selectedFontId]);
 
   useEffect(() => {
@@ -64,6 +76,10 @@ export const BoardWriteFont = () => {
   const handleNext = async () => {
     if (!placeId || !selectedFontId || !contentWrite) {
       alert("내용과 폰트를 모두 선택해주세요.");
+      return;
+    }
+    if (isLoadingFont) { // Prevent action if font is still loading
+      alert("폰트를 로딩 중입니다. 잠시 후 다시 시도해주세요.");
       return;
     }
 
@@ -102,8 +118,8 @@ export const BoardWriteFont = () => {
         rightElement={
           <button
             onClick={handleNext}
-            disabled={!selectedFontId}
-            className={`text-heading-1 font-semibold ${selectedFontId ? "text-content-primary" : "text-gray-300"
+            disabled={!selectedFontId || isLoadingFont} // Disable if font is loading
+            className={`text-heading-1 font-semibold ${selectedFontId && !isLoadingFont ? "text-content-primary" : "text-gray-300"
               }`}
           >
             완료
@@ -113,14 +129,20 @@ export const BoardWriteFont = () => {
 
       <main className="flex-1 flex flex-col p-5">
         <div className="mx-auto mt-[60px]">
-          <Note
-            size="lg"
-            content={contentWrite}
-            date={formatDate(new Date())}
-            baseZIndex={100}
-            bgImage={recommendThemeUrl || undefined}
-            style={{ fontFamily: selectedFont?.fontNameEng }}
-          />
+          {isLoadingFont ? (
+            <div className="w-[248px] h-[332px] flex items-center justify-center bg-gray-100 rounded-lg text-gray-500">
+              폰트 로딩 중...
+            </div>
+          ) : (
+            <Note
+              size="lg"
+              content={contentWrite}
+              date={formatDate(new Date())}
+              baseZIndex={100}
+              bgImage={recommendThemeUrl || undefined}
+              style={{ fontFamily: selectedFont?.fontNameEng }}
+            />
+          )}
         </div>
       </main>
       {showPopup && (
@@ -131,7 +153,7 @@ export const BoardWriteFont = () => {
         />
       )}
       <div
-        className="absolute left-0 right-0 px-5 transition-all duration-300 ease-in-out z-20 flex justify-center" // flex와 justify-center 추가
+        className="absolute left-0 right-0 px-5 transition-all duration-300 ease-in-out z-20 flex justify-center"
         style={{ bottom: `${currentSheetHeight}%`, marginBottom: '20px' }}
       >
         <FontTag FontName={displayFontName} />
