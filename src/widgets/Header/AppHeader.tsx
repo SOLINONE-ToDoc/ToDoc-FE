@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ICONS } from "@/shared/constants";
 import { Button } from "@/shared/ui/Button";
 import { DropdownButton } from "@/shared/ui/Button";
@@ -8,11 +8,14 @@ import { useProviderStore } from '@/entities/provider';
 export const AppHeader = () => {
   const Logo = ICONS.Logo;
   const navigate = useNavigate();
+  const location = useLocation();
   const { userInfo, clearAuth } = useAuthStore();
 
   const isLoggedIn = !!userInfo;
   const isProvider = userInfo?.role === 'PROVIDER';
   const { selectedPlace, places } = useProviderStore();
+
+  const isPlacePage = location.pathname.startsWith('/place');
 
   return (
     <header className="fixed hidden lg:block z-[9999] left-1/2 -translate-x-1/2 top-0 w-[724px] h-[64px] mt-[44px] mx-auto">
@@ -39,11 +42,15 @@ export const AppHeader = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          {isLoggedIn && isProvider && (
-            <Button variant="inversePrimary" size="lPill" type="button">
+          {isLoggedIn && isProvider && isPlacePage && (
+            <Button
+              variant="inversePrimary"
+              size="lPill"
+              type="button"
+              // onClick={() => navigate(`/place/${selectedPlace?.placeId}/edit`)}
+            >
               편집하기
             </Button>
-            // 라우팅 넣어야함
           )}
 
           {isLoggedIn && (
@@ -62,8 +69,8 @@ export const AppHeader = () => {
                 navigate('/login');
               }
             }}
-            >
-              {isLoggedIn ? "로그아웃" : "로그인"}
+          >
+            {isLoggedIn ? "로그아웃" : "로그인"}
           </Button>
         </div>
       </div>
