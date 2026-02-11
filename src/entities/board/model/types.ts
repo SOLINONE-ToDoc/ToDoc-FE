@@ -34,10 +34,6 @@ export interface PlaceDetail {
   };
 }
 
-export interface ProviderPlaceDetailData {
-  places: PlaceDetail[];
-}
-
 export interface UserBoard {
   boardId: number;
   placeName: string;

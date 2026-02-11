@@ -1,3 +1,5 @@
+import type { Board } from "@/entities/board";
+
 export type PlaceType =
   | 'RESTAURANT'
   | 'CAFE'
@@ -14,4 +16,15 @@ export interface Place {
   type: PlaceType;
   latitude: string;
   longitude: string;
+}
+
+export interface ProviderPlaceDetail {
+  placeId: number;
+  placeName: string;
+  hasBoard: boolean;
+  board: Board | null;
+}
+
+export interface ProviderPlaceDetailResponse {
+  places: ProviderPlaceDetail[];
 }
