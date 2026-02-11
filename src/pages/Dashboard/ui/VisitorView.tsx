@@ -40,8 +40,6 @@ export const VisitorView = () => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const isSmallCount = contents.length > 0 && contents.length <= 3;
-
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
 
@@ -62,18 +60,20 @@ export const VisitorView = () => {
   }, [contents.length, x, y]);
 
   return (
-    <div ref={containerRef} className="w-full h-screen overflow-hidden bg-[#F9F9F9] relative touch-none">
+    <div
+      ref={containerRef}
+      className="w-full h-screen overflow-hidden bg-[#F9F9F9] relative"
+    >
       <motion.div
         ref={canvasRef}
-        drag={!isSmallCount}
+        drag
         dragConstraints={containerRef}
         dragElastic={0.2}
-        dragMomentum={true}
+        dragMomentum
         dragTransition={{ power: 0.2, timeConstant: 200 }}
         style={{ x, y }}
         className={cn(
-          "w-fit will-change-transform",
-          isSmallCount ? "p-5" : "p-[100px] cursor-grab active:cursor-grabbing"
+          "w-fit will-change-transform p-[100px] cursor-grab active:cursor-grabbing"
         )}
       >
         <NoteGrid contents={contents} />

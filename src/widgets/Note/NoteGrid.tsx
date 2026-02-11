@@ -18,6 +18,8 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
     [0, 3], [0, 2], [0, 4], [0, 1], [0, 5], [0, 0], [0, 6]
   ];
 
+  const DRAG_THRESHOLD = 6;
+
   const activeCoords = priorityCoords.slice(0, contents.length);
   const activeRows = activeCoords.map(coord => coord[0]);
   const minRow = activeRows.length > 0 ? Math.min(...activeRows) : 3;
@@ -31,6 +33,7 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
   });
 
   return (
+
     <div className="flex flex-col gap-[12px] w-full items-center py-10 overflow-x-hidden">
       {gridMap.slice(minRow, maxRow + 1).map((rowItems, relativeRowIndex) => {
         const actualRowIndex = minRow + relativeRowIndex;
@@ -38,6 +41,7 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
         const isOffsetRow = actualRowIndex % 2 !== 0;
 
         return (
+
           <div
             key={`row-${actualRowIndex}`}
             className={cn(
@@ -51,17 +55,43 @@ export const NoteGrid = ({ contents }: NoteGridProps) => {
                 className="w-[168px] shrink-0"
               >
                 {item ? (
-                  <Note
-                    size="sm"
-                    rotation="none"
-                    content={item.content}
-                    date={formatDate(item.createdAt)}
-                    baseZIndex={50 + actualRowIndex}
-                    bgImage={item.themeUrl || undefined}
-                    style={{
-                      fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+                  <div
+                    onPointerDown={(e) => {
+                      e.currentTarget.setPointerCapture(e.pointerId);
+                      e.currentTarget.dataset.startX = String(e.clientX);
+                      e.currentTarget.dataset.startY = String(e.clientY);
+                      e.currentTarget.dataset.dragged = 'false';
                     }}
-                  />
+                    onPointerMove={(e) => {
+                      const sx = Number(e.currentTarget.dataset.startX);
+                      const sy = Number(e.currentTarget.dataset.startY);
+
+                      if (Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > DRAG_THRESHOLD) {
+                        e.currentTarget.dataset.dragged = 'true';
+                      }
+                    }}
+                    onPointerUp={(e) => {
+                      const dragged = e.currentTarget.dataset.dragged === 'true';
+                      e.currentTarget.releasePointerCapture(e.pointerId);
+
+                      if (!dragged) {
+                        console.log('NOTE SELECTED:', item.contentId);
+                      }
+                    }}
+                    className="w-[168px] shrink-0"
+                  >
+                    <Note
+                      size="sm"
+                      rotation="none"
+                      content={item.content}
+                      date={formatDate(item.createdAt)}
+                      baseZIndex={50 + actualRowIndex}
+                      bgImage={item.themeUrl || undefined}
+                      style={{
+                        fontFamily: FONT_MAP[item.fontId]?.fontFamily,
+                      }}
+                    />
+                  </div>
                 ) : (
                   <div className="w-[168px] h-[168px]" />
                 )}
