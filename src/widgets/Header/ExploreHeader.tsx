@@ -17,7 +17,7 @@ export const ExploreHeader = () => {
           <button onClick={() => navigate('/')} className="p-0 m-0 bg-transparent border-0 cursor-pointer">
               <Logo width={43} height={24} />
           </button>
-          <ICONS.Setting width={24} height={24} />
+          {/* <ICONS.Setting width={24} height={24} /> */}
         </div>
 
         <nav className="text-[20px] font-semibold flex items-start h-[60px] gap-4 px-5 relative z-10 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_50%,rgba(255,255,255,0)_100%)]">
