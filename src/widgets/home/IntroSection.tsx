@@ -18,7 +18,6 @@ export const IntroSection = () => {
             {`내 손안의 방명록, 토독 `}
           </span>
           <span className="text-[22px] font-regular">
-            by Sandoll
           </span>
         </div>
         <Button

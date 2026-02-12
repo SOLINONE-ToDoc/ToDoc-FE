@@ -9,7 +9,7 @@ import { formatDate } from "@/shared/utils";
 import { Button } from "@/shared/ui/Button";
 import { GUIDE_ICONS, ICONS } from "@/shared/constants";
 import { usePlaceInfo } from "@/entities/place";
-import { FONT_CATEGORY_KR } from "@/entities/font";
+import { FONT_CATEGORY_MAP } from "@/entities/font";
 
 export const BoardWriteSuccessPage = () => {
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ export const BoardWriteSuccessPage = () => {
             bgImage={recommendThemeUrl}
             fontFamily={fontNameEng}
             company={field}
-            category={FONT_CATEGORY_KR[category as keyof typeof FONT_CATEGORY_KR]}
+            category={FONT_CATEGORY_MAP[category as keyof typeof FONT_CATEGORY_MAP]}
             fontName={fontName}
           />
         </div>

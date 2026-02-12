@@ -60,7 +60,6 @@ export const FontCard: React.FC<FontCardProps> = ({
         >
           <div className="flex flex-col items-start">
             <span className="text-body-2 text-red-400 font-semibold tracking-wide">
-              by Sandoll
             </span>
           </div>
 

@@ -15,7 +15,6 @@ export const ProblemSection = () => {
               <span className='text-red-400'>매장</span>은 기록되지 않습니다.
             </span>
             <span className="text-[22px] font-regular text-white text-left">
-              by Sandoll
             </span>
           </div>
           <IMAGES.KeyCaps />
