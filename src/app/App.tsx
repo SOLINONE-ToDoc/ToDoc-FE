@@ -5,7 +5,6 @@ import {
   ExploreLayout,
   ExploreWithLayout,
 } from './layouts';
-import { Footer } from '@/widgets/Footer';
 import { HomePage } from '@/pages/Home';
 import { LoginPage } from '@/pages/Login';
 import {
@@ -59,7 +58,6 @@ function App() {
           </Routes>
         </main>
       </ProviderBootstrap>
-      <Footer />
     </Router>
   );
 }
