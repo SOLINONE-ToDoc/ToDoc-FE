@@ -19,12 +19,14 @@ export const RandomNotes = ({ contents }: { contents: BoardContent[] }) => {
   const [positions, setPositions] = useState<Record<number, NotePosition>>({});
   const positionsRef = useRef<Record<number, NotePosition>>({});
 
+  const maxZIndexRef = useRef(10);
+
   useEffect(() => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     let hasNew = false;
 
-    contents.forEach((item, i) => {
+    contents.forEach((item) => {
       if (positionsRef.current[item.contentId]) return;
       hasNew = true;
 
@@ -39,10 +41,12 @@ export const RandomNotes = ({ contents }: { contents: BoardContent[] }) => {
         attempt++;
       }
 
+      maxZIndexRef.current += 1;
+
       positionsRef.current[item.contentId] = {
         x, y,
         rotation: Math.random() < 0.33 ? 'left' : Math.random() < 0.66 ? 'right' : 'none',
-        zIndex: i + 10,
+        zIndex: maxZIndexRef.current,
       };
     });
 

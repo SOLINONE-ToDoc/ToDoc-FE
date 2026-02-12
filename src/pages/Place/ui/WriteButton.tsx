@@ -36,7 +36,7 @@ export const WriteButton = ({ onWriteClick, onSearchMyNoteClick }: WriteButtonPr
                 onWriteClick();
                 setIsOpen(false);
               }}
-              className="flex items-center justify-start gap-2 text-left w-full text-body-1 font-regular"
+              className="flex items-center justify-start gap-2 text-left w-full text-body-1 font-regular pb-1"
             >
               방명록 작성하기
             </Button>
@@ -49,7 +49,7 @@ export const WriteButton = ({ onWriteClick, onSearchMyNoteClick }: WriteButtonPr
                 onSearchMyNoteClick();
                 setIsOpen(false);
               }}
-              className="flex items-center justify-start gap-2 text-left w-full text-body-1 font-regular"
+              className="flex items-center justify-start gap-2 text-left w-full text-body-1 font-regular pt-1"
             >
               내 방명록 찾기
             </Button>
