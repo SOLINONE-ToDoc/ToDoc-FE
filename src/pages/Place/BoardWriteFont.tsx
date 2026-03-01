@@ -7,10 +7,10 @@ import { ConfirmPopup } from "@/shared/ui/Popup";
 import { Note } from "@/shared/ui/Note";
 import { formatDate } from "@/shared/utils";
 import { BottomSheet, type BottomSheetSnap } from "@/shared/ui/BottomSheet";
-import { FontRecommendSheet,FontTag } from "./ui";
+import { FontRecommendSheet, FontTag } from "./ui";
 import { postBoardContent } from "@/features/board";
-import { useLocationStore } from '@/entities/map';
-import { loadFontById } from "@/shared/lib/fontLoader"; // Ensure correct import path for loadFontById
+import { useLocationStore } from "@/entities/map";
+import { loadFontById } from "@/shared/lib/fontLoader";
 
 export const BoardWriteFont = () => {
   const navigate = useNavigate();
@@ -29,10 +29,14 @@ export const BoardWriteFont = () => {
   const { content: contentWrite, setOrderNumber } = useWriteStore();
 
   const [showPopup, setShowPopup] = useState(false);
-  const [isLoadingFont, setIsLoadingFont] = useState(false); // New state for font loading
+  const [isLoadingFont, setIsLoadingFont] = useState(false);
 
-  const [sheetSnap, setSheetSnap] = useState<BottomSheetSnap>('min');
-  const snapHeights: Record<BottomSheetSnap, number> = { min: 30, mid: 40, max: 75 };
+  const [sheetSnap, setSheetSnap] = useState<BottomSheetSnap>("min");
+  const snapHeights: Record<BottomSheetSnap, number> = {
+    min: 30,
+    mid: 40,
+    max: 75,
+  };
   const currentSheetHeight = snapHeights[sheetSnap];
 
   useEffect(() => {
@@ -43,7 +47,6 @@ export const BoardWriteFont = () => {
           await loadFontById(selectedFontId);
         } catch (error) {
           console.error("폰트 로드 실패:", error);
-          // Optionally, show a user-friendly error message
         } finally {
           setIsLoadingFont(false);
         }
@@ -78,7 +81,7 @@ export const BoardWriteFont = () => {
       alert("내용과 폰트를 모두 선택해주세요.");
       return;
     }
-    if (isLoadingFont) { // Prevent action if font is still loading
+    if (isLoadingFont) {
       alert("폰트를 로딩 중입니다. 잠시 후 다시 시도해주세요.");
       return;
     }
@@ -106,7 +109,9 @@ export const BoardWriteFont = () => {
         navigate(`/place/${placeId}/write/success`, { replace: true });
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : "방명록 작성에 실패했습니다.");
+      alert(
+        error instanceof Error ? error.message : "방명록 작성에 실패했습니다.",
+      );
     }
   };
 
@@ -118,9 +123,12 @@ export const BoardWriteFont = () => {
         rightElement={
           <button
             onClick={handleNext}
-            disabled={!selectedFontId || isLoadingFont} // Disable if font is loading
-            className={`text-heading-1 font-semibold ${selectedFontId && !isLoadingFont ? "text-content-primary" : "text-gray-300"
-              }`}
+            disabled={!selectedFontId || isLoadingFont}
+            className={`text-heading-1 font-semibold ${
+              selectedFontId && !isLoadingFont
+                ? "text-content-primary"
+                : "text-gray-300"
+            }`}
           >
             완료
           </button>
@@ -147,14 +155,20 @@ export const BoardWriteFont = () => {
       </main>
       {showPopup && (
         <ConfirmPopup
-          title={<>뒤로 가면 작성한 내용이<br />모두 사라져요</>}
+          title={
+            <>
+              뒤로 가면 작성한 내용이
+              <br />
+              모두 사라져요
+            </>
+          }
           onCancel={() => setShowPopup(false)}
           onConfirm={handleConfirmBack}
         />
       )}
       <div
         className="absolute left-0 right-0 px-5 transition-all duration-300 ease-in-out z-20 flex justify-center"
-        style={{ bottom: `${currentSheetHeight}%`, marginBottom: '20px' }}
+        style={{ bottom: `${currentSheetHeight}%`, marginBottom: "20px" }}
       >
         <FontTag FontName={displayFontName} />
       </div>

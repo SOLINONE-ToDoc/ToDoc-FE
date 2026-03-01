@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { boardService } from '../services/boardService';
-import { getBoardStream } from '../services/getBoardStream';
-import type { BoardContent } from '../model/types';
+import { useState, useEffect } from "react";
+import { boardService } from "../services/boardService";
+import { getBoardStream } from "../services/getBoardStream";
+import type { BoardContent } from "../model/types";
 
 export const useProviderBoard = (placeId: number | null) => {
   const [contents, setContents] = useState<BoardContent[]>([]);
-  const [placeName, setPlaceName] = useState('');
+  const [placeName, setPlaceName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [qrUrl, setQrUrl] = useState('');
+  const [qrUrl, setQrUrl] = useState("");
 
   useEffect(() => {
     if (!placeId) return;
@@ -24,16 +24,15 @@ export const useProviderBoard = (placeId: number | null) => {
 
         if (!currentPlace.board) {
           setContents([]);
-          setQrUrl('');
+          setQrUrl("");
           return;
         }
 
-        // 여기서부터는 currentPlace.board가 존재함이 보장됨 (Non-null)
         const { board } = currentPlace;
         setContents(board.contents);
         setQrUrl(board.qrUrl);
       } catch (error) {
-        console.error('사장님 보드 로딩 실패:', error);
+        console.error("사장님 보드 로딩 실패:", error);
       } finally {
         setIsLoading(false);
       }
@@ -41,30 +40,28 @@ export const useProviderBoard = (placeId: number | null) => {
 
     fetchInitialData();
 
-    // SSE 연결
     const es = getBoardStream(placeId);
 
     const handleNewContent = (event: MessageEvent) => {
       try {
         const newData: BoardContent = JSON.parse(event.data);
         setContents((prev) => {
-          // 중복 체크
           if (prev.some((c) => c.contentId === newData.contentId)) return prev;
           return [newData, ...prev];
         });
       } catch (e) {
-        console.error('SSE 수신 에러:', e);
+        console.error("SSE 수신 에러:", e);
       }
     };
 
-    es.addEventListener('new-content', handleNewContent);
+    es.addEventListener("new-content", handleNewContent);
 
     return () => {
-      es.removeEventListener('new-content', handleNewContent);
+      es.removeEventListener("new-content", handleNewContent);
       es.close();
       setContents([]);
-      setPlaceName('');
-      setQrUrl('');
+      setPlaceName("");
+      setQrUrl("");
     };
   }, [placeId]);
 
@@ -73,6 +70,6 @@ export const useProviderBoard = (placeId: number | null) => {
     placeName,
     qrUrl,
     isLoading,
-    hasBoard: !!qrUrl
+    hasBoard: !!qrUrl,
   };
 };
