@@ -30,6 +30,30 @@ export const BoardWriteFont = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [isLoadingFont, setIsLoadingFont] = useState(false);
+  const [fontReady, setFontReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      if (!selectedFontId) return;
+
+      setFontReady(false);
+
+      await loadFontById(selectedFontId);
+      await document.fonts.ready;
+
+      if (!cancelled) {
+        setFontReady(true);
+      }
+    };
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedFontId]);
 
   const [sheetSnap, setSheetSnap] = useState<BottomSheetSnap>("min");
   const snapHeights: Record<BottomSheetSnap, number> = {
@@ -137,7 +161,7 @@ export const BoardWriteFont = () => {
 
       <main className="flex-1 flex flex-col p-5">
         <div className="mx-auto mt-[60px]">
-          {isLoadingFont ? (
+          {fontReady ? (
             <div className="w-[248px] h-[332px] flex items-center justify-center bg-gray-100 rounded-lg text-gray-500">
               폰트 로딩 중...
             </div>
